@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import VideoPlayer from './components/VideoPlayer'
+import VideoPlayer from './components/helper/VideoPlayer/VideoPlayer'  
 
 const App = () =>  {
  
  
   return (
     <div className="App">
-      <VideoPlayer   />
+      <VideoPlayer video_id="ty9SJ_wrReI"  />
     </div>
   )
 }
