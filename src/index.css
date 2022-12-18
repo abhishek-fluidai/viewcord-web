@@ -4,3 +4,30 @@
 
 * { box-sizing: border-box; }
 body { margin: 0; }
+
+
+.video__card__title {
+    /* font-size: 1.4rem; */
+    line-height: 1.3rem;
+    font-weight: 500;
+    max-height: 2.76rem;
+    overflow: hidden;
+    display: block; 
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
+::-webkit-scrollbar {
+    display: none;
+
+}
+
+.channel__description {
+    max-height: 2.74rem;
+    margin-top: 6px;
+    overflow: hidden;
+    display: block; 
+    max-width: 48ch;
+    text-overflow: ellipsis;
+    white-space: normal;
+}

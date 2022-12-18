@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Player } from "react-tuby";
-import Loader from "../../utils/Loader/Loader";
+import Loader from "../../common/Loader/Loader";
 import "react-tuby/css/main.css";
 import styles from "./VideoPlayer.module.css";
-import { getVideo } from "../../utils/FetchFuctions";
+import { getVideo } from "../../common/FetchFuctions";
 
 const VideoPlayer = () => {
   const videoRef = useRef(null);

@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import VideoPlayer from './components/helper/VideoPlayer/VideoPlayer'  
+import {Routes,Route} from 'react-router-dom'
+import Home from './pages/Home/Home'
+import VideoPlayer from './components/utils/VideoPlayer/VideoPlayer'
+import Channel from './pages/Channel/Channel'
+import Navbar from './components/common/Navbar/Navbar'
 
-const App = () =>  {
- 
- 
+
+const App = () =>  { 
   return (
-    <div className="App">
-      <VideoPlayer video_id="ty9SJ_wrReI"  />
-    </div>
+    <>
+    <Navbar />
+    <Routes>
+      <Route exact path="/" element={<Home/>} />
+      <Route exact path="/watch" element={<VideoPlayer />}/>
+      <Route exact path="/channel/:id" element={<Channel />} />
+    </Routes>
+  </>
   )
 }
 
