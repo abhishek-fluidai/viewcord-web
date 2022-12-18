@@ -989,18 +989,18 @@ const VideoCard = () => {
     },
   ];
   useEffect(() => {
-    // setLoading(true);
-    // getTrending("IN")
-    //   .then((data) => {
-    //     console.log(data);
-    //     // setTrending(data);
-    //     setLoading(false);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     alert("Error fetching trending videos");
-    //   });
-    setTrending(data);
+    setLoading(true);
+    getTrending("IN")
+      .then((data) => {
+        console.log(data);
+        // setTrending(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Error fetching trending videos");
+      });
+    // setTrending(data);
   }, []);
 
   return (

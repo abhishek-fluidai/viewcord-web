@@ -614,17 +614,17 @@ const Channel = () => {
   useEffect(() => {
     const channel_id = window.location.pathname.split("/")[2];
     setLoading(true);
-    // getChannel(channel_id)
-    //   .then((data) => {
-    //     console.log(data);
-    //     setChannelData(data);
-    //     setLoading(false);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     alert("Error Fetching channel");
-    //   });
-    setChannelData(data);
+    getChannel(channel_id)
+      .then((data) => {
+        console.log(data);
+        setChannelData(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Error Fetching channel");
+      });
+    // setChannelData(data);
     setLoading(false);
   }, []);
   return (
