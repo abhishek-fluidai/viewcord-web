@@ -993,7 +993,7 @@ const VideoCard = () => {
     getTrending("IN")
       .then((data) => {
         console.log(data);
-        // setTrending(data);
+        setTrending(data);
         setLoading(false);
       })
       .catch((err) => {
