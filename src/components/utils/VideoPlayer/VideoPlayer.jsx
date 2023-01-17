@@ -1,58 +1,75 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Player } from "react-tuby";
+// import { Player } from "react-tuby";
 import Loader from "../../common/Loader/Loader";
-import "react-tuby/css/main.css";
+// import "react-tuby/css/main.css";
+import ShakaPlayer from 'shaka-player-react';
+import dash from '../../common/DashUtils'
+import './VideoPlayer.css';
+import 'shaka-player/dist/controls.css';
 import styles from "./VideoPlayer.module.css";
 import { getVideo } from "../../common/FetchFuctions";
 
 const VideoPlayer = () => {
   const videoRef = useRef(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [vidSources, setVidSources] = useState([]);
   // const [captions, setCaptions] = useState([]);
   const [thumbnail, setThumbnail] = useState();
 
   useEffect(() => {
-   const video_id = new URLSearchParams(window.location.search).get('v');
-    setLoading(true);
-    getVideo(video_id)
-      .then((data) => {
-        // console.log(data);
-        setVidSources(
-          data.videoStreams.filter((vid) => {
-            if (vid.videoOnly == false && vid.mimeType == "video/mp4") {
-              return vid;
-            }
-          })
-        );
-        // setCaptions(data.subtitles);
-        setThumbnail(data.thumbnailUrl);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("Error fetching video");
-      });
+    // setLoading(true);
+
+   try {
+    const video_id = new URLSearchParams(window.location.search).get('v');
+    const FetchVideoURL = async () => {
+      const response = await fetch('https://pipedapi.kavin.rocks/streams/' + video_id )
+      const data = await response.json()
+      const player = videoRef?.current?.player
+  
+      const {videoStreams, audioStreams, duration } = data
+        // console.log(videoStreams, audioStreams, duration)
+        // setRawData([...videoStreams, ...audioStreams])
+  
+        
+       genrateDash([...videoStreams, ...audioStreams],player)
+       
+    }
+  
+  
+    const genrateDash = async  (raw,player) => {
+      const genratedFile = dash.generate_dash_file_from_formats(raw)
+      player?.load('data:text/xml;charset=utf-8,' + encodeURIComponent(genratedFile), 0, 'application/dash+xml')
+      // console.log(genratedFile)
+      setLoading(false)
+    }
+    FetchVideoURL()
+  
+   } catch (error) {
+      console.log(error);
+    }
+
+    return () => {
+      // cleanup
+      videoRef?.current?.player?.destroy();
+    }
+
   }, []);
 
   return (
     <>
-    {loading && <Loader />}
-      {vidSources.length > 0 &&  (
-        <div className={styles.player__container}>
-        <Player
-          dimensions={{ width: "100%", height: "100%" }}
-          autoplay={false}
-          playerRef={videoRef}
-          poster={thumbnail}
-          // subtitles={captions}
-          pictureInPicture={true}
-          src={vidSources}
-        />
-        </div>
-      )}
-    </>
+    {loading ? <Loader /> :<div className="player-container">
+   <div className="youtube-theme">
+      <ShakaPlayer
+        // autoPlay
+        crossOrigin="anonymous"
+        ref={videoRef}
+      />
+    </div>
+  </div>}
+    
+  </>
   );
+     
 };
 
 export default VideoPlayer;

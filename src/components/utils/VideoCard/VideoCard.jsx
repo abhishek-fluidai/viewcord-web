@@ -992,7 +992,7 @@ const VideoCard = () => {
     setLoading(true);
     getTrending("IN")
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setTrending(data);
         setLoading(false);
       })
