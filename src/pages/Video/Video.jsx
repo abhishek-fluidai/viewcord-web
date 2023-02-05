@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState} from "react";
 import { getVideo } from "../../components/common/FetchFuctions";
-import VideoPlayer from "../../components/utils/VideoPlayer/VideoPlayer";
 import ShakaPlayer from "shaka-player-react";
 import "shaka-player/dist/controls.css";
 import Loader from "../../components/common/Loader/Loader";
@@ -31,8 +30,7 @@ const Video = () => {
       setLoading(false)
     }
     if (document.readyState === 'complete') {
-      FetchVideoURL()
-  
+      FetchVideoURL();
     } else {
       window.addEventListener('load', FetchVideoURL);
       // Remove the event listener when component unmounts
@@ -44,9 +42,7 @@ const Video = () => {
 
   return (
     <div className="m-2   md:ml-8 relative">
-      {loading && <Loader />}
-      {fetchedData != null && (
-         <div className="player-container">
+       <div className="player-container">
          <div className="youtube-theme">
             <ShakaPlayer
               autoPlay
@@ -55,7 +51,7 @@ const Video = () => {
             />
           </div>
         </div>
-      )}
+    {loading && <Loader />}
       <div className="video-info max-w-5xl">
         <h1
           className="font-bold text-md md:text-2xl mb-2 md:mb-4 text-gray-800 dark:text-white  w-full overflow-ellipsis overflow-hidden 
