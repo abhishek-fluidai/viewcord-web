@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+
+    .sidebar-icon {
+        @apply relative flex items-center justify-center 
+               h-12 w-12 mt-2 mb-2 mx-2 shadow-lg
+               bg-gray-700 text-white hover:text-slate-300
+               rounded-3xl hover:rounded-xl
+               transition-all duration-300 ease-linear
+               cursor-pointer;
+    }
+}
+
+
+
 * { box-sizing: border-box; }
 body { margin: 0; }
 

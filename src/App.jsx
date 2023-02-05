@@ -1,22 +1,35 @@
-import React, { useState, useEffect } from 'react'
-import {Routes,Route} from 'react-router-dom'
-import Home from './pages/Home/Home'
-import VideoPlayer from './components/utils/VideoPlayer/VideoPlayer'
-import Channel from './pages/Channel/Channel'
-import Navbar from './components/common/Navbar/Navbar'
+import React, { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home/Home";
+import Channel from "./pages/Channel/Channel";
+import Navbar from "./components/common/Navigation/Navbar";
+import SideBar from "./components/common/Navigation/Sidebar";
+import Video from "./pages/Video/Video";
 
+const App = () => {
+  const [theme, setTheme] = useState("light");
+  useEffect(() => {
+    const localTheme = localStorage.getItem("theme");
+    localTheme && setTheme(localTheme);
+  }, []);
 
-const App = () =>  { 
   return (
-    <>
-    <Navbar />
-    <Routes>
-      <Route exact path="/" element={<Home/>} />
-      <Route exact path="/watch" element={<VideoPlayer />}/>
-      <Route exact path="/channel/:id" element={<Channel />} />
-    </Routes>
-  </>
-  )
-}
+    <div className={theme == "light" ? "" : "dark"}>
+      <div className="flex flex-row">
+        <SideBar />
+        <div className="flex flex-col">
+          <Navbar className="flex-grow-0 " />
+          <div className=" w-[96vw] h-[92vh] relative bg-grey-200 dark:bg-slate-600 overflow-y-scroll ">
+            <Routes>
+              <Route exact path="/" element={<Home />} />
+              <Route exact path="/watch" element={<Video />} />
+              <Route exact path="/channel/:id" element={<Channel />} />
+            </Routes>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default App
+export default App;

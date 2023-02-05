@@ -678,7 +678,7 @@ const Channel = () => {
                 <button
                   type="button"
                   onClick={() => alert("Feature Coming soon!")}
-                  class="text-white bg-gray-800 hover:bg-gray-900  font-medium rounded-full text-xs md:text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700  dark:border-gray-700"
+                  className="text-white bg-gray-800 hover:bg-gray-900  font-medium rounded-full text-xs md:text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700  dark:border-gray-700"
                 >
                   subscribe
                 </button>

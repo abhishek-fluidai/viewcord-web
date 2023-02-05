@@ -1,75 +1,54 @@
-import React, { useEffect, useRef, useState } from "react";
-// import { Player } from "react-tuby";
-import Loader from "../../common/Loader/Loader";
-// import "react-tuby/css/main.css";
-import ShakaPlayer from 'shaka-player-react';
-import dash from '../../common/DashUtils'
-import './VideoPlayer.css';
-import 'shaka-player/dist/controls.css';
-import styles from "./VideoPlayer.module.css";
-import { getVideo } from "../../common/FetchFuctions";
+import React, { useEffect, useRef } from "react";
+import ShakaPlayer from "shaka-player-react";
+import dash from "../../common/DashUtils";
+import "./VideoPlayer.css";
+import "shaka-player/dist/controls.css";
 
-const VideoPlayer = () => {
+const VideoPlayer = ({ videoSources, audioSources, thumbnail }) => {
   const videoRef = useRef(null);
-  const [loading, setLoading] = useState(true);
-  const [vidSources, setVidSources] = useState([]);
-  // const [captions, setCaptions] = useState([]);
-  const [thumbnail, setThumbnail] = useState();
 
   useEffect(() => {
-    // setLoading(true);
+    const LoadVideo = async () => {
+      const genratedFile = dash.generate_dash_file_from_formats([
+        ...videoSources,
+        ...audioSources,
+      ]);
+      console.log("genratedFile", genratedFile);
+      const player = videoRef?.current?.player;
+     const timer = setInterval(() => {
+       if (player) {
+          clearInterval(timer);
+       }
+    }, 300);
 
-   try {
-    const video_id = new URLSearchParams(window.location.search).get('v');
-    const FetchVideoURL = async () => {
-      const response = await fetch('https://pipedapi.kavin.rocks/streams/' + video_id )
-      const data = await response.json()
-      const player = videoRef?.current?.player
-  
-      const {videoStreams, audioStreams, duration } = data
-        // console.log(videoStreams, audioStreams, duration)
-        // setRawData([...videoStreams, ...audioStreams])
-  
-        
-       genrateDash([...videoStreams, ...audioStreams],player)
-       
-    }
-  
-  
-    const genrateDash = async  (raw,player) => {
-      const genratedFile = dash.generate_dash_file_from_formats(raw)
-      player?.load('data:text/xml;charset=utf-8,' + encodeURIComponent(genratedFile), 0, 'application/dash+xml')
-      // console.log(genratedFile)
-      setLoading(false)
-    }
-    FetchVideoURL()
-  
-   } catch (error) {
-      console.log(error);
-    }
 
-    return () => {
-      // cleanup
-      videoRef?.current?.player?.destroy();
+      player?.load(
+        "data:text/xml;charset=utf-8," + encodeURIComponent(genratedFile),
+        0,
+        "application/dash+xml"
+      );
+    };
+    if (document.readyState === "complete") {
+      LoadVideo();
+    } else {
+        window.addEventListener("load", LoadVideo);
+      return () => {
+        window.removeEventListener("load", LoadVideo);
+        videoRef?.current?.player?.destroy();
+        clearInterval(timer);
+      };
     }
-
-  }, []);
+  }, [videoRef.current]);
 
   return (
     <>
-    {loading ? <Loader /> :<div className="player-container">
-   <div className="youtube-theme">
-      <ShakaPlayer
-        // autoPlay
-        crossOrigin="anonymous"
-        ref={videoRef}
-      />
-    </div>
-  </div>}
-    
-  </>
+      <div className="player-container">
+        <div className="youtube-theme">
+          <ShakaPlayer crossOrigin="anonymous" ref={videoRef} />
+        </div>
+      </div>
+    </>
   );
-     
 };
 
 export default VideoPlayer;

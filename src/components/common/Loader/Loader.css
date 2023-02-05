@@ -1,6 +1,11 @@
 
   .loader {
-    position: fixed;
+    position: absolute;
+    background: linear-gradient(0deg, rgba(34,34,34,1) 0%, rgba(0,0,0,1) 100%);
+
+    /* background: linear-gradient(0deg, rgba(34,34,34,0.3) 0%, rgba(0,0,0,0.3) 100%); */
+  
+    z-index: 9999;  
     top: 0;
     left: 0;
     width: 100%;
