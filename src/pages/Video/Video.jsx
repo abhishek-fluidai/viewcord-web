@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState} from "react";
 import { getVideo } from "../../components/common/FetchFuctions";
 import ShakaPlayer from "shaka-player-react";
 import "shaka-player/dist/controls.css";
+import "./Video.css";
 import Loader from "../../components/common/Loader/Loader";
 import {AiFillDislike, AiFillLike} from 'react-icons/ai'
 import {HiShare} from 'react-icons/hi'
