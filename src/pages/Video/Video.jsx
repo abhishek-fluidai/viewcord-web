@@ -1,36 +1,60 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState} from "react";
 import { getVideo } from "../../components/common/FetchFuctions";
 import VideoPlayer from "../../components/utils/VideoPlayer/VideoPlayer";
+import ShakaPlayer from "shaka-player-react";
+import "shaka-player/dist/controls.css";
 import Loader from "../../components/common/Loader/Loader";
 import {AiFillDislike, AiFillLike} from 'react-icons/ai'
 import {HiShare} from 'react-icons/hi'
+import dash from "../../components/common/DashUtils";
 import {RiPlayListAddFill,RiHeadphoneFill} from 'react-icons/ri'
 
 const Video = () => {
-  const [loading, setLoading] = React.useState(false);
   const [fetchedData, setFetchedData] = React.useState(null);
-
-  const FetchVideoURL = async (id) => {
-    setLoading(true);
-    const data = await getVideo(id);
-    console.log(data);
-    setLoading(false);
-    setFetchedData(data);
-  };
+  const videoRef = useRef(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const video_id = new URLSearchParams(window.location.search).get("v");
-    FetchVideoURL(video_id);
+    setLoading(true);
+    const video_id = new URLSearchParams(window.location.search).get('v');
+    const FetchVideoURL = async () => {
+      const data = await getVideo(video_id);
+      const player = videoRef?.current?.player
+      setFetchedData(data);
+      const {videoStreams, audioStreams } = data
+       genrateDash([...videoStreams, ...audioStreams],player)
+    }
+  
+    const genrateDash = async  (raw,player) => {
+      const genratedFile = dash.generate_dash_file_from_formats(raw)
+      player?.load('data:text/xml;charset=utf-8,' + encodeURIComponent(genratedFile), 0, 'application/dash+xml')
+      setLoading(false)
+    }
+    if (document.readyState === 'complete') {
+      FetchVideoURL()
+  
+    } else {
+      window.addEventListener('load', FetchVideoURL);
+      // Remove the event listener when component unmounts
+      return () => {window.removeEventListener('load', FetchVideoURL);
+      videoRef?.current?.player?.destroy();}
+    }
   }, []);
+
 
   return (
     <div className="m-2   md:ml-8 relative">
       {loading && <Loader />}
       {fetchedData != null && (
-        <VideoPlayer
-          videoSources={fetchedData.videoStreams}
-          audioSources={fetchedData.audioStreams}
-        />
+         <div className="player-container">
+         <div className="youtube-theme">
+            <ShakaPlayer
+              autoPlay
+              crossOrigin="anonymous"
+              ref={videoRef}
+            />
+          </div>
+        </div>
       )}
       <div className="video-info max-w-5xl">
         <h1
