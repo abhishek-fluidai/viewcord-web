@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const VideoCard = ({
+export const VideoCard = ({
   title,
   thumbnail,
   views,
@@ -13,10 +13,7 @@ const VideoCard = ({
   uploaderAvatar,
 }) => {
   const navigate = useNavigate();
-  useEffect(() =>{
-    console.log("video card",url);
 
-  })
   return (
     <div className="w-[348px] md:max-w-[348px] max-h-[18rem] md:h-[18rem] max-w-[18rem] rounded-lg md:m-2 relative flex flex-col flex-shrink-0 bg-white dark:bg-slate-800 flex-grow  cursor-pointer hover:scale-105 transition-all overflow-x-hidden">
       <div
@@ -78,4 +75,61 @@ const VideoCard = ({
   );
 };
 
-export default VideoCard;
+export const SideBarVideoCard = ({
+  title,
+  thumbnail,
+  views,
+  duration,
+  url,
+  uploadedDate,
+  uploaderName,
+  uploaderUrl,
+  uploaderAvatar,
+}) => {
+  const navigate = useNavigate();
+
+  return (
+    <div className="w-[420px] md:max-w-[420px] max-h-[8rem] md:h-[7rem] max-w-[18rem] rounded-lg md:m-2 relative flex flex-row flex-shrink-0  flex-grow  cursor-pointer  transition-all overflow-hidden group">
+      <div
+        className="relative w-full h-[98%] max-w-[180px] top-0 rounded-md mr-2 i transition-all group-hover:bg-[length:105%] bg-center "
+        style={{ backgroundImage: `url(${thumbnail})` }}
+        onClick={() => navigate(url)}
+      ></div>
+
+      <div className=" flex flex-col w-full h-full pl-2 p-1">
+        <div className="basis-1/4  flex ">
+          <span
+            className="text-natural-700 dark:text-white group-hover:text-natural-900 dark:group-hover:text-slate-300 rounded-md text-md "
+            onClick={() => navigate(url)}
+          >
+            {title?.length > 30 ? title?.substring(0, 48) + "..." : title}
+          </span>
+        </div>
+
+        <div className="basis-1/4 mt-2 text-natural-800 flex flex-row justify-start" 
+        onClick={() => navigate(uploaderUrl)}>
+          <div className="flex flex-col items-center justify-center w-10 mr-1">
+            <img
+              className=" w-8 h-8 rounded-full p-1 roun   outline-slate-600 outline outline-1 dark:outline-white transition-all dark:hover:ring-neutral-400"
+              src={uploaderAvatar}
+            />
+          </div>
+          <div className="flex flex-col ">
+            <div className="flex flex-row justify-between ">
+              <span className="text-slate-800 text-xs hover:text-slate-900 dark:hover:text-white dark:text-white dark:text-opacity-75 font-medium ">
+                {uploaderName}
+              </span>
+            </div>
+
+            <div className="flex flex-row justify-between">
+              <span className="text-slate-800 text-sm dark:text-white dark:text-opacity-75">
+                {uploadedDate}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+

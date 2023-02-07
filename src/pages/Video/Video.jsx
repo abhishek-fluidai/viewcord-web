@@ -52,10 +52,9 @@ const Video = (id) => {
 
   return (
     <>
-      // {loading && <Loader />}
       <div className="m-2 md:ml-5 relative">
         <div className="flex flex-col lg:flex-row">
-          <div className="flex flex-col">
+          <div className="flex flex-col grow ">
             <div className="player-container">
               <div className="youtube-theme">
                 <ShakaPlayer
@@ -69,7 +68,7 @@ const Video = (id) => {
 
           </div>
 
-          <VideoSidebar streams={fetchedData?.relatedStreams} />
+          <VideoSidebar loading={loading} streams={fetchedData?.relatedStreams} />
         </div>
       </div>
     </>
