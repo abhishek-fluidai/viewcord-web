@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const VideoCard = ({
@@ -13,7 +13,10 @@ const VideoCard = ({
   uploaderAvatar,
 }) => {
   const navigate = useNavigate();
+  useEffect(() =>{
+    console.log("video card",url);
 
+  })
   return (
     <div className="w-[348px] md:max-w-[348px] max-h-[18rem] md:h-[18rem] max-w-[18rem] rounded-lg md:m-2 relative flex flex-col flex-shrink-0 bg-white dark:bg-slate-800 flex-grow  cursor-pointer hover:scale-105 transition-all overflow-x-hidden">
       <div

@@ -15,11 +15,11 @@ const VideoPlayer = ({ videoSources, audioSources, thumbnail }) => {
       ]);
       console.log("genratedFile", genratedFile);
       const player = videoRef?.current?.player;
-     const timer = setInterval(() => {
+      const timer = setInterval(() => {
        if (player) {
           clearInterval(timer);
        }
-    }, 300);
+      }, 300);
 
 
       player?.load(

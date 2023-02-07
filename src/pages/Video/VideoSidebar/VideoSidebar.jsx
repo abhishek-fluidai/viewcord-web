@@ -3,14 +3,20 @@ import styles from "./VideoSidebar.module.css";
 import VideoCard from "../../../components/utils/VideoCard/VideoCard";
 
 
-const VideoSidebar = (props) => {
+const VideoSidebar = ({streams}) => {
     useEffect(() => {
-        console.log(props);
-    }, [props]);
+        console.log(streams);
+}, [streams]);
   return (
     <div>
-      <h1>Video Sidebar</h1>
-      
+    <div className={styles.videoSidebar}> 
+      <div className="flex flex-col">
+        {streams && streams.map((stream) => (
+          <VideoCard  {...stream}/>
+          ))
+          }
+      </div>
+    </div>
     </div>
   );
 }
