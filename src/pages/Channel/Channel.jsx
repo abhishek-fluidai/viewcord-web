@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Loader from "../../components/common/Loader/Loader";
 import { getChannel } from "../../components/common/FetchFuctions";
-import { VideoCard }from "../../components/utils/VideoCard/VideoCard";
+import VideoCard from "../../components/utils/VideoCard/VideoCard";
 
 const Channel = () => {
   const [channelData, setChannelData] = useState([]);
