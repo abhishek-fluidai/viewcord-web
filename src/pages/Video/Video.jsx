@@ -45,10 +45,17 @@ const Video = (id) => {
       // Remove the event listener when component unmounts
       return () => {
         window.removeEventListener("load", FetchVideoURL);
-        videoRef?.current?.player?.destroy();
+        // videoRef?.current?.player?.destroy();
       };
     }
   }, [searchParams.get("v")]);
+
+  useEffect(() => {
+
+    return () => {
+      videoRef?.current?.player?.destroy();
+    }
+  },[])
 
   return (
     <>
