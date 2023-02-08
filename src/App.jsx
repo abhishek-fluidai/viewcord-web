@@ -22,11 +22,12 @@ const App = () => {
           <Navbar className="flex-grow-0 " />
           <div className=" w-[96vw] h-[92vh] relative bg-grey-200 dark:bg-slate-600 overflow-y-scroll ">
             <Routes>
+              <Route exact path="/trending" element={<Home />} />
+              <Route exact path="/subscriptions" element={<Home />} />
               <Route exact path="/watch" element={<Video />} />
               <Route exact path="/results" element={<Search />} />
               <Route exact path="/channel/:id" element={<Channel />} />
               <Route exact path="/" element={<Home />} />
-
             </Routes>
           </div>
         </div>

@@ -89,10 +89,10 @@ export const SideBarVideoCard = ({
   const navigate = useNavigate();
 
   return (
-    <div className="md:max-w-[720px] max-h-[8rem] md:h-[7rem] max-w-[18rem] rounded-lg md:m-2 relative flex flex-row flex-shrink-0  flex-grow  cursor-pointer  transition-all overflow-hidden group" >
+    <div className="md:max-w-[720px] max-h-[8rem] md:h-[7rem] max-w-[18rem] rounded-lg md:m-2 relative flex flex-row flex-shrink-0  flex-grow  cursor-pointer  transition-all overflow-hidden group " >
       <div
-        className="relative w-full h-[98%] max-w-[180px] top-0 rounded-lg mr-2 i transition-all bg-cover group-hover:bg-[length:105%] bg-center bg-no-repeat "
-        style={{ backgroundImage: `url(${thumbnail})` }}
+        className="relative w-full h-[98%] max-w-[180px] top-0 rounded-lg mr-2 i transition-all bg-[length:100%] scale-[1.05] group-hover:bg-[length:108%] bg-center"
+        style={{ backgroundImage: `url(${thumbnail})`, transition: "all 0.2s ease-in-out" }}
         onClick={() => navigate(url)}
       ></div>
 
@@ -106,11 +106,11 @@ export const SideBarVideoCard = ({
           </span>
         </div>
 
-        <div className="basis-1/4 mt-2 text-natural-800 flex flex-row justify-start" 
+        <div className="basis-1/4 mt-2 text-natural-800 flex flex-row justify-start group/sub" 
         onClick={() => navigate(uploaderUrl)}>
-          <div className="flex flex-col items-center justify-center w-10 mr-1">
+          <div className="flex flex-col items-center justify-center w-10 mr-2">
             <img
-              className=" w-8 h-8 rounded-full p-1 roun   outline-slate-600 outline outline-1 dark:outline-white transition-all dark:hover:ring-neutral-400"
+              className=" w-10 h-10 rounded-full p-1  transition-all dark:group-hover/sub:ring-neutral-400  dark:group-hover/sub:ring-2 group-hover/sub:ring-native-600 "
               src={uploaderAvatar}
             />
           </div>

@@ -8,14 +8,12 @@ import Filter from "./Filter/Filter";
 const Search = () => {
   const [searchParams] = useSearchParams();
   const [results, setResults] = useState([]);
-  const [filter, setFilter] = useState('videos');
+  const [filter, setFilter] = useState('all');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const searchQuery = searchParams.get("search_query");
-    if (!searchQuery) {
-    //   alert("Please enter a search query");
-        
+    if (!searchQuery) {        
       return;
     }
     getSearchResults(searchQuery, filter).then((res) => {

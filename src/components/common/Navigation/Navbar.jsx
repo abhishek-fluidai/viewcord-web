@@ -38,15 +38,9 @@ const Navbar = () => {
 
     <div className="w-full h-16 ">
       <div className="w-full h-16  flex items-center relative justify-center">
-        <header className="h-16 w-full max-w-[1920px]  flex  px-5  relative bg-slate-50  dark:bg-slate-800 text-white justify-between">
+        <header className="h-16 w-full max-w-[1920px]  flex  px-5  relative bg-slate-200/80  dark:bg-slate-800 text-white justify-between">
           <div className="h-[42px] m-auto  "
           >
-            <label
-              htmlFor="default-search"
-              className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-            >
-              Search
-            </label>
             <div className="relative flex flex-row  rounded-full overflow-hidden">
               <input
                 type="search"
@@ -54,14 +48,14 @@ const Navbar = () => {
                 onSubmit={getSearchResult}
                 onChange={onChangeHandler}
                 id="default-search"
-                className="block w-full min-w-[320px] h-[40px] pl-4  text-sm text-gray-900   bg-grey-600 dark:bg-slate-700 border-0 outline-none 
-         dark:placeholder-gray-400 dark:text-white "
-                placeholder="Search Video"
+                className="block w-full min-w-[320px] h-[40px] pl-4  text-sm text-gray-800  bg-slate-300  dark:bg-slate-700  outline-none 
+         dark:placeholder-slate-400 dark:text-white  placeholder:text-gray-600"
+                placeholder="Get something to watch"
               />
 
-              <div className="flex w-[68px] h-[40px] items-center justify-center  bg-slate-900  border-l-1 cursor-pointer"
+              <div className="flex w-[68px] h-[40px] items-center justify-center bg-slate-400 dark:bg-slate-900  border-l-1 cursor-pointer"
               onClick={getSearchResult}>
-                <HiSearch className="text-black dark:text-white" size={24} />
+                <HiSearch className=" text-neutral-800 dark:text-white " size={24} />
               </div>
             </div>
           </div>
