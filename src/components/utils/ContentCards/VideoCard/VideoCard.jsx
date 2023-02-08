@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const VideoCard = ({
@@ -85,13 +84,14 @@ export const SideBarVideoCard = ({
   uploaderName,
   uploaderUrl,
   uploaderAvatar,
+  isSearch
 }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-[420px] md:max-w-[420px] max-h-[8rem] md:h-[7rem] max-w-[18rem] rounded-lg md:m-2 relative flex flex-row flex-shrink-0  flex-grow  cursor-pointer  transition-all overflow-hidden group">
+    <div className="md:max-w-[720px] max-h-[8rem] md:h-[7rem] max-w-[18rem] rounded-lg md:m-2 relative flex flex-row flex-shrink-0  flex-grow  cursor-pointer  transition-all overflow-hidden group" >
       <div
-        className="relative w-full h-[98%] max-w-[180px] top-0 rounded-md mr-2 i transition-all group-hover:bg-[length:105%] bg-center "
+        className="relative w-full h-[98%] max-w-[180px] top-0 rounded-lg mr-2 i transition-all bg-cover group-hover:bg-[length:105%] bg-center bg-no-repeat "
         style={{ backgroundImage: `url(${thumbnail})` }}
         onClick={() => navigate(url)}
       ></div>
@@ -102,7 +102,7 @@ export const SideBarVideoCard = ({
             className="text-natural-700 dark:text-white group-hover:text-natural-900 dark:group-hover:text-slate-300 rounded-md text-md "
             onClick={() => navigate(url)}
           >
-            {title?.length > 30 ? title?.substring(0, 48) + "..." : title}
+            {isSearch ? title : (title?.length > 30 ? title?.substring(0, 60) + "..." : title)}
           </span>
         </div>
 

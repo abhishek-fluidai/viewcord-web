@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {VideoCard} from "../../components/utils/VideoCard/VideoCard";
+import {VideoCard} from "../../components/utils/ContentCards/VideoCard/VideoCard";
 import {getTrending} from "../../components/common/FetchFuctions";
 
 

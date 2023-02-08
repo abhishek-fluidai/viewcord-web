@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import Channel from "./pages/Channel/Channel";
 import Navbar from "./components/common/Navigation/Navbar";
 import SideBar from "./components/common/Navigation/Sidebar";
+import Search from "./pages/Search/Search";
 import Video from "./pages/Video/Video";
 
 const App = () => {
@@ -21,9 +22,11 @@ const App = () => {
           <Navbar className="flex-grow-0 " />
           <div className=" w-[96vw] h-[92vh] relative bg-grey-200 dark:bg-slate-600 overflow-y-scroll ">
             <Routes>
-              <Route exact path="/" element={<Home />} />
               <Route exact path="/watch" element={<Video />} />
+              <Route exact path="/results" element={<Search />} />
               <Route exact path="/channel/:id" element={<Channel />} />
+              <Route exact path="/" element={<Home />} />
+
             </Routes>
           </div>
         </div>

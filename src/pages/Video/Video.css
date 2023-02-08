@@ -19,9 +19,6 @@
         max-height: 720px;
         max-width: 1080px;
         width: calc(100% - 16px);
-        /* margin:28px auto ; */
-            /* margin: 0 auto; */
-
         margin:  0.7%;
         overflow: hidden;
         background-color: #000;
