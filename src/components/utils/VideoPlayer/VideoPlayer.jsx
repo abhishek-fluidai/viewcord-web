@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./VideoPlayer.css";
 import shaka from "shaka-player/dist/shaka-player.ui";
 
-function Player({ src, captions, thumbnail}) {
+function Player({ src, captions, thumbnail }) {
   const uiContainerRef = useRef(null);
   const videoRef = useRef(null);
   const [player, setPlayer] = useState(null);
@@ -18,9 +18,6 @@ function Player({ src, captions, thumbnail}) {
       videoRef.current
     );
     setUi(ui);
-
-
-    // install polyfills
     shaka.polyfill.installAll();
 
     player.configure({
@@ -56,7 +53,12 @@ function Player({ src, captions, thumbnail}) {
       await player.load(uri, 0, "application/dash+xml");
       if (captions) {
         captions.forEach((caption) => {
-          player.addTextTrackAsync(caption.url, caption.code, "subtitles", caption.mimeType);
+          player.addTextTrackAsync(
+            caption.url,
+            caption.code,
+            "subtitles",
+            caption.mimeType
+          );
         });
       }
       player.getVariantTracks()?.forEach((track) => {
@@ -70,23 +72,19 @@ function Player({ src, captions, thumbnail}) {
     }
   };
 
-
-
   useEffect(() => {
     if (player && src) {
       loadVideo(src);
     }
   }, [player, src]);
 
-
-
   return (
     <div ref={uiContainerRef} className="youtube-theme">
       <div
-        className="player-loading-overlay"
+        className="player-loading-overlay bg-slate-700"
         style={{ display: src && "none" }}
       >
-        {" "}
+        <div className=" pac-man"></div>
       </div>
       <video
         ref={videoRef}
@@ -102,7 +100,7 @@ function Player({ src, captions, thumbnail}) {
           maxWidth: "1080px",
           width: "100%",
           height: "100%",
-          maxHeight: "548px"
+          maxHeight: "548px",
         }}
         // {...rest}
       />

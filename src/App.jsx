@@ -11,14 +11,15 @@ const App = () => {
   const [theme, setTheme] = useState("light");
   useEffect(() => {
     const localTheme = localStorage.getItem("theme");
-    localTheme && setTheme(localTheme);
+    localTheme ? setTheme(localTheme) : setTheme("dark");
+
   }, []);
 
   return (
     <div className={theme == "light" ? "" : "dark"}>
       <div className="flex flex-row m-0 p-0 min-w-full min-h-full overflow-hidden ">
         <SideBar />
-        <div className="flex flex-col grow">
+        <div className="flex flex-col grow h-screen">
           <Navbar className="flex-grow-0 " />
           <div className="max-w-[720px] md:max-w-[1920px] md:w-full  h-[90vh] grow relative bg-grey-200 dark:bg-slate-600 overflow-y-scroll ">
             <Routes>

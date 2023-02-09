@@ -10,24 +10,28 @@ import VideoSidebar from "./VideoSidebar/VideoSidebar";
 
 const Video = () => {
   const [fetchedData, setFetchedData] = React.useState(null);
+  const [videoId , setVideoId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
   const [source, setSource] = useState(null);
 
 
   useEffect(() => {
-    setLoading(true);    
-    const video_id = searchParams.get('v')
+    setLoading(true); 
+    const video_id = searchParams.get('v');
+    setVideoId(video_id);
     FetchVideoURL(video_id);
   }, [searchParams.get("v")]);
   
   const FetchVideoURL = async (video_id) => {
+    if (videoId == video_id) {
+      return; 
+    } 
     const data = await getVideo(video_id);
-    
     setFetchedData(data);
     const { videoStreams, audioStreams, duration  } = data;
     genrateDash([...videoStreams, ...audioStreams], duration);
-    console.log(data);
+    // console.log(data);
   }
   const genrateDash = async (raw_streams,duration) => {
     const genratedFile =  dash.generate_dash_file_from_formats(raw_streams,duration);
