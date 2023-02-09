@@ -40,8 +40,8 @@ const Video = () => {
   return (
     <>
       <div className="m-2 md:ml-5 relative">
-        <div className="flex flex-col lg:flex-row">
-          <div className="flex flex-col grow ">
+        <div className="flex flex-col lg:flex-row lg:gap-2">
+          <div className="flex flex-col ">
             <div className="player-container">
               {/* {loading && <Loader />} */}
               <Player src={source} />

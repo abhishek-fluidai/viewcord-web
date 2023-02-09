@@ -4,7 +4,7 @@ import { SideBarVideoCard} from "../../../components/utils/ContentCards/VideoCar
 
 const VideoSidebar = ({ streams, loading }) => {
   return (
-    <div className="m-2">
+    <div className="m-2  grow">
       <div className={styles.videoSidebar}>
           <div className="flex flex-col">
             {streams && streams.map((stream) => <SideBarVideoCard {...stream} />)}
