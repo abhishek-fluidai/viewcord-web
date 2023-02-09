@@ -38,7 +38,7 @@ const Video = () => {
     <>
       <div className="m-2 md:ml-5 relative">
         <div className="flex flex-col grow lg:flex-row lg:gap-2">
-          <div className="flex flex-col ">
+          <div className="flex flex-col grow">
             <div className="player-container">
               {/* {loading && <Loader />} */}
               <Player src={source} />
