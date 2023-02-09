@@ -6,6 +6,7 @@ import Navbar from "./components/common/Navigation/Navbar";
 import SideBar from "./components/common/Navigation/Sidebar";
 import Search from "./pages/Search/Search";
 import Video from "./pages/Video/Video";
+import Player from "./components/utils/VideoPlayer/VideoPlayer";
 
 const App = () => {
   const [theme, setTheme] = useState("light");
@@ -25,6 +26,7 @@ const App = () => {
               <Route exact path="/trending" element={<Home />} />
               <Route exact path="/subscriptions" element={<Home />} />
               <Route exact path="/watch" element={<Video />} />
+              <Route exact path="/player" element={<Player src="https://storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd" />} />
               <Route exact path="/results" element={<Search />} />
               <Route exact path="/channel/:id" element={<Channel />} />
               <Route exact path="/" element={<Home />} />

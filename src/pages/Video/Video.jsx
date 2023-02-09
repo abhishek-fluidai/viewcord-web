@@ -4,17 +4,19 @@ import ShakaPlayer from "shaka-player-react";
 import "shaka-player/dist/controls.css";
 import "./Video.css";
 // import { useLocation } from "react-router-dom";
+import Player from "../../components/utils/VideoPlayer/VideoPlayer";
 import {useSearchParams} from 'react-router-dom'
 import Loader from "../../components/common/Loader/Loader";
 import dash from "../../components/common/DashUtils";
 import VideoDetails from "./VideoDetails/VideoDetails";
 import VideoSidebar from "./VideoSidebar/VideoSidebar";
 
-const Video = (id) => {
+const Video = () => {
   const [fetchedData, setFetchedData] = React.useState(null);
   const videoRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
+  const [src, setSrc] = useState(null);
 
   useEffect(() => {
     setLoading(true);    
@@ -29,33 +31,22 @@ const Video = (id) => {
     };
 
     const genrateDash = async (raw, player) => {
-      const genratedFile = dash.generate_dash_file_from_formats(raw);
-      player?.load(
-        "data:text/xml;ch(arset=utf-8," + encodeURIComponent(genratedFile),
-        0,
-        "application/dash+xml"
-      );
+      const genratedFile =  dash.generate_dash_file_from_formats(raw);
+      let data = "data:text/xml;charset=utf-8," + encodeURIComponent(genratedFile)
+      // player.load(data,0,');  
+      setSrc(data)
       setLoading(false);
     };
 
-    if (document.readyState === "complete") {
-      FetchVideoURL();
-    } else {
-      window.addEventListener("load", FetchVideoURL);
-      // Remove the event listener when component unmounts
-      return () => {
-        window.removeEventListener("load", FetchVideoURL);
-        // videoRef?.current?.player?.destroy();
-      };
-    }
+    FetchVideoURL();
   }, [searchParams.get("v")]);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    return () => {
-      videoRef?.current?.player?.destroy();
-    }
-  },[])
+  //   return () => {
+  //     videoRef?.current?.player?.destroy();
+  //   }
+  // },[])
 
   return (
     <>
@@ -63,13 +54,7 @@ const Video = (id) => {
         <div className="flex flex-col lg:flex-row">
           <div className="flex flex-col grow ">
             <div className="player-container">
-              <div className="youtube-theme">
-                <ShakaPlayer
-                  // autoPlay
-                  crossOrigin="anonymous"
-                  ref={videoRef}
-                />
-              </div>
+              <Player src={src} />
             </div>
             <VideoDetails fetchedData={fetchedData} />
 
