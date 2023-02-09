@@ -21,6 +21,11 @@
       width: 100%;
       height: 100%;
   }
+  :fullscreen video {
+    max-width: 100% !important;
+    max-height: 100% !important;
+}
+
 
   /*yt style config*/
   .youtube-theme {

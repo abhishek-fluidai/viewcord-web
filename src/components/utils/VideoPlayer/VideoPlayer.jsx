@@ -1,54 +1,38 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react";
 import "./VideoPlayer.css";
-import shaka from 'shaka-player/dist/shaka-player.ui';
+import shaka from "shaka-player/dist/shaka-player.ui";
 
-function Player({ src, config, chromeless, className, ...rest }) {
+function Player({ src, captions, thumbnail}) {
   const uiContainerRef = useRef(null);
   const videoRef = useRef(null);
   const [player, setPlayer] = useState(null);
   const [ui, setUi] = useState(null);
 
-  // Effect to handle component mount & mount.
-  // Not related to the src prop, this hook creates a shaka.Player instance.
-  // This should always be the first effect to run.
   useEffect(() => {
     const player = new shaka.Player(videoRef.current);
     setPlayer(player);
-    let ui;
-    if (!chromeless) {
-      const ui = new shaka.ui.Overlay(
-        player,
-        uiContainerRef.current,
-        videoRef.current
-      );
-      const config = {
-        'seekBarColors': {
-          base: 'rgba(255, 255, 255, 0.3)',
-          buffered: 'rgba(255, 255, 255, 0.54)',
-          played: 'rgb(255, 255, 255)',
-        }
-       }
-       ui.configure(config);
-      setUi(ui);
 
-    }
+    const ui = new shaka.ui.Overlay(
+      player,
+      uiContainerRef.current,
+      videoRef.current
+    );
+    setUi(ui);
 
- 
 
     // install polyfills
     shaka.polyfill.installAll();
 
     player.configure({
       abr: {
-        enabled: false
+        enabled: false,
       },
     });
 
-    videoRef?.current?.addEventListener('ended', (event) => {
-      console.log('ended');
+    videoRef?.current?.addEventListener("ended", (event) => {
+      console.log("ended");
       // window.location.reload();
     });
-
 
     return () => {
       player.destroy();
@@ -57,9 +41,6 @@ function Player({ src, config, chromeless, className, ...rest }) {
       }
     };
   }, []);
-
-
-
 
   // Keep shaka.Player.configure in sync.
   // useEffect(() => {
@@ -71,13 +52,25 @@ function Player({ src, config, chromeless, className, ...rest }) {
   // Load the source url when we have one.
   const loadVideo = async (uri) => {
     try {
-        await player.load(uri, 0, 'application/dash+xml');
-        player.selectVariantTrack(player.getVariantTracks()[4], true);
+      videoRef?.current?.setAttribute("poster", thumbnail);
+      await player.load(uri, 0, "application/dash+xml");
+      if (captions) {
+        captions.forEach((caption) => {
+          player.addTextTrackAsync(caption.url, caption.code, "subtitles", caption.mimeType);
+        });
+      }
+      player.getVariantTracks()?.forEach((track) => {
+        if (track.height === 360) {
+          player.selectVariantTrack(track, true);
+        }
+      });
     } catch (error) {
       console.error(error);
-      window.location.reload();
+      // window.location.reload();
     }
   };
+
+
 
   useEffect(() => {
     if (player && src) {
@@ -88,24 +81,33 @@ function Player({ src, config, chromeless, className, ...rest }) {
 
 
   return (
-    <div ref={uiContainerRef} className="youtube-theme"  >
-      <div className="player-loading-overlay" style={{display: (src && "none")}}>  </div>
+    <div ref={uiContainerRef} className="youtube-theme">
+      <div
+        className="player-loading-overlay"
+        style={{ display: src && "none" }}
+      >
+        {" "}
+      </div>
       <video
         ref={videoRef}
-        autoPlay
-        onCanPlay={() => {
+        // autoPlay
+        onCanPlay={(e) => {
           videoRef.current.play();
-          console.log("can play")
-        }
-        }
-        style={{
-          maxWidth: '100%',
-          width: '100%'
+          console.log("can play");
         }}
-        {...rest}
+        onFullscreenChange={() => {
+          console.log("fullscreen change");
+        }}
+        style={{
+          maxWidth: "1080px",
+          width: "100%",
+          height: "100%",
+          maxHeight: "548px"
+        }}
+        // {...rest}
       />
     </div>
   );
 }
 
-export default Player
+export default Player;

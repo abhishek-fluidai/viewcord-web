@@ -14,6 +14,7 @@ const Video = () => {
   const [searchParams] = useSearchParams();
   const [source, setSource] = useState(null);
 
+
   useEffect(() => {
     setLoading(true);    
     const video_id = searchParams.get('v')
@@ -22,11 +23,12 @@ const Video = () => {
   
   const FetchVideoURL = async (video_id) => {
     const data = await getVideo(video_id);
+    
     setFetchedData(data);
-    const { videoStreams, audioStreams, duration } = data;
+    const { videoStreams, audioStreams, duration  } = data;
     genrateDash([...videoStreams, ...audioStreams], duration);
-  };
-
+    console.log(data);
+  }
   const genrateDash = async (raw_streams,duration) => {
     const genratedFile =  dash.generate_dash_file_from_formats(raw_streams,duration);
     let data = "data:text/xml;charset=utf-8," + encodeURIComponent(genratedFile)
@@ -41,7 +43,7 @@ const Video = () => {
           <div className="flex flex-col grow">
             <div className="player-container">
               {/* {loading && <Loader />} */}
-              <Player src={source} />
+              <Player src={source} captions={fetchedData?.subtitles} thumbnail={fetchedData?.thumbnailUrl} />
             </div>
             <VideoDetails fetchedData={fetchedData} />
           </div>
