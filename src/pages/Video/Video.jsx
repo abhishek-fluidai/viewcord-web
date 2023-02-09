@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { getVideo } from "../../components/common/FetchFuctions";
 import "./Video.css";
 import Player from "../../components/utils/VideoPlayer/VideoPlayer";
-import { useSearchParams } from "react-router-dom";
+import {useSearchParams} from 'react-router-dom'
+import Loader from "../../components/common/Loader/Loader";
 import dash from "../../components/common/DashUtils";
 import VideoDetails from "./VideoDetails/VideoDetails";
 import VideoSidebar from "./VideoSidebar/VideoSidebar";
@@ -14,11 +15,11 @@ const Video = () => {
   const [source, setSource] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
-    const video_id = searchParams.get("v");
+    setLoading(true);    
+    const video_id = searchParams.get('v')
     FetchVideoURL(video_id);
   }, [searchParams.get("v")]);
-
+  
   const FetchVideoURL = async (video_id) => {
     const data = await getVideo(video_id);
     setFetchedData(data);
@@ -26,14 +27,10 @@ const Video = () => {
     genrateDash([...videoStreams, ...audioStreams], duration);
   };
 
-  const genrateDash = async (raw_streams, duration) => {
-    const genratedFile = dash.generate_dash_file_from_formats(
-      raw_streams,
-      duration
-    );
-    let data =
-      "data:text/xml;charset=utf-8," + encodeURIComponent(genratedFile);
-    setSource(data);
+  const genrateDash = async (raw_streams,duration) => {
+    const genratedFile =  dash.generate_dash_file_from_formats(raw_streams,duration);
+    let data = "data:text/xml;charset=utf-8," + encodeURIComponent(genratedFile)
+    setSource(data)
     setLoading(false);
   };
 
@@ -48,10 +45,7 @@ const Video = () => {
             </div>
             <VideoDetails fetchedData={fetchedData} />
           </div>
-          <VideoSidebar
-            loading={loading}
-            streams={fetchedData?.relatedStreams}
-          />
+          <VideoSidebar loading={loading} streams={fetchedData?.relatedStreams} />
         </div>
       </div>
     </>
