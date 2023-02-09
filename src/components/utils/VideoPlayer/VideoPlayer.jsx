@@ -1,20 +1,17 @@
-import React, { useEffect, useRef } from "react"
-import dash from "../../common/DashUtils";
+import React, { useEffect, useRef, useState } from "react"
 import "./VideoPlayer.css";
-import "shaka-player/dist/controls.css";
 import shaka from 'shaka-player/dist/shaka-player.ui';
 
 function Player({ src, config, chromeless, className, ...rest }) {
-  const uiContainerRef = React.useRef(null);
-  const videoRef = React.useRef(null);
-
-  const [player, setPlayer] = React.useState(null);
-  const [ui, setUi] = React.useState(null);
+  const uiContainerRef = useRef(null);
+  const videoRef = useRef(null);
+  const [player, setPlayer] = useState(null);
+  const [ui, setUi] = useState(null);
 
   // Effect to handle component mount & mount.
   // Not related to the src prop, this hook creates a shaka.Player instance.
   // This should always be the first effect to run.
-  React.useEffect(() => {
+  useEffect(() => {
     const player = new shaka.Player(videoRef.current);
     setPlayer(player);
     let ui;
@@ -24,12 +21,34 @@ function Player({ src, config, chromeless, className, ...rest }) {
         uiContainerRef.current,
         videoRef.current
       );
+      const config = {
+        'seekBarColors': {
+          base: 'rgba(255, 255, 255, 0.3)',
+          buffered: 'rgba(255, 255, 255, 0.54)',
+          played: 'rgb(255, 255, 255)',
+        }
+       }
+       ui.configure(config);
       setUi(ui);
+
     }
+
+ 
+
     // install polyfills
     shaka.polyfill.installAll();
-    // check to see if the browser supports the basic APIs Shaka needs.
-   
+
+    player.configure({
+      abr: {
+        enabled: false
+      },
+    });
+
+    videoRef?.current?.addEventListener('ended', (event) => {
+      console.log('ended');
+      // window.location.reload();
+    });
+
 
     return () => {
       player.destroy();
@@ -40,8 +59,10 @@ function Player({ src, config, chromeless, className, ...rest }) {
   }, []);
 
 
+
+
   // Keep shaka.Player.configure in sync.
-  // React.useEffect(() => {
+  // useEffect(() => {
   //   if (player && config) {
   //     player.configure(config);
   //   }
@@ -51,40 +72,27 @@ function Player({ src, config, chromeless, className, ...rest }) {
   const loadVideo = async (uri) => {
     try {
         await player.load(uri, 0, 'application/dash+xml');
+        player.selectVariantTrack(player.getVariantTracks()[4], true);
     } catch (error) {
-      console.log(error)
+      console.error(error);
+      window.location.reload();
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (player && src) {
       loadVideo(src);
     }
   }, [player, src]);
 
-  // Define a handle for easily referencing Shaka's player & ui API's.
-  // React.useImperativeHandle(
-  //   ref,
-  //   () => ({
-  //     get player() {
-  //       return player;
-  //     },
-  //     get ui() {
-  //       return ui;
-  //     },
-  //     get videoElement() {
-  //       return videoRef.current;
-  //     }
-  //   }),
-  //   [player, ui]
-  // );
+
 
   return (
-    <div ref={uiContainerRef} className="youtube-theme" >
+    <div ref={uiContainerRef} className="youtube-theme"  >
+      <div className="player-loading-overlay" style={{display: (src && "none")}}>  </div>
       <video
         ref={videoRef}
         autoPlay
-        // muted
         onCanPlay={() => {
           videoRef.current.play();
           console.log("can play")

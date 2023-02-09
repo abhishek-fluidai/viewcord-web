@@ -13,40 +13,29 @@ import VideoSidebar from "./VideoSidebar/VideoSidebar";
 
 const Video = () => {
   const [fetchedData, setFetchedData] = React.useState(null);
-  const videoRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
-  const [src, setSrc] = useState(null);
+  const [source, setSource] = useState(null);
 
   useEffect(() => {
     setLoading(true);    
     const video_id = searchParams.get('v')
-      //new URLSearchParams(window.location.search).get("v");
-    const FetchVideoURL = async () => {
-      const data = await getVideo(video_id);
-      const player = videoRef?.current?.player;
-      setFetchedData(data);
-      const { videoStreams, audioStreams } = data;
-      genrateDash([...videoStreams, ...audioStreams], player);
-    };
-
-    const genrateDash = async (raw, player) => {
-      const genratedFile =  dash.generate_dash_file_from_formats(raw);
-      let data = "data:text/xml;charset=utf-8," + encodeURIComponent(genratedFile)
-      // player.load(data,0,');  
-      setSrc(data)
-      setLoading(false);
-    };
-
-    FetchVideoURL();
+    FetchVideoURL(video_id);
   }, [searchParams.get("v")]);
+  
+  const FetchVideoURL = async (video_id) => {
+    const data = await getVideo(video_id);
+    setFetchedData(data);
+    const { videoStreams, audioStreams, duration } = data;
+    genrateDash([...videoStreams, ...audioStreams], duration);
+  };
 
-  // useEffect(() => {
-
-  //   return () => {
-  //     videoRef?.current?.player?.destroy();
-  //   }
-  // },[])
+  const genrateDash = async (raw_streams,duration) => {
+    const genratedFile =  dash.generate_dash_file_from_formats(raw_streams,duration);
+    let data = "data:text/xml;charset=utf-8," + encodeURIComponent(genratedFile)
+    setSource(data)
+    setLoading(false);
+  };
 
   return (
     <>
@@ -54,12 +43,11 @@ const Video = () => {
         <div className="flex flex-col lg:flex-row">
           <div className="flex flex-col grow ">
             <div className="player-container">
-              <Player src={src} />
+              {/* {loading && <Loader />} */}
+              <Player src={source} />
             </div>
             <VideoDetails fetchedData={fetchedData} />
-
           </div>
-
           <VideoSidebar loading={loading} streams={fetchedData?.relatedStreams} />
         </div>
       </div>
