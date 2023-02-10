@@ -23,3 +23,9 @@ export const getSearchResults = async (query,filter) => {
     `https://pipedapi.kavin.rocks/search?q=${query}&filter=${filter}`
   ).then((response) => response.json());
 }
+
+export const getPlaylist = async (playlist_id) => {
+  return fetch(
+    `https://pipedapi.kavin.rocks/playlist/${playlist_id}`
+  ).then((response) => response.json());
+}
