@@ -33,7 +33,7 @@ const Navbar = () => {
 
     <div className="w-full h-16 ">
       <div className="w-full h-16  flex items-center relative justify-center">
-        <header className="h-16 w-full max-w-[1920px]  flex  px-5  relative bg-slate-200/80  dark:bg-slate-800 text-white justify-between">
+        <header className="h-16 w-full flex px-5  relative bg-slate-200/80  dark:bg-slate-800 text-white justify-between">
           <div className="h-[42px] m-auto  "
           >
             <div className="relative flex flex-row  rounded-full overflow-hidden">

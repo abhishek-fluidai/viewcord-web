@@ -19,7 +19,7 @@ const App = () => {
     <div className={theme == "light" ? "" : "dark"}>
       <div className="flex flex-row m-0 p-0 min-w-full min-h-full overflow-hidden ">
         <SideBar />
-        <div className="flex flex-col grow h-screen">
+        <div className="flex flex-col grow h-screen bg-slate-600 items-center">
           <Navbar className="flex-grow-0 " />
           <div className="max-w-[720px] md:max-w-[1920px] md:w-full  h-[90vh] grow relative bg-grey-200 dark:bg-slate-600 overflow-y-scroll ">
             <Routes>

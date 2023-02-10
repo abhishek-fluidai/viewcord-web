@@ -5,12 +5,12 @@ import { RiPlayListAddFill, RiHeadphoneFill } from "react-icons/ri";
 
 const VideoDetails = ({ fetchedData }) => {
   return (
-    <div className="video-info max-w-5xl">
+    <div className="video-info xl:max-w-5xl w-full mx-4 lg:mx-8 ">
       <h1 className="font-bold text-md md:text-2xl mb-2 md:mb-4 text-gray-800 dark:text-white  w-full overflow-ellipsis overflow-hidden">
         {fetchedData?.title}
       </h1>
 
-      <div className="flex flex-row items-center justify-between ">
+      <div className="flex flex-col items-center justify-between lg:flex-row">
         <div className="flex items-center m-2">
           <img
             className="w-[42px] h-[42px] rounded-full mr-4 "
@@ -57,7 +57,7 @@ const VideoDetails = ({ fetchedData }) => {
           </p>
         </div>
 
-        <div className="flex items-center  p-2 ">
+        <div className="flex items-center flex-row gap-2  p-2 ">
           <div className="ml-4">
             <button
               className="text-grey-800 ring-1 hover:ring-2 transition-all   px-4 py-2 rounded-full text-sm md:text-lg font-medium flex gap-1 items-center"
