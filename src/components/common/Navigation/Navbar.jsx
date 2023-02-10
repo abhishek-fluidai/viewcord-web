@@ -9,8 +9,9 @@ const Navbar = () => {
 
   useEffect(() => {
     window.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        getSearchResult();
+      if (e.key === "Enter" && e.target.value.length > 2  ) {
+        console.log(e.target.value);
+        navigate(`/results?search_query=${encodeURIComponent(e.target.value)}`);
       }
   });
   }, []);
@@ -19,12 +20,6 @@ const Navbar = () => {
     setSearchQuery(e.target.value); 
 
   };
-
-  const getSearchResult = () => {
-    navigate(`/results?search_query=${encodeURIComponent(searchQuery)}`);
-  };
-
- 
 
   const switchDisplayMode = () => {
     localStorage.setItem(
@@ -45,7 +40,6 @@ const Navbar = () => {
               <input
                 type="search"
                 value={searchQuery}
-                onSubmit={getSearchResult}
                 onChange={onChangeHandler}
                 id="default-search"
                 className="block w-full min-w-[320px] h-[40px] pl-4  text-sm text-gray-800  bg-slate-300  dark:bg-slate-700  outline-none 
@@ -54,7 +48,9 @@ const Navbar = () => {
               />
 
               <div className="flex w-[68px] h-[40px] items-center justify-center bg-slate-400 dark:bg-slate-900  border-l-1 cursor-pointer"
-              onClick={getSearchResult}>
+              onClick={() => {
+                searchQuery.length > 2 && navigate(`/results?search_query=${encodeURIComponent(searchQuery)}`);
+              }}>
                 <HiSearch className=" text-neutral-800 dark:text-white " size={24} />
               </div>
             </div>

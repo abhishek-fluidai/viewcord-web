@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./VideoPlayer.css";
 import shaka from "shaka-player/dist/shaka-player.ui";
 
-function Player({ src, captions, thumbnail }) {
+function Player({ src, captions, thumbnail, onVideoEnded }) {
   const uiContainerRef = useRef(null);
   const videoRef = useRef(null);
   const [player, setPlayer] = useState(null);
@@ -18,17 +18,13 @@ function Player({ src, captions, thumbnail }) {
       videoRef.current
     );
     setUi(ui);
+
     shaka.polyfill.installAll();
 
     player.configure({
       abr: {
         enabled: false,
       },
-    });
-
-    videoRef?.current?.addEventListener("ended", (event) => {
-      console.log("ended");
-      // window.location.reload();
     });
 
     return () => {
@@ -57,15 +53,19 @@ function Player({ src, captions, thumbnail }) {
             caption.url,
             caption.code,
             "subtitles",
-            caption.mimeType
+            caption.mimeType,
           );
         });
       }
-      player.getVariantTracks()?.forEach((track) => {
+
+
+      for (const track of player.getVariantTracks()) {
         if (track.height === 360) {
           player.selectVariantTrack(track, true);
+          break;
         }
-      });
+      }
+
     } catch (error) {
       console.error(error);
       // window.location.reload();
@@ -88,21 +88,17 @@ function Player({ src, captions, thumbnail }) {
       </div>
       <video
         ref={videoRef}
-        // autoPlay
-        onCanPlay={(e) => {
+        autoPlay
+        onCanPlay={() => {
           videoRef.current.play();
-          console.log("can play");
         }}
-        onFullscreenChange={() => {
-          console.log("fullscreen change");
-        }}
+        onEnded={onVideoEnded}
         style={{
           maxWidth: "1080px",
           width: "100%",
           height: "100%",
           maxHeight: "548px",
         }}
-        // {...rest}
       />
     </div>
   );
