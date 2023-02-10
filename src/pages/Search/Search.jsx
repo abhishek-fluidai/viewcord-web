@@ -53,7 +53,7 @@ const Search = () => {
                 case "playlist":
                   return (
                     <div className="flex flex-col w-full result" key={index}>
-                      <PlaylistCard {...result} />
+                      <PlaylistCard {...result} isSearch={true} />
                     </div>
                   );
               }

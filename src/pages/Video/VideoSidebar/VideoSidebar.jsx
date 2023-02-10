@@ -1,13 +1,30 @@
 import React, { useEffect } from "react";
-import { SideBarVideoCard} from "../../../components/utils/ContentCards/VideoCard/VideoCard";
+import { SideBarVideoCard } from "../../../components/utils/ContentCards/VideoCard/VideoCard";
+import PlaylistCard from "../../../components/utils/ContentCards/PlaylistCard/PlaylistCard";
 
 const VideoSidebar = ({ streams, loading }) => {
   return (
     <div className="m-2 grow xl:max-w-[600px] xl:w-[40%] w-full">
       {/* <div> */}
-          <div className="flex flex-col grow">
-            {streams && streams.map((stream) => <SideBarVideoCard {...stream} />)}
-          </div>
+      <div className="flex flex-col grow gap-2 " >
+        {streams &&
+          streams.map((stream, index) => {
+            switch (stream.type) {
+              case "stream":
+                return (
+                  <div className="flex flex-col w-full result" key={index}>
+                    <SideBarVideoCard {...stream} />
+                  </div>
+                );
+              case "playlist":
+                return (
+                  <div className="flex flex-col w-full result" key={index}>
+                    <PlaylistCard {...stream} />
+                  </div>
+                );
+            }
+          })}
+      </div>
       {/* </div> */}
     </div>
   );

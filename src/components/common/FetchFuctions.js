@@ -26,6 +26,6 @@ export const getSearchResults = async (query,filter) => {
 
 export const getPlaylist = async (playlist_id) => {
   return fetch(
-    `https://pipedapi.kavin.rocks/playlist/${playlist_id}`
+    `https://pipedapi.kavin.rocks/playlists/${playlist_id}`
   ).then((response) => response.json());
 }

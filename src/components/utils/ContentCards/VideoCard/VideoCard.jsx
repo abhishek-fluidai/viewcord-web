@@ -14,7 +14,7 @@ export const VideoCard = ({
   const navigate = useNavigate();
 
   return (
-    <div className="w-[348px] md:max-w-[348px] max-h-[18rem] md:h-[18rem] max-w-[18rem] rounded-lg md:m-2 relative flex flex-col flex-shrink-0 bg-white dark:bg-slate-800 flex-grow  cursor-pointer hover:scale-105 transition-all overflow-x-hidden">
+    <div className="w-[348px] md:max-w-[348px] max-h-[18rem] md:h-[18rem] max-w-[18rem] h-[200px] rounded-lg md:m-2 relative flex flex-col flex-shrink-0 bg-white dark:bg-slate-800 flex-grow  cursor-pointer hover:scale-105 transition-all overflow-x-hidden">
       <div
         className="relative w-full h-[70%] aspect-video top-0 rounded-md"
         onClick={() => navigate(url)}
@@ -84,17 +84,23 @@ export const SideBarVideoCard = ({
   uploaderName,
   uploaderUrl,
   uploaderAvatar,
-  isSearch
+  isSearch,
+  isPlaylist
 }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="md:max-w-[720px] max-h-[8rem] md:h-[7rem] max-w-[18rem] rounded-lg md:m-2 relative flex flex-row flex-shrink-0  flex-grow  cursor-pointer  transition-all overflow-hidden group " >
+    <div className="md:max-w-[720px] max-h-[8rem] md:h-[7rem] gap-1  md:gap-4 h-[200px] max-w-[600px] rounded-lg md:m-2 relative flex flex-row flex-shrink-0  flex-grow  cursor-pointer  transition-all overflow-hidden group " >
       <div
-        className="relative w-full h-[98%] max-w-[180px] top-0 rounded-lg mr-2 i transition-all bg-[length:100%] scale-[1.05] group-hover:bg-[length:108%] bg-center"
-        style={{ backgroundImage: `url(${thumbnail})`, transition: "all 0.2s ease-in-out" }}
+        className="relative w-[190px] h-[100%] aspect-video top-0 rounded-md  "
         onClick={() => navigate(url)}
-      ></div>
+      >
+        <img
+          className="w-full h-full  rounded-lg object-cover" 
+          src={thumbnail}
+          // alt="video thumbnail"
+        />
+        </div>
 
       <div className=" flex flex-col w-full h-full pl-2 p-1">
         <div className="basis-1/4  flex ">
@@ -108,12 +114,12 @@ export const SideBarVideoCard = ({
 
         <div className="basis-1/4 mt-2 text-natural-800 flex flex-row justify-start group/sub" 
         onClick={() => navigate(uploaderUrl)}>
-          <div className="flex flex-col items-center justify-center w-10 mr-2">
+         {!isPlaylist && <div className="flex flex-col items-center justify-center w-10 mr-2" >
             <img
               className=" w-10 h-10 rounded-full p-1  transition-all dark:group-hover/sub:ring-neutral-400  dark:group-hover/sub:ring-2 group-hover/sub:ring-native-600 "
               src={uploaderAvatar}
             />
-          </div>
+          </div>}
           <div className="flex flex-col ">
             <div className="flex flex-row justify-between ">
               <span className="text-slate-800 text-xs hover:text-slate-900 dark:hover:text-white dark:text-white dark:text-opacity-75 font-medium ">
@@ -132,4 +138,5 @@ export const SideBarVideoCard = ({
     </div>
   );
 };
+
 
