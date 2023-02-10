@@ -114,7 +114,7 @@ export const SideBarVideoCard = ({
 
         <div className="basis-1/4 mt-2 text-natural-800 flex flex-row justify-start group/sub" 
         onClick={() => navigate(uploaderUrl)}>
-         {!isPlaylist && <div className="flex flex-col items-center justify-center w-10 mr-2" >
+         {!isPlaylist && uploaderAvatar && <div className="flex flex-col items-center justify-center w-10 mr-2" >
             <img
               className=" w-10 h-10 rounded-full p-1  transition-all dark:group-hover/sub:ring-neutral-400  dark:group-hover/sub:ring-2 group-hover/sub:ring-native-600 "
               src={uploaderAvatar}
