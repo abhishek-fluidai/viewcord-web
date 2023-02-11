@@ -14,7 +14,7 @@ export const VideoCard = ({
   const navigate = useNavigate();
 
   return (
-    <div className="w-[348px] md:max-w-[348px] max-h-[18rem] md:h-[18rem] max-w-[18rem] h-[200px] rounded-lg md:m-2 relative flex flex-col flex-shrink-0 bg-white dark:bg-slate-800 flex-grow  cursor-pointer hover:scale-105 transition-all overflow-x-hidden">
+    <div className=" max-h-[18rem] md:h-[248px] max-w-[18rem] h-[250px] rounded-lg md:m-2 relative flex flex-col flex-shrink-0 bg-white dark:bg-slate-800 flex-grow  cursor-pointer hover:scale-105 transition-all overflow-x-hidden">
       <div
         className="relative w-full h-[70%] aspect-video top-0 rounded-md"
         onClick={() => navigate(url)}
