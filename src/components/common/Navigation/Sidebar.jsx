@@ -13,7 +13,7 @@ const Sidebar = () => {
       <SideBarIcon icon={<HiHome size="26" />} url="/" />
       <SideBarIcon icon={<HiTrendingUp size="26" />} url="/trending" />
       <SideBarIcon icon={<MdVideoLibrary size="26" />} />
-      <SideBarIcon icon={<IoSettingsSharp size="26" />} align="bottom" />
+      <SideBarIcon icon={<IoSettingsSharp size="26" />}  url="/preferences" align="bottom" />
     </div>
   );
 };

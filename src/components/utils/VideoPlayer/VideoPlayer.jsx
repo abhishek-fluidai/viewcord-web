@@ -5,6 +5,7 @@ import shaka from "shaka-player/dist/shaka-player.ui";
 function Player({ src, captions, thumbnail, onVideoEnded }) {
   const uiContainerRef = useRef(null);
   const videoRef = useRef(null);
+  const [currentTime, setCurrentTime] = useState(0)
   const [player, setPlayer] = useState(null);
   const [ui, setUi] = useState(null);
 
@@ -46,7 +47,8 @@ function Player({ src, captions, thumbnail, onVideoEnded }) {
   const loadVideo = async (uri) => {
     try {
       videoRef?.current?.setAttribute("poster", thumbnail);
-      await player.load(uri, 0, "application/dash+xml");
+      // let storedTime = localStorage.getItem('currentTime');
+      await player.load(uri,  0, "application/dash+xml");
       if (captions) {
         captions.forEach((caption) => {
           player.addTextTrackAsync(
@@ -89,9 +91,10 @@ function Player({ src, captions, thumbnail, onVideoEnded }) {
       <video
         ref={videoRef}
         autoPlay
-        onCanPlay={() => {
-          videoRef.current.play();
-        }}
+        // onPause={(e) => {
+        //   let time = e.target.currentTime
+        //   localStorage.setItem('currentTime', time);
+        // }}
         onEnded={onVideoEnded}
         style={{
           maxWidth: "1080px",

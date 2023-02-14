@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { HiSearch } from "react-icons/hi";
 import { MdOutlineLightMode, MdOutlineNightlight } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { getLocal, setLocal } from "../../utils/StorageUtils";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -18,13 +19,12 @@ const Navbar = () => {
 
   const onChangeHandler = (e) => {
     setSearchQuery(e.target.value); 
-
   };
 
   const switchDisplayMode = () => {
-    localStorage.setItem(
+    setLocal(
       "theme",
-      localStorage.getItem("theme") === "dark" ? "light" : "dark"
+      getLocal("theme") === "dark" ? "light" : "dark"
     );
     window.location.reload();
   };
@@ -56,7 +56,7 @@ const Navbar = () => {
             </div>
           </div>
           <div className="flex items-center justify-center">
-            {localStorage.getItem("theme") === "dark" ? (
+            {getLocal("theme") === "dark" ? (
               <MdOutlineLightMode
                 className="text-black dark:text-white cursor-pointer "
                 size={24}

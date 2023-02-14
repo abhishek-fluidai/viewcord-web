@@ -33,3 +33,26 @@ export const getPlaylist = async (playlist_id) => {
     `${baseDomain}/playlists/${playlist_id}`
   ).then((response) => response.json());
 }
+
+export const login = async (username, password) => {
+  return fetch(
+    `${baseDomain}/login`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    }
+  ).then((response) => response.json());
+}
+
+export const getFeed = async (token) => {
+    return fetch(
+      `${baseDomain}/feed?authToken=${token}`)
+      .then((response) => response.json());
+      
+}
