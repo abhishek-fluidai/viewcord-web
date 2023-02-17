@@ -10,7 +10,7 @@ const VideoDetails = ({ fetchedData }) => {
       <h1 className="font-bold text-lg md:text-2xl  text-gray-800 dark:text-white  w-full overflow-ellipsis overflow-hidden mx-2">
         {fetchedData?.title}
       </h1>
-      <div className="flex flex-col md:flex-row justify-between items-start">
+      <div className="flex flex-col lg:flex-row justify-between items-start">
         <div className="flex items-center flex-row gap-2 justify-between flex-shrink-1  w-full px-2 pr-4">
         <div className="flex items-center  justify-center flex-row gap-2  px-2 ">
         <p className="text-gray-600 dark:text-white/80 text-sm md:text-lg ">
@@ -39,7 +39,7 @@ const VideoDetails = ({ fetchedData }) => {
         </div>
         </div>
 
-        <div className="flex items-center flex-row gap-2 flex-grow-1 w-full  p-2 justify-center md:justify-end ">
+        <div className="flex items-center flex-row gap-2 flex-grow-1 w-full  p-2 justify-center lg:justify-end lg:pt-2 lg:pr-6">
             <button
               className="text-grey-800 dark:text-white/90 border bottom-1 border-slate-800 dark:border-white/80 transition-all px-4 py-2 rounded-full text-sm md:text-lg font-medium flex gap-1 items-center"
               onClick={() => alert("Feature comming soon!")}
@@ -101,7 +101,7 @@ const VideoDetails = ({ fetchedData }) => {
           </div>
       </div>
     
-      <p className="text-grey-600 dark:text-white max-w-5xl whitespace-pre-wrap text-sm md:text-lg ">
+      <p className="text-grey-600 dark:text-white max-w-5xl mx-auto whitespace-pre-wrap text-sm md:text-lg ">
         {fetchedData?.description && <ShowMoreText text={fetchedData?.description} limit={250} />}
       </p>
     </div>
