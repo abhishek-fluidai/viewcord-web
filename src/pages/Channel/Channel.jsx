@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Loader from "../../components/common/Loader/Loader";
+import Loader from "../../components/utils/Loader/Loader";
 import { getChannel } from "../../components/common/FetchFuctions";
 // import { VideoCard }from "../../components/utils/VideoCard/VideoCard";
 
