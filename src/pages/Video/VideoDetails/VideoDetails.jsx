@@ -7,11 +7,11 @@ import { RiPlayListAddFill, RiHeadphoneFill } from "react-icons/ri";
 const VideoDetails = ({ fetchedData }) => {
   return (
     <div className="video-info xl:max-w-5xl w-full sm:mx-auto lg:mx-14 overflow-hidden mt-2">
-      <h1 className="font-bold text-md md:text-2xl  text-gray-800 dark:text-white  w-full overflow-ellipsis overflow-hidden">
+      <h1 className="font-bold text-lg md:text-2xl  text-gray-800 dark:text-white  w-full overflow-ellipsis overflow-hidden mx-2">
         {fetchedData?.title}
       </h1>
       <div className="flex flex-col md:flex-row justify-between items-start">
-        <div className="flex items-center flex-row gap-2 justify-between flex-shrink-1 m-auto w-full mx-4 md:mx-0">
+        <div className="flex items-center flex-row gap-2 justify-between flex-shrink-1  w-full px-2 pr-4">
         <div className="flex items-center  justify-center flex-row gap-2  px-2 ">
         <p className="text-gray-600 dark:text-white/80 text-sm md:text-lg ">
           {fetchedData?.uploadDate}
@@ -39,8 +39,7 @@ const VideoDetails = ({ fetchedData }) => {
         </div>
         </div>
 
-        <div className="flex items-center flex-row gap-2 flex-grow-1 w-full  p-2 justify-end ">
-          {/* <div> */}
+        <div className="flex items-center flex-row gap-2 flex-grow-1 w-full  p-2 justify-center md:justify-end ">
             <button
               className="text-grey-800 dark:text-white/90 border bottom-1 border-slate-800 dark:border-white/80 transition-all px-4 py-2 rounded-full text-sm md:text-lg font-medium flex gap-1 items-center"
               onClick={() => alert("Feature comming soon!")}
@@ -48,8 +47,6 @@ const VideoDetails = ({ fetchedData }) => {
               <HiShare className="text-grey-800 dark:text-white" />
               Share
             </button>
-          {/* </div> */}
-          {/* <div> */}
             <button
               className="text-grey-800 dark:text-white/90 border bottom-1 hover:text-slate-600 group border-slate-800 dark:border-white/80 transition-all px-4 py-2 rounded-full text-sm md:text-lg font-semibold flex gap-1 items-center"
               onClick={() => alert("Feature comming soon!")}
@@ -102,7 +99,6 @@ const VideoDetails = ({ fetchedData }) => {
               Subscribe
             </button>
           </div>
-        {/* </div>         */}
       </div>
     
       <p className="text-grey-600 dark:text-white max-w-5xl whitespace-pre-wrap text-sm md:text-lg ">

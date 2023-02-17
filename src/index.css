@@ -3,50 +3,49 @@
 @tailwind utilities;
 
 @layer components {
-
-    .sidebar-icon {
-        @apply relative flex items-center justify-center 
+  .sidebar-icon {
+    @apply relative flex items-center justify-center 
                h-12 w-12 mt-2 mb-2 mx-2 shadow-lg
                bg-gray-700 text-white hover:text-slate-300
                rounded-3xl hover:rounded-xl
 
                transition-all duration-300 ease-linear
                cursor-pointer;
-    }
+  }
 
-    .active .sidebar-icon {
-        @apply rounded-xl text-slate-50
-         fill-slate-100
-    }
+  .active .sidebar-icon {
+    @apply rounded-xl text-slate-50
+         fill-slate-100;
+  }
 }
 
-
-* { box-sizing: border-box; }
-body { margin: 0; }
-
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
 
 .video__card__title {
-    /* font-size: 1.4rem; */
-    line-height: 1.3rem;
-    font-weight: 500;
-    max-height: 2.76rem;
-    overflow: hidden;
-    display: block; 
-    text-overflow: ellipsis;
-    white-space: normal;
+  line-height: 1.3rem;
+  font-weight: 500;
+  max-height: 2.76rem;
+  overflow: hidden;
+  display: block;
+  text-overflow: ellipsis;
+  white-space: normal;
 }
 
 ::-webkit-scrollbar {
-    display: none;
-
+  display: none;
 }
 
 .channel__description {
-    max-height: 2.74rem;
-    margin-top: 6px;
-    overflow: hidden;
-    display: block; 
-    max-width: 48ch;
-    text-overflow: ellipsis;
-    white-space: normal;
+  max-height: 2.74rem;
+  margin-top: 6px;
+  overflow: hidden;
+  display: block;
+  max-width: 48ch;
+  text-overflow: ellipsis;
+  white-space: normal;
 }

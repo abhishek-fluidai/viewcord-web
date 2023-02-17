@@ -15,7 +15,8 @@ const Search = () => {
 
   useEffect(() => {
     const searchQuery = searchParams.get("search_query");
-    if (!searchQuery) {
+    if (!searchQuery || searchQuery === "") {
+      alert("Please enter a search query");
       return;
     }
     setLoading(true);

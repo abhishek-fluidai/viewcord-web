@@ -22,11 +22,11 @@ const App = () => {
 
   return (
     <div className={theme == "light" ? "" : "dark"}>
-      <div className="flex flex-row m-0 p-0 min-w-full min-h-full overflow-hidden ">
-        <SideBar />
-        <div className="flex flex-col grow h-screen bg-grey-200 dark:bg-slate-600 items-center">
-          <Navbar className="flex-grow-0 " />
-          <div className="w-full max-w-[720px] sm:max-w-[1920px] h-[90vh] grow relative overflow-y-scroll ">
+      <div className="flex flex-col grow h-screen bg-grey-200 dark:bg-slate-600 items-center overflow-hidden">
+      <Navbar className="flex-grow-0 " />
+        <div className="  flex flex-row m-0 p-0 min-w-full min-h-full ">
+          <SideBar />
+          <div className="w-full max-w-[720px] sm:max-w-[1920px] h-[92vh] grow relative overflow-y-scroll ">
             <Suspense fallback={<div>Loading...</div>}>
               <Routes>
                 <Route exact path="/trending" element={<Home />} />
