@@ -10,9 +10,12 @@ const Navbar = () => {
 
   useEffect(() => {
     window.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" && e.target.value.length > 2  ) {
-        console.log(e.target.value);
-        navigate(`/results?search_query=${encodeURIComponent(e.target.value)}`);
+      if (e.key === "Enter" ) {
+        if (searchQuery < 2) {
+          alert("Please enter a valid search query");
+          return 
+        }
+        navigate(`/search/${searchQuery}`);
       }
   });
   }, []);
@@ -36,7 +39,7 @@ const Navbar = () => {
         <header className="h-16 w-full flex px-5  relative bg-slate-200/80  dark:bg-slate-800 text-white justify-between">
           <div className="h-[42px] m-auto  "
           >
-            <div className="relative flex flex-row  rounded-full overflow-hidden">
+            <div className="relative flex-row rounded-full hidden sm:flex overflow-hidden">
               <input
                 type="search"
                 value={searchQuery}
@@ -49,7 +52,8 @@ const Navbar = () => {
 
               <div className="flex w-[68px] h-[40px] items-center justify-center bg-slate-400 dark:bg-slate-900  border-l-1 cursor-pointer"
               onClick={() => {
-                searchQuery.length > 2 && navigate(`/results?search_query=${encodeURIComponent(searchQuery)}`);
+                searchQuery.length > 2 ? navigate(`/results?search_query=${encodeURIComponent(searchQuery)}`):
+                alert("Please enter a valid search query");
               }}>
                 <HiSearch className=" text-neutral-800 dark:text-white " size={24} />
               </div>

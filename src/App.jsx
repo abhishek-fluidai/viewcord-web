@@ -10,6 +10,7 @@ const Search = lazy(() => import ("./pages/Search/Search"));
 const Video = lazy(() => import ("./pages/Video/Video"));
 const Playlist = lazy(() => import ("./pages/Playlist/Playlist"));
 const Preferences = lazy(() => import ("./pages/Preferences/Preferences"));
+const Subscriptions = lazy(() => import ("./pages/Subscriptions/Subscriptions"));
 
 const App = () => {
   const [theme, setTheme] = useState("light");
@@ -25,18 +26,17 @@ const App = () => {
         <SideBar />
         <div className="flex flex-col grow h-screen bg-grey-200 dark:bg-slate-600 items-center">
           <Navbar className="flex-grow-0 " />
-          <div className="max-w-[720px] md:max-w-[1920px] md:w-full  h-[90vh] grow relative  overflow-y-scroll ">
+          <div className="w-full max-w-[720px] sm:max-w-[1920px] h-[90vh] grow relative overflow-y-scroll ">
             <Suspense fallback={<div>Loading...</div>}>
               <Routes>
-                <Route path="/trending" element={<Home />} />
-                <Route path="/channel/:channelId" element={<Channel />} />
-                <Route path="/search" element={<Search />} />
-                <Route path="/video/:videoId" element={<Video />} />
-                <Route path="/playlist/:playlistId" element={<Playlist />} />
-                <Route path="/watch" element={<Video />} />
-                <Route path="/preferences" element={<Preferences />} />
-                // routing based on login 
-                {getLocal("isLogged") ? <Route path="/" element={<NewHome />} /> : <Route path="/" element={<Home />} />}
+                <Route exact path="/trending" element={<Home />} />
+                <Route exact path="/channel/:channelId" element={<Channel />} />
+                <Route exact path="/results" element={<Search />} />
+                <Route exact path="/playlist" element={<Playlist />} />
+                <Route exact path="/watch" element={<Video />} />
+                <Route exact path="/preferences" element={<Preferences />} />
+                <Route exact path="/subscriptions" element={<Subscriptions />} />
+                {getLocal("token") ? <Route path="/" element={<NewHome />} /> : <Route path="/" element={<Home />} />}
 
               </Routes>
             </Suspense>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getSearchResults } from "../../components/common/FetchFuctions";
 import { SideBarVideoCard } from "../../components/utils/ContentCards/VideoCard/VideoCard";
-import ChannelCard from "../../components/utils/ContentCards/ChannelCard/ChannelCard";
+import {ChannelCard }from "../../components/utils/ContentCards/ChannelCard/ChannelCard";
 import PlaylistCard from "../../components/utils/ContentCards/PlaylistCard/PlaylistCard";
 import Filter from "./Filter/Filter";
 import styles from "./Search.module.css";

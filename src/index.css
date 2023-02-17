@@ -9,10 +9,17 @@
                h-12 w-12 mt-2 mb-2 mx-2 shadow-lg
                bg-gray-700 text-white hover:text-slate-300
                rounded-3xl hover:rounded-xl
+
                transition-all duration-300 ease-linear
                cursor-pointer;
     }
+
+    .active .sidebar-icon {
+        @apply rounded-xl text-slate-50
+         fill-slate-100
+    }
 }
+
 
 * { box-sizing: border-box; }
 body { margin: 0; }

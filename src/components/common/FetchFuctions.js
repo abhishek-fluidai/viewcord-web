@@ -28,6 +28,12 @@ export const getSearchResults = async (query,filter) => {
   ).then((response) => response.json());
 }
 
+export const getNextPageSearchResults = async (query,filter,nextPage) => {
+  return fetch(
+    `${baseDomain}/search?q=${query}&filter=${filter}&nextpage=${nextPage}`
+  ).then((response) => response.json());  
+}
+
 export const getPlaylist = async (playlist_id) => {
   return fetch(
     `${baseDomain}/playlists/${playlist_id}`
@@ -50,9 +56,47 @@ export const login = async (username, password) => {
   ).then((response) => response.json());
 }
 
+export const register = async (username, password) => {
+  return fetch(
+    `${baseDomain}/register`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    }
+  ).then((response) => response.json());
+}
+
+export const getSubscriptions = async (token) => {
+  return fetch(
+    `${baseDomain}/subscriptions`,
+  {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `${token}`
+    }
+  }
+  ).then((response) => response.json());
+}
+
+export const getSubscriptionsNextPage = async (token,nextPage) => {
+  return fetch(
+    `${baseDomain}/subscriptions?authToken=${token}&nextpage=${nextPage}`
+  ).then((response) => response.json());
+}
+
+
+
 export const getFeed = async (token) => {
     return fetch(
       `${baseDomain}/feed?authToken=${token}`)
       .then((response) => response.json());
       
 }
+
