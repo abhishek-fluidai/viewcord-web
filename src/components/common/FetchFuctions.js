@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 const baseDomain = localStorage.getItem("baseDomain") || "https://pipedapi.kavin.rocks";
 
 export const getVideo = async (id) => {

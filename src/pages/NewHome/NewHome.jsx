@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import styles from "./NewHome.module.css";
 import { VideoCard } from "../../components/utils/ContentCards/VideoCard/VideoCard";
 import { getFeed } from "../../components/common/FetchFuctions";
 import { useNavigate } from "react-router-dom";
@@ -47,11 +46,7 @@ const NewHome = () => {
 
   function handleScroll() {
     const container = containerRef.current;
-    if (
-      container.scrollTop + container.clientHeight >=
-      container.scrollHeight
-    ) {
-      // console.log(container.scrollTop + container.clientHeight);
+    if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
       setLimit((prev) => prev + 30);
     }
   }

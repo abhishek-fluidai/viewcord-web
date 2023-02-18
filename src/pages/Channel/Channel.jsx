@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Loader from "../../components/utils/Loader/Loader";
 import { getChannel } from "../../components/common/FetchFuctions";
-// import { VideoCard }from "../../components/utils/VideoCard/VideoCard";
+import { useNavigate } from "react-router-dom";
+import MetaHelmet from "../../components/common/MetaHelmet";
 
 const Channel = () => {
   const [channelData, setChannelData] = useState([]);
@@ -12,7 +13,6 @@ const Channel = () => {
     setLoading(true);
     getChannel(channel_id)
       .then((data) => {
-        // console.log(data);
         setChannelData(data);
         setLoading(false);
       })
@@ -20,11 +20,11 @@ const Channel = () => {
         console.log(err);
         alert("Error Fetching channel");
       });
-    // setChannelData(data);
     setLoading(false);
   }, []);
   return (
     <>
+      <MetaHelmet title={channelData?.name ?? "Loading..." } />
       {loading && <Loader />}
       {!loading && (
         <main className="w-full md:my-4 overflow-hidden  justify-center items-center">

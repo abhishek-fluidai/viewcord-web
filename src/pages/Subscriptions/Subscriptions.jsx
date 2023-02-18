@@ -3,6 +3,7 @@ import { getLocal } from '../../components/utils/StorageUtils';
 import { getSubscriptions } from '../../components/common/FetchFuctions';
 import {SubscriptionCard} from '../../components/utils/ContentCards/ChannelCard/ChannelCard';
 import Loader from '../../components/utils/Loader/Loader';
+import MetaHelmet from '../../components/common/MetaHelmet';
 
 const Subscriptions = () => {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -24,6 +25,8 @@ const Subscriptions = () => {
   }, [])
 
   return (
+    <>
+    <MetaHelmet title="Subscriptions" />
     <div>
       <h1
       className="text-5xl font-bold text-gray-800 text-center md:text-left my-6 ml-4 dark:text-white/80"
@@ -35,6 +38,7 @@ const Subscriptions = () => {
         ))}
       </div>
     </div>
+    </>
   );
 }
 

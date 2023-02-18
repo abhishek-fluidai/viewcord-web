@@ -14,22 +14,22 @@ const Subscriptions = lazy(() => import ("./pages/Subscriptions/Subscriptions"))
 
 const App = () => {
   const [theme, setTheme] = useState("light");
+
   useEffect(() => {
     const localTheme = localStorage.getItem("theme");
     localTheme ? setTheme(localTheme) : setTheme("dark");
-
   }, []);
 
   return (
     <div className={theme == "light" ? "" : "dark"}>
       <div className="flex flex-col grow h-screen bg-grey-200 dark:bg-slate-600 items-center overflow-hidden">
       <Navbar className="flex-grow-0 " />
-        <div className="  flex flex-row m-0 p-0 min-w-full min-h-full ">
+        <div className="flex flex-row m-0 p-0 min-w-full min-h-full ">
           <SideBar />
           <div className="w-full max-w-[720px] sm:max-w-[1920px] h-[92vh] grow relative overflow-y-scroll ">
             <Suspense fallback={<div>Loading...</div>}>
               <Routes>
-                <Route exact path="/trending" element={<Home />} />
+                <Route exact path="/trending" element={<Home isTrending={true} />} />
                 <Route exact path="/channel/:channelId" element={<Channel />} />
                 <Route exact path="/results" element={<Search />} />
                 <Route exact path="/playlist" element={<Playlist />} />
@@ -37,7 +37,6 @@ const App = () => {
                 <Route exact path="/preferences" element={<Preferences />} />
                 <Route exact path="/subscriptions" element={<Subscriptions />} />
                 {getLocal("token") ? <Route path="/" element={<NewHome />} /> : <Route path="/" element={<Home />} />}
-
               </Routes>
             </Suspense>
           </div>

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { VideoCard } from "../../components/utils/ContentCards/VideoCard/VideoCard";
 import { getTrending } from "../../components/common/FetchFuctions";
+import MetaHelmet from "../../components/common/MetaHelmet";
 
-const Home = () => {
+const Home = ({isTrending}) => {
   const [trending, setTrending] = useState([]);
 
   useEffect(() => {
@@ -12,6 +13,8 @@ const Home = () => {
   }, []);
 
   return (
+    <>
+  <MetaHelmet title={isTrending ? "Trending" : "Home"} />
     <div className=" w-fullbg-transparent relative flex overflow-hidden md:flex-row flex-col-reverse justify-between">
       <main className="max-w-full h-full flex relative overflow-y-hidden  justify-center">
         <div className="h-full max-w-[1920px]  w-full mx-2 p-2 flex flex-wrap items-start justify-center rounded-tl grid-flow-col auto-cols-max gap-3 md:gap-4 overflow-y-scroll">
@@ -33,6 +36,7 @@ const Home = () => {
         </div>
       </main>
     </div>
+    </>
   );
 };
 export default Home;
