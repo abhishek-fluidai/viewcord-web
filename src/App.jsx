@@ -11,6 +11,7 @@ const Video = lazy(() => import ("./pages/Video/Video"));
 const Playlist = lazy(() => import ("./pages/Playlist/Playlist"));
 const Preferences = lazy(() => import ("./pages/Preferences/Preferences"));
 const Subscriptions = lazy(() => import ("./pages/Subscriptions/Subscriptions"));
+const Library = lazy(() => import ("./pages/Library/Library"));
 
 const App = () => {
   const [theme, setTheme] = useState("light");
@@ -35,7 +36,9 @@ const App = () => {
                 <Route exact path="/playlist" element={<Playlist />} />
                 <Route exact path="/watch" element={<Video />} />
                 <Route exact path="/preferences" element={<Preferences />} />
-                <Route exact path="/subscriptions" element={<Subscriptions />} />
+                <Route exact path="/feed/subscriptions" element={<Subscriptions />} />
+                <Route exact path="/feed/library" element={<Library />} />
+
                 {getLocal("token") ? <Route path="/" element={<NewHome />} /> : <Route path="/" element={<Home />} />}
               </Routes>
             </Suspense>

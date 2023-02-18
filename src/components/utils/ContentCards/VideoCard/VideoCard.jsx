@@ -17,6 +17,7 @@ export const VideoCard = ({
   uploaderUrl,
   uploaderAvatar,
   isFeed,
+  isChannel,
 }) => {
   const navigate = useNavigate();
 
@@ -41,16 +42,18 @@ export const VideoCard = ({
       </div>
 
       <div className=" flex flex-row w-full h-full ">
-        <div className="basis-1/4  flex justify-center items-center">
+        <div className="basis-1/4  flex justify-center items-center"
+             style={{display: (isChannel ? "none" : "flex")}}
+                    >
           <img
             className=" w-12 h-12 rounded-full p-1 hover:ring-2 transition-all dark:hover:ring-neutral-400"
             src={uploaderAvatar}
-            alt="avatar"
             onClick={() => navigate(uploaderUrl)}
           />
         </div>
         <div
           className="p-2 basis-9/12 text-natural-800 flex flex-col justify-center"
+          style={{flexBasis: (isChannel ? "90%" : "")}}
           onClick={() => navigate(url)}
         >
           <span className="text-natural-800 dark:text-white  rounded-md text-md video__card__title">
@@ -59,13 +62,14 @@ export const VideoCard = ({
 
           <span className="text-slate-800 dark:text-white dark:text-opacity-75">
             {formatNumber(views)} views •{" "}
-            {isFeed ? (
+            { isFeed ? (
               <span className="capitalize">
                 {formatReletiveDate(uploadedDate)}
               </span>
             ) : (
               uploadedDate
             )}
+           
           </span>
         </div>
       </div>

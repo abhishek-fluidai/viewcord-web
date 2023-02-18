@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import Loader from "../../components/utils/Loader/Loader";
 import { getChannel } from "../../components/common/FetchFuctions";
 import { useNavigate } from "react-router-dom";
+import { formatNumber } from "../../components/utils/Formatters";
 import MetaHelmet from "../../components/common/MetaHelmet";
-
+import {VideoCard} from "../../components/utils/ContentCards/VideoCard/VideoCard";
 const Channel = () => {
   const [channelData, setChannelData] = useState([]);
+  const [activeTab, setActiveTab] = useState("home");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -14,6 +16,7 @@ const Channel = () => {
     getChannel(channel_id)
       .then((data) => {
         setChannelData(data);
+        console.log(data);
         setLoading(false);
       })
       .catch((err) => {
@@ -24,8 +27,7 @@ const Channel = () => {
   }, []);
   return (
     <>
-      <MetaHelmet title={channelData?.name ?? "Loading..." } />
-      {loading && <Loader />}
+      <MetaHelmet title={channelData?.name ?? "Loading..."} />
       {!loading && (
         <main className="w-full md:my-4 overflow-hidden  justify-center items-center">
           <div
@@ -34,62 +36,75 @@ const Channel = () => {
           >
             <img
               src={channelData.bannerUrl}
-              className="w-full h-fit min-h-full object-cover md:rounded-lg"
-              alt="channel banner"
+              className="w-full  min-h-full h-full object-cover md:rounded-lg"
             />
-          </div>
-
-          <div className="channel__details w-full relative flex items-center justify-center my-[5px] lg:my-4">
-            <div className="flex flex-row justify-between md:max-w-7xl w-full md:w-[96%] my-2 relative md:border-[2.8px] md:border-slate-400 transition-all md:hover:border-slate-600 rounded-lg md:p-4">
-              <div className="channel-header__left flex flex-row gap-4 md:gap-6  py-2  justify-start items-center ml-4 md:ml-8">
-                <img
-                  src={channelData.avatarUrl}
-                  className="md:w-24 md:h-24  rounded-full object-contain ring-2 md:ring-4 ring-slate-500 p-1 shadow-lg"
-                  alt="channel avatar"
-                />
-                <div className="channel-header__left__details ">
-                  <h1
-                    className="md:text-[28px] text-lg  text-black"
-                    style={{ fontWeight: "500" }}
-                  >
-                    {channelData.name}
-                  </h1>
-                  <p className="text-xs md:text-sm  text-slate-800">
-                    {channelData.subscriberCount > 1000000000
-                      ? (channelData.subscriberCount / 1000000000).toFixed(1) +
-                        "B"
-                      : channelData.subscriberCount > 1000000
-                      ? (channelData.subscriberCount / 1000000).toFixed(1) + "M"
-                      : channelData.subscriberCount > 1000
-                      ? (channelData.subscriberCount / 1000).toFixed(1) + "K"
-                      : channelData.subscriberCount}{" "}
-                    subscribers
-                  </p>
-                  {/* <p className="text-sm text-slate-800 channel__description">
-                    {channelData.description}
-                  </p> */}
-                </div>
-              </div>
-              <div className="channel-header__right flex items-center justify-center mr-4 md:mr-8">
-                <button
-                  type="button"
-                  onClick={() => alert("Feature Coming soon!")}
-                  className="text-white bg-gray-800 hover:bg-gray-900  font-medium rounded-full text-xs md:text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700  dark:border-gray-700"
-                >
-                  subscribe
-                </button>
-              </div>
+            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-black opacity-70"></div>
+            <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center">
+              <img
+                src={channelData.avatarUrl}
+                className="w-32 h-32 rounded-full border-4 border-white"
+                alt="channel avatar"
+              />
+              <h1 className="text-2xl text-white font-bold mt-2">
+                {channelData.name}
+              </h1>
+              <p className="text-white text-sm mt-1">
+                {formatNumber(channelData.subscriberCount)} subscribers
+              </p>
             </div>
           </div>
 
-          <div className="channel__tabs w-full relative flex items-center justify-center px-32">
-            <div className="flex flex-row justify-between w-full my-2 relative  p-4">
-             
-             </div>
+          <div className=" md:max-w-7xl md:w-[96%] mx-auto w-full flex flex-col md:flex-row justify-center items-center relative p-4 bg-gray-200 dark:bg-slate-800">
+            <div class="flex overflow-x-auto overflow-y-hidden  whitespace-nowrap ">
+              <ChannelTabs name="home"  active={activeTab} setActive={(e) => setActiveTab(e)} />
+              {channelData?.tabs?.map((tab) => (
+                <ChannelTabs name={tab.name} active={activeTab} setActive={(e) => setActiveTab(e)}/>
+              ))}
+              <ChannelTabs name="about" active={activeTab} setActive={(e) => setActiveTab(e)} />
+            </div>
           </div>
+
+          <div className=" md:max-w-7xl md:w-[96%] mx-auto w-full flex flex-col md:flex-row justify-center items-center relative p-4 ">
+            {activeTab == "home" && (
+              <div className="flex mx-auto gap-2 flex-wrap">
+                {channelData?.relatedStreams?.map((video) => (
+                    <VideoCard
+                    title={video.title}
+                    thumbnail={video.thumbnail}
+                    uploaderName={video.uploaderName}
+                    uploaderAvatar={video.uploaderAvatar}
+                    views={video.views}
+                    duration={video.duration}
+                    uploadedDate={video.uploadedDate}
+                    isChannel={true} />
+                ))}
+              </div>
+            )}
+            {activeTab == "about" && (
+              <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2">
+                  <h1 className="text-xl font-medium text-gray-500 dark:text-white">
+                  Description :</h1>
+                  <p className="text-md text-gray-500 dark:text-white
+                  ">{channelData.description}</p>
+                </div>
+          </div>
+          )}
+        </div>
+               
         </main>
       )}
     </>
+  );
+};
+
+const ChannelTabs = ({ name, active, setActive }) => {
+  return (
+    <button class={["inline-flex items-center h-10 px-6 -mb-px text-sm text-center text-slate-700  border-0 bg-transparent hover:border-b-2 hover:border-slate-800 sm:text-base dark:hover:border-white/80 transition-all outline-none dark:text-white whitespace-nowrap focus:outline-none capitalize ", (active == name ? "border-b-2 border-white " : "")].join(" ")}
+    onClick={() => setActive(name)}
+    >
+      {name}
+    </button>
   );
 };
 

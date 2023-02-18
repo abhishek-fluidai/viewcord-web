@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from "react";
 import { HiHome } from "react-icons/hi";
 import { IoSettingsSharp } from "react-icons/io5";
-import { MdVideoLibrary } from "react-icons/md";
+import { MdVideoLibrary,MdOutlinePlaylistPlay} from "react-icons/md";
 import { HiTrendingUp } from "react-icons/hi";
+import {RiPlayList2Fill} from "react-icons/ri";
 import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
@@ -13,8 +14,11 @@ const Sidebar = () => {
     >
       <SideBarIcon icon={<HiHome size="26" />} url="/" />
       <SideBarIcon icon={<HiTrendingUp size="26" />} url="/trending" />
-      <SideBarIcon icon={<MdVideoLibrary size="26" />} url="/Subscriptions" />
+      <SideBarIcon icon={<MdVideoLibrary size="26" />} url="/feed/subscriptions" />
+      <SideBarIcon icon={<RiPlayList2Fill size="24" />} url="/feed/library" />
+      {/* <SideBarIcon icon={<MdOutlinePlaylistPlay size="26" />} url="/library" /> */}
       <SideBarIcon icon={<IoSettingsSharp size="26" />}  url="/preferences" />
+
     </div>
   );
 };

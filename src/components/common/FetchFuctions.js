@@ -89,12 +89,20 @@ export const getSubscriptionsNextPage = async (token,nextPage) => {
   ).then((response) => response.json());
 }
 
-
-
 export const getFeed = async (token) => {
     return fetch(
       `${baseDomain}/feed?authToken=${token}`)
       .then((response) => response.json());
-      
 }
 
+export const getUserPlaylists = async (token) => {
+  return fetch(`${baseDomain}/user/playlists`,{
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `${token}`
+    }
+  })
+
+    .then((response) => response.json());
+}
