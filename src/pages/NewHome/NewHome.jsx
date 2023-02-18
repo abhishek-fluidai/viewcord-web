@@ -37,7 +37,7 @@ const NewHome = () => {
     if (token) {
       setIsLoading(true);
       getFeed(token).then((res) => {
-        // console.log(res[0]);
+        console.log(res[0]);
         setFeed(res);
         setIsLoading(false);
       });
@@ -93,7 +93,8 @@ const NewHome = () => {
                     views={video.views}
                     url={video.url}
                     duration={video.duration}
-                    uploadedDate={video.uploadedDate}
+                    uploadedDate={video.uploaded}
+                    isFeed={true}
                   />
                 );
               } else {

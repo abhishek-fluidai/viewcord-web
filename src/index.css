@@ -14,9 +14,7 @@
   }
 
   .active .sidebar-icon {
-    @apply rounded-xl text-slate-50
-         fill-slate-100;
-  }
+    @apply rounded-xl text-slate-400/80  }
 }
 
 * {

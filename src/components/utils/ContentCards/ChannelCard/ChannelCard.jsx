@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { formatNumber } from "../../../utils/Formatters";
 
 const ChannelCard = ({
   name,
@@ -46,7 +47,7 @@ const ChannelCard = ({
             </div>
           </div>
           <p className=" text-gray-700  dark:text-white/75 text-xs mb-3">
-            {subscribers} subscribers
+            {formatNumber(subscribers)} subscribers
           </p>
           <p className="text-gray-700 dark:text-white/60 text-xs">
             {description}

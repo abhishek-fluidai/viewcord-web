@@ -1,4 +1,10 @@
 import { useNavigate } from "react-router-dom";
+import {
+  formatNumber,
+  formatReletiveDate,
+  formatTime,
+} from "../../../utils/Formatters";
+import { BiAddToQueue, BiTimeFive } from "react-icons/bi";
 
 export const VideoCard = ({
   title,
@@ -10,6 +16,7 @@ export const VideoCard = ({
   uploaderName,
   uploaderUrl,
   uploaderAvatar,
+  isFeed,
 }) => {
   const navigate = useNavigate();
 
@@ -26,15 +33,7 @@ export const VideoCard = ({
         />
 
         <span className="absolute bottom-2 font-bold right-2 px-2 rounded-lg text-white bg-black bg-opacity-70">
-          {duration > 3600
-            ? new Date(duration * 1000)
-                .toISOString()
-                .split("T")[1]
-                .substring(0, 8)
-            : new Date(duration * 1000)
-                .toISOString()
-                .split("T")[1]
-                .substring(3, 8)}
+          {formatTime(duration)}
         </span>
         <span className="absolute bottom-2 font-bold left-2 px-2 rounded-lg text-white bg-black bg-opacity-75">
           {uploaderName}
@@ -55,18 +54,18 @@ export const VideoCard = ({
           onClick={() => navigate(url)}
         >
           <span className="text-natural-800 dark:text-white  rounded-md text-md video__card__title">
-            {/* {video.title.length > 30
-                    ? video.title.substring(0, 36) + "..." */}
             {title}
           </span>
 
           <span className="text-slate-800 dark:text-white dark:text-opacity-75">
-            {views > 1000000
-              ? (views / 1000000).toFixed(1) + " M"
-              : views > 1000
-              ? (views / 1000).toFixed(1) + " K"
-              : views}{" "}
-            views • {uploadedDate}
+            {formatNumber(views)} views •{" "}
+            {isFeed ? (
+              <span className="capitalize">
+                {formatReletiveDate(uploadedDate)}
+              </span>
+            ) : (
+              uploadedDate
+            )}
           </span>
         </div>
       </div>
@@ -85,51 +84,73 @@ export const SideBarVideoCard = ({
   uploaderUrl,
   uploaderAvatar,
   isSearch,
-  isPlaylist
+  isPlaylist,
 }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="md:max-w-[720px] max-h-[8rem] md:h-[7rem] gap-1  md:gap-4 h-[200px] max-w-[600px] rounded-lg md:m-2 relative flex flex-row flex-shrink-0  flex-grow  cursor-pointer  transition-all overflow-hidden group " >
+    <div className="md:max-w-[720px] max-h-[8rem] md:h-[7rem] gap-1  md:gap-4 h-[200px] max-w-[600px] rounded-lg md:m-2 relative flex flex-row flex-shrink-0  flex-grow  cursor-pointer  transition-all overflow-hidden group ">
       <div
         className="relative w-[190px] h-[100%] aspect-video top-0 rounded-md  "
         onClick={() => navigate(url)}
       >
         <img
-          className="w-full h-full  rounded-lg object-cover" 
+          className="w-full h-full  rounded-lg object-cover 
+          transition-all group-hover:scale-105"
           src={thumbnail}
-          // alt="video thumbnail"
         />
+        <div className="absolute bottom-0 left-0 w-full h-full ">
+          <div className=" absolute flex-col justify-start gap-1 pt-1 right-1 top-1 hidden group-hover:flex">
+            <button className="flex flex-row justify-center items-center bg-slate-900/60 p-1 rounded-md">
+              <BiAddToQueue className="text-white text-lg w-fit " />
+            </button>
+            <button className="flex flex-row justify-center items-center bg-slate-900/60 p-1 rounded-md">
+              <BiTimeFive className="text-white text-lg w-fit" />
+            </button>
+          </div>
+          <span className="absolute bottom-2 font-bold text-sm right-2 px-1 rounded-lg text-white bg-black/60">
+            {formatTime(duration)}
+          </span>
         </div>
+      </div>
 
       <div className=" flex flex-col w-full h-full pl-2 p-1">
         <div className="basis-1/4  flex ">
           <span
-            className="text-natural-700 dark:text-white group-hover:text-natural-900 dark:group-hover:text-slate-300 rounded-md text-md "
+            className="text-natural-700 dark:text-white group-hover:text-natural-900 dark:group-hover:text-slate-200 rounded-md text-md overflow-hidden overflow-ellipsis "
+            style={{
+              display: "-webkit-box",
+              webkitBoxOrient: "vertical",
+              WebkitLineClamp: 2,
+            }}
             onClick={() => navigate(url)}
           >
-            {isSearch ? title : (title?.length > 30 ? title?.substring(0, 60) + "..." : title)}
+            {title}
           </span>
         </div>
 
-        <div className="basis-1/4 mt-2 text-natural-800 flex flex-row justify-start group/sub" 
-        onClick={() => navigate(uploaderUrl)}>
-         {!isPlaylist && uploaderAvatar && <div className="flex flex-col items-center justify-center w-10 mr-2" >
-            <img
-              className=" w-10 h-10 rounded-full p-1  transition-all dark:group-hover/sub:ring-neutral-400  dark:group-hover/sub:ring-2 group-hover/sub:ring-native-600 "
-              src={uploaderAvatar}
-            />
-          </div>}
+        <div
+          className="basis-1/4 mt-2 text-natural-800 flex flex-row justify-start group/sub"
+          onClick={() => navigate(uploaderUrl)}
+        >
+          {!isPlaylist && uploaderAvatar && (
+            <div className="flex flex-col items-center justify-center w-10 mr-2">
+              <img
+                className=" w-10 h-10 rounded-full p-1  transition-all dark:group-hover/sub:ring-neutral-400  dark:group-hover/sub:ring-2 group-hover/sub:ring-native-600 "
+                src={uploaderAvatar}
+              />
+            </div>
+          )}
           <div className="flex flex-col ">
             <div className="flex flex-row justify-between ">
-              <span className="text-slate-800 text-xs hover:text-slate-900 dark:hover:text-white dark:text-white dark:text-opacity-75 font-medium ">
+              <span className="text-slate-800 text-xs hover:text-slate-900 dark:group-hover/sub:text-white  dark:text-white dark:text-opacity-75 font-medium ">
                 {uploaderName}
               </span>
             </div>
 
             <div className="flex flex-row justify-between">
               <span className="text-slate-800 text-sm dark:text-white dark:text-opacity-75">
-                {uploadedDate}
+              {formatNumber(views)} views •{" "}{uploadedDate}
               </span>
             </div>
           </div>
@@ -138,5 +159,3 @@ export const SideBarVideoCard = ({
     </div>
   );
 };
-
-

@@ -36,9 +36,9 @@ const PlaylistCard = ({
         onClick={() => navigate(url)}
       >
         <div className="absolute bottom-0 right-0 h-full w   w-2/4 bg-slate-800/80 flex flex-col items-center justify-center   ">
-          <RiPlayList2Fill className="h-6 w-6 text-white  m-2" />
-          <span className="text-white text-xs font-[500]">
-            {videos} {videos > 1 ? "videos" : "video"}
+          <RiPlayList2Fill className="h-6 w-6 text-white  m-2 mb-1" />
+          <span className="text-white text-md font-[500]">
+            {videos}
           </span>
         </div>
       </div>

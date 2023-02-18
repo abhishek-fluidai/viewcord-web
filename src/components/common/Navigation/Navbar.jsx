@@ -42,7 +42,9 @@ const Navbar = () => {
     <div className="w-full h-16 ">
       <div className="w-full h-16  flex items-center relative justify-center">
         <header className="h-16 w-full flex px-5  relative bg-slate-200/80  dark:bg-slate-800 text-white justify-between">
-          <div className="flex items-center justify-center text-slate-900 md:text-2xl font-bold dark:text-white ">
+          <div className="flex items-center justify-center text-slate-900 md:text-2xl font-bold dark:text-white cursor-pointer"
+          onClick={() => navigate("/")}
+          >
             <CgPlayButtonO className="text-2xl mr-2" />
             | 
             ViewTube

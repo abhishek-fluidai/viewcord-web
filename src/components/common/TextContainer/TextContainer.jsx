@@ -44,9 +44,12 @@ const ShowMoreText = ({ text, limit }) => {
       <style jsx>{`
         a {
           color: #fff;
-          text-decoration: underline;
           font-weight: 600;
-          opacity: 0.8;
+          opacity: 0.9;
+        }
+        a:hover {
+          text-decoration: underline;
+          opacity: 1;
         }
       `}</style>
       {text.length > limit && (
