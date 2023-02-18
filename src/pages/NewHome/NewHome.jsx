@@ -62,15 +62,15 @@ const NewHome = () => {
   return (
     <div className=" w-fullbg-transparent relative flex overflow-hidden md:flex-row flex-col-reverse justify-between">
       <main
-        className=" h-full max-w-[1920px] w-[95vw] flex flex-col   relative overflow-hidden  justify-center overflow-y-scroll"
+        className=" h-full max-w-[1920px] w-full flex flex-col relative overflow-hidden  justify-center overflow-y-scroll"
         ref={containerRef}
         style={{ height: containerHeight }}
         onScroll={handleScroll}
       >
-        <div className="flex flex-col items-start justify-center md:ml-24 mt-14">
+        <div className="flex flex-col items-start justify-center ml-24 mt-14">
           <Filter filter={filter} setFilter={changeFilter} />
         </div>
-        <div className="h-full max-w-[1920px] w-[95vw]  p-2 px-4 flex flex-wrap items-start justify-center rounded-tl grid-flow-col auto-cols-max gap-3 md:gap-4 ">
+        <div className="h-full max-w-[1920px] w-full p-2 px-4 flex flex-wrap items-start justify-center rounded-tl grid-flow-col auto-cols-max gap-6 md:gap-4 ">
           {feed &&
             feed.map((video, index) => {
               if (
