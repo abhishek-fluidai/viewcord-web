@@ -10,7 +10,7 @@ export default defineConfig({
 name: 'ViewTube',  
       short_name: 'ViewTube',  
       description: 'An alternative Privacy friendly Frontend for YouTube',  
-      theme_color: '#ffffff',  
+      theme_color: '#1e293b',  
       start_url: '/',  
       icons: [  
 {  
