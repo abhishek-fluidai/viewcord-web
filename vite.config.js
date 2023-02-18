@@ -7,8 +7,8 @@ export default defineConfig({
     registerType: 'prompt',  
     includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],  
     manifest: {  
-name: 'ViewTube',  
-      short_name: 'ViewTube',  
+name: 'ViewCord',  
+      short_name: 'ViewCord',  
       description: 'An alternative Privacy friendly Frontend for YouTube',  
       theme_color: '#1e293b',  
       start_url: '/',  

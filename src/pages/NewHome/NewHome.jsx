@@ -62,7 +62,7 @@ const NewHome = () => {
 
   return (
     <>
-    <MetaHelmet title="Feed - ViewTube" />
+    <MetaHelmet title="Feed - ViewCord" />
     <div className=" w-fullbg-transparent relative flex overflow-hidden md:flex-row flex-col-reverse justify-between">
       <main
         className=" h-full max-w-[1920px] w-full flex flex-col relative overflow-hidden  justify-center overflow-y-scroll"

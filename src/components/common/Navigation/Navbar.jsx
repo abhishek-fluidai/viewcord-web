@@ -32,7 +32,7 @@ const Navbar = () => {
             className="flex items-center justify-center text-slate-900 md:text-2xl font-bold dark:text-white cursor-pointer"
             onClick={() => navigate("/")}
           >
-            <CgPlayButtonO className="text-2xl mr-2" />| ViewTube
+            <CgPlayButtonO className="text-2xl mr-2" />| ViewCord
           </div>
           <div className="h-[42px] m-auto">
             <form
