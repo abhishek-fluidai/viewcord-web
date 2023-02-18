@@ -9,7 +9,6 @@ const Home = () => {
     getTrending("IN").then((data) => {
       setTrending(data);
     });
-    // setTrending(data);
   }, []);
 
   return (

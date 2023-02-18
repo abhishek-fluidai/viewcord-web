@@ -3,10 +3,10 @@ import { getVideo } from "../../components/common/FetchFuctions";
 import "./Video.css";
 import Player from "../../components/utils/VideoPlayer/VideoPlayer";
 import {useSearchParams, useNavigate} from 'react-router-dom'
-// import Loader from "../../components/common/Loader/Loader";
-import dash from "../../components/common/DashUtils";
+import dash from "../../components/utils/DashUtils";
 import VideoDetails from "./VideoDetails/VideoDetails";
 import VideoSidebar from "./VideoSidebar/VideoSidebar";
+import MetaHelmet from "../../components/common/MetaHelmet";
 
 const Video = () => {
   const [fetchedData, setFetchedData] = React.useState(null);
@@ -50,6 +50,10 @@ const Video = () => {
 
   return (
     <>
+    <MetaHelmet
+      title={fetchedData?.title ? fetchedData.title : "Loading..."}
+    />
+
       <div className="m-2 lg:ml-5 relative">
         <div className="flex flex-col grow xl:flex-row lg:gap-2">
           <div className="flex flex-col grow items-center">

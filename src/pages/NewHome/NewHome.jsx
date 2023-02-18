@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { getLocal } from "../../components/utils/StorageUtils";
 import Loader from "../../components/utils/Loader/Loader";
 import Filter from "./Filter/Filter";
+import MetaHelmet from "../../components/common/MetaHelmet";
 
 const NewHome = () => {
   const [feed, setFeed] = useState([]);
@@ -60,6 +61,8 @@ const NewHome = () => {
   };
 
   return (
+    <>
+    <MetaHelmet title="Feed - ViewTube" />
     <div className=" w-fullbg-transparent relative flex overflow-hidden md:flex-row flex-col-reverse justify-between">
       <main
         className=" h-full max-w-[1920px] w-full flex flex-col relative overflow-hidden  justify-center overflow-y-scroll"
@@ -118,6 +121,7 @@ const NewHome = () => {
         </div>
       </main>
     </div>
+    </>
   );
 };
 export default NewHome;
