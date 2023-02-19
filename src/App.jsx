@@ -1,6 +1,8 @@
-import React, { useState, useEffect, lazy, Suspense } from "react";
+import React, {  lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 import NewHome from "./pages/NewHome/NewHome";
+import Theme from "./test";
 import Navbar from "./components/common/Navigation/Navbar";
 import SideBar from "./components/common/Navigation/Sidebar";
 import { getLocal } from "./components/utils/StorageUtils";
@@ -14,12 +16,8 @@ const Subscriptions = lazy(() => import ("./pages/Subscriptions/Subscriptions"))
 const Library = lazy(() => import ("./pages/Library/Library"));
 
 const App = () => {
-  const [theme, setTheme] = useState("light");
-
-  useEffect(() => {
-    const localTheme = localStorage.getItem("theme");
-    localTheme ? setTheme(localTheme) : setTheme("dark");
-  }, []);
+  const theme = useSelector((state) => state.theme);
+ 
 
   return (
     <div className={theme == "light" ? "" : "dark"}>
@@ -38,6 +36,7 @@ const App = () => {
                 <Route exact path="/preferences" element={<Preferences />} />
                 <Route exact path="/feed/subscriptions" element={<Subscriptions />} />
                 <Route exact path="/feed/library" element={<Library />} />
+                <Route exact path="/theme" element={<Theme />} />
 
                 {getLocal("token") ? <Route path="/" element={<NewHome />} /> : <Route path="/" element={<Home />} />}
               </Routes>

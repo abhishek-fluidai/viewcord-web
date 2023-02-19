@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { HiSearch } from "react-icons/hi";
-import { MdOutlineLightMode, MdOutlineNightlight } from "react-icons/md";
-import { CgPlayButtonO } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
-import { getLocal, setLocal } from "../../utils/StorageUtils";
+import ThemeSwitcher from "./extra/themeSwitcher";
+import logo from "../../../assets/brand/logo.svg"
+import logo_dark from "../../../assets/brand/logo_dark.svg"
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -19,10 +19,6 @@ const Navbar = () => {
     setSearchQuery(e.target.value);
   };
 
-  const switchDisplayMode = () => {
-    setLocal("theme", getLocal("theme") === "dark" ? "light" : "dark");
-    window.location.reload();
-  };
 
   return (
     <div className="w-full h-16 ">
@@ -32,7 +28,8 @@ const Navbar = () => {
             className="flex items-center justify-center text-slate-900 md:text-2xl font-bold dark:text-white cursor-pointer"
             onClick={() => navigate("/")}
           >
-            <CgPlayButtonO className="text-2xl mr-2" />| ViewCord
+            {/* <CgPlayButtonO className="text-2xl mr-2" />| ViewCord */}
+            <img src={logo_dark} alt="logo" className="h-8 w-8 mr-2" />| ViewCord
           </div>
           <div className="h-[42px] m-auto">
             <form
@@ -66,19 +63,7 @@ const Navbar = () => {
               className="sm:hidden text-neutral-800 dark:text-white cursor-pointer"
               size={24}
             />
-            {getLocal("theme") === "dark" ? (
-              <MdOutlineLightMode
-                className="text-black dark:text-white cursor-pointer "
-                size={24}
-                onClick={switchDisplayMode}
-              />
-            ) : (
-              <MdOutlineNightlight
-                className="text-black dark:text-white cursor-pointer "
-                size={24}
-                onClick={switchDisplayMode}
-              />
-            )}
+            <ThemeSwitcher />
           </div>
         </header>
       </div>
