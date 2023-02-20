@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { HiSearch } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import ThemeSwitcher from "./extra/themeSwitcher";
+import { useSelector } from "react-redux";
 import logo from "../../../assets/brand/logo.svg"
 import logo_dark from "../../../assets/brand/logo_dark.svg"
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
+  const theme = useSelector((state) => state.theme);
 
   const onKeyDownHandler = (e) => {
     searchQuery != ""
@@ -19,17 +21,16 @@ const Navbar = () => {
     setSearchQuery(e.target.value);
   };
 
-
   return (
     <div className="w-full h-16 ">
       <div className="w-full h-16  flex items-center relative justify-center">
         <header className="h-16 w-full flex px-5  relative bg-slate-200/80  dark:bg-slate-800 text-white justify-between">
           <div
-            className="flex items-center justify-center text-slate-900 md:text-2xl font-bold dark:text-white cursor-pointer"
+            className="flex items-center justify-center text-slate-900 md:text-xl font-bold dark:text-white cursor-pointer"
             onClick={() => navigate("/")}
           >
             {/* <CgPlayButtonO className="text-2xl mr-2" />| ViewCord */}
-            <img src={logo_dark} alt="logo" className="h-8 w-8 mr-2" />| ViewCord
+            {theme === "dark" ? <img src={logo_dark} alt="logo" className="h-8 w-8 mr-2" /> : <img src={logo} alt="logo" className="h-8 w-8 mr-2" />}| ViewCord
           </div>
           <div className="h-[42px] m-auto">
             <form

@@ -28,7 +28,7 @@ export const getSearchResults = async (query,filter) => {
 
 export const getNextPageSearchResults = async (query,filter,nextPage) => {
   return fetch(
-    `${baseDomain}/search?q=${query}&filter=${filter}&nextpage=${nextPage}`
+    `${baseDomain}/nextpage/search?nextpage=${nextPage}&q=${query}&filter=${filter}`
   ).then((response) => response.json());  
 }
 
