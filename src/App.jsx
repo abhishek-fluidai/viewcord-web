@@ -25,7 +25,7 @@ const App = () => {
       <Navbar className="flex-grow-0 " />
         <div className="flex flex-row m-0 p-0 min-w-full min-h-full ">
           <SideBar />
-          <div className="w-full max-w-[720px] sm:max-w-[1920px] h-[92vh] grow relative overflow-hidden ">
+          <div className="w-full max-w-[720px] sm:max-w-[1920px] h-[92vh] grow relative overflow-hidden overflow-y-scroll">
             <Suspense fallback={<div>Loading...</div>}>
               <Routes>
                 <Route exact path="/trending" element={<Home isTrending={true} />} />
