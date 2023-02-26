@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { VideoCard } from "../../components/utils/ContentCards/VideoCard/VideoCard";
 import { getTrending } from "../../components/common/FetchFuctions";
+import { getLocal } from "../../components/utils/StorageUtils";
 import MetaHelmet from "../../components/common/MetaHelmet";
 
 const Home = ({isTrending}) => {
   const [trending, setTrending] = useState([]);
 
   useEffect(() => {
-    getTrending("IN").then((data) => {
+    const country =  getLocal("country" ) || "IN";
+    getTrending(country).then((data) => {
       setTrending(data);
     });
   }, []);

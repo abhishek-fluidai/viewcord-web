@@ -32,7 +32,7 @@ const Channel = () => {
         <main className="w-full md:my-4 overflow-hidden  justify-center items-center">
           <div
             className=" md:max-w-7xl md:w-[96%] flex items-center justify-center relative"
-            style={{ margin: "0 auto" }}
+            style={{ margin: "0 auto", height: "236px" }}
           >
             <img
               src={channelData.bannerUrl}

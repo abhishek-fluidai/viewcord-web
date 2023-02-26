@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getVideo } from "../../components/common/FetchFuctions";
+import axios from "axios";
+import { getVideo, Get } from "../../components/common/FetchFuctions";
 import "./Video.css";
 import Player from "../../components/utils/VideoPlayer/VideoPlayer";
 import {useSearchParams, useNavigate} from 'react-router-dom'
@@ -16,6 +17,7 @@ const Video = () => {
   const [searchParams] = useSearchParams();
   const [source, setSource] = useState(null);
   const navigate = useNavigate();
+  const axiosCancelSource = axios.CancelToken.source();
 
   useEffect(() => {
     setLoading(true); 
@@ -35,9 +37,9 @@ const Video = () => {
     if (videoId == video_id) {
       return; 
     } 
-    const data = await getVideo(video_id);
-    setFetchedData(data);
-    const { videoStreams, audioStreams, duration  } = data;
+    const res = await Get(0,`streams/${video_id}`,{},axiosCancelSource.token)
+    setFetchedData(res.data);
+    const { videoStreams, audioStreams, duration  } = res.data;
     genrateDash([...videoStreams, ...audioStreams], duration);
     // console.log(data);
   }

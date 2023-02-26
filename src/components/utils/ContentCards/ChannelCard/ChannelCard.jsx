@@ -66,12 +66,21 @@ const SubscriptionCard = ({
   description,
   url,
   avatar,
+  handleSubscription,
   isSubscriptionPage,
 }) => {
+  const navigate = useNavigate();
   return (
     <div>
-      <div className="flex flex-row items-center w-full max-h-[9rem] justify-between md:justify-start p-4 py-6 gap-4">
-        <div className="flex flex-row items-center ">
+      <div className="flex lg:flex-col items-center w-full max-h-[9rem] justify-between  p-4 gap-4 px-2 "
+        style={{border: (isSubscriptionPage ? "1px solid #e5e5e5" : "none"),
+        borderRadius: "10px"
+      }}
+      >
+        <div className="flex flex-row items-center cursor-pointer"
+        
+              onClick={() => navigate(url)}
+        >
           <div className="flex flex-row items-center justify-between w-18  h-8 mr-2">
             <img
               className="rounded-full w-full h-full object-cover"
@@ -99,7 +108,9 @@ const SubscriptionCard = ({
           )}
         </div>
 
-        <div className="ml-4 bg-gray-200 dark:bg-gray-800 rounded-full px-3 py-2 text-xs text-gray-700 dark:text-gray-200 font-medium cursor-pointer">
+        <div className=" bg-gray-200 dark:bg-gray-800 rounded-md px-3 py-2 text-xs text-gray-700 dark:text-gray-200 font-medium cursor-pointer"
+        onClick={handleSubscription}
+        >
           <p>{isSubscriptionPage ? "Unsubscribe" : "Subscribe"}</p>
         </div>
         {/* </div> */}

@@ -1,4 +1,4 @@
-const baseDomain = localStorage.getItem("baseDomain") || "https://pipedapi.kavin.rocks";
+const baseDomain = localStorage.getItem("instance") || "https://pipedapi.kavin.rocks";
 import axios from "axios";
 
 export const Get = async (auth, url, params={}, cancelToken) => {
@@ -19,7 +19,7 @@ export const Get = async (auth, url, params={}, cancelToken) => {
       ...(auth
         ? {
             headers: {
-              Authorization: `${localStorage.getItem("access_token")}`,
+              Authorization: `${localStorage.getItem("token")}`,
               Accept: "application/json;charset=UTF-8",
             },
           }

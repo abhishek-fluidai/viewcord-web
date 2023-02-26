@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./VideoPlayer.css";
 import shaka from "shaka-player/dist/shaka-player.ui";
+import { getLocal } from "../StorageUtils";
 
 function Player({ src, captions, thumbnail, onVideoEnded }) {
   const uiContainerRef = useRef(null);
@@ -60,9 +61,9 @@ function Player({ src, captions, thumbnail, onVideoEnded }) {
         });
       }
 
-
+      const quality = getLocal("quality") || 360;
       for (const track of player.getVariantTracks()) {
-        if (track.height === 360) {
+        if (track.height === quality || track.height === quality + 1) {
           player.selectVariantTrack(track, true);
           break;
         }

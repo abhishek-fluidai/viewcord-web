@@ -23,8 +23,12 @@ const Library = () => {
     };
 
   return (
-    <div>
-      <h1>Library</h1>
+    <div
+      className="p-4"
+    >
+      <h3
+        className="text-5xl font-bold text-gray-800 text-center w-full md:text-left py-2 pb-4 dark:text-white/80"
+      >Library</h3>
         <div className="flex flex-col">
             {playlists?.map((playlist) => (
                 <PlaylistCard 

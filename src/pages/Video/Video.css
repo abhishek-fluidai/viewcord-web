@@ -1,7 +1,7 @@
 .player-container {
     position: relative;
     height: auto;
-    /* max-height: 580px; */
+    max-height: 580px;
     max-width: 1080px;
     width: calc(100% - 16px);
     margin:  0.7%;

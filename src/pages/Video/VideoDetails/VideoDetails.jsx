@@ -1,11 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ShowMoreText from "../../../components/common/TextContainer/TextContainer";
 import { AiFillDislike, AiFillLike } from "react-icons/ai";
 import { HiShare } from "react-icons/hi";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { RiPlayListAddFill, RiHeadphoneFill } from "react-icons/ri";
 import { formatDate, formatNumber } from "../../../components/utils/Formatters";
+import { Get, Post } from "../../../components/common/FetchFuctions";
 
 const VideoDetails = ({ fetchedData }) => {
+  const [subscription, setSubscription] = useState(null);
+  const axiosCancelSource = axios.CancelToken.source();
+  useEffect(() => {
+      const channelId = fetchedData?.uploaderUrl.split("/")[2];
+      if (channelId) {
+      Get(1,"subscribed",{
+        channelId: channelId,
+      },axiosCancelSource.token).then((res) => {
+        console.log(res.data.subscribed);
+        setSubscription(res.data.subscribed);
+      });
+    }
+  }, [fetchedData?.uploaderUrl]);
+
+  const handleSubscription = () => {
+   Post(1,(subscription ? "unsubscribe" : "subscribe"),{
+      channelId: fetchedData?.uploaderUrl.split("/")[2],
+    },axiosCancelSource.token).then((res) => {
+     res.status === 200 &&  setSubscription(prev => !prev);
+    });
+  }
+  const navigate = useNavigate();
   return (
     <div className="video-info xl:max-w-5xl w-full sm:mx-auto lg:mx-14 overflow-hidden mt-2">
       <h1 className="font-bold text-lg md:text-2xl  text-gray-800 dark:text-white  w-full overflow-ellipsis overflow-hidden mx-2">
@@ -49,12 +74,16 @@ const VideoDetails = ({ fetchedData }) => {
        
       </div>
 
-      <div className="flex items-center justify-between flex-row w-full sm:px-4 p-4 ">
-        <div className="flex items-center m-2 w-full ">
+      <div className="flex items-center justify-between flex-row w-full sm:px-4 p-4 "
+      >
+        <div className="flex items-center m-2 w-full cursor-pointer"
+        onClick={() => navigate(`${fetchedData?.uploaderUrl}`)}
+        >
           <img
             className="w-[42px] h-[42px] rounded-full mr-4 "
             src={fetchedData?.uploaderAvatar}
             alt="avatar"
+
           />
           <div>
             <p className=" dark:text-white text-neutral-800 font-medium text-sm md:text-lg ">
@@ -69,9 +98,9 @@ const VideoDetails = ({ fetchedData }) => {
           <div className="ml-4">
             <button
               className="bg-slate-800 dark:bg-grey-200 text-white  px-4 py-2 rounded-full text-sm md:text-md font-medium"
-              onClick={() => alert("Feature comming soon!")}
+              onClick={() => handleSubscription()}
             >
-              Subscribe
+              {subscription ? "Unsubscribe" : "Subscribe"}
             </button>
           </div>
       </div>

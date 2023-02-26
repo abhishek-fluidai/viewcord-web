@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { VideoCard } from "../../components/utils/ContentCards/VideoCard/VideoCard";
-import { getFeed, Get } from "../../components/common/FetchFuctions";
+import { Get } from "../../components/common/FetchFuctions";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getLocal } from "../../components/utils/StorageUtils";
