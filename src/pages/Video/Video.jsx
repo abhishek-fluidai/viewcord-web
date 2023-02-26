@@ -8,7 +8,7 @@ import dash from "../../components/utils/DashUtils";
 import VideoDetails from "./VideoDetails/VideoDetails";
 import VideoSidebar from "./VideoSidebar/VideoSidebar";
 import MetaHelmet from "../../components/common/MetaHelmet";
-
+import Dialog from "../../components/common/Dialog";
 const Video = () => {
   const [fetchedData, setFetchedData] = React.useState(null);
   const [videoId , setVideoId] = useState(null);
@@ -41,7 +41,6 @@ const Video = () => {
     setFetchedData(res.data);
     const { videoStreams, audioStreams, duration  } = res.data;
     genrateDash([...videoStreams, ...audioStreams], duration);
-    // console.log(data);
   }
   const genrateDash = async (raw_streams,duration) => {
     const genratedFile =  dash.generate_dash_file_from_formats(raw_streams,duration);
@@ -55,6 +54,8 @@ const Video = () => {
     <MetaHelmet
       title={fetchedData?.title ? fetchedData.title : "Loading..."}
     />
+          <Dialog />
+
 
       <div className="m-2 lg:ml-5 relative">
         <div className="flex flex-col grow xl:flex-row lg:gap-2">
@@ -76,6 +77,8 @@ const Video = () => {
           />
         </div>
       </div>
+
+
     </>
   );
 };

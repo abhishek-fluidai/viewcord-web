@@ -2,6 +2,7 @@ import MetaHelmet from "../../components/common/MetaHelmet";
 import Login from "./Login";
 import Select from "../../components/common/Select";
 import CountryMap from "../../components/common/CountryMap.json";
+import Quality from "./Quality";
 import { setLocal, getLocal } from "../../components/utils/StorageUtils";
 import Instance from "./Instance";
 
@@ -40,29 +41,8 @@ const Preferences = () => {
             ))}
           </Select>
 
-          {/* Quality section */}
-          <Select label="Quality">
-            {[144, 240, 360, 480, 720, 1080, 1440, 2160, 4320].map((res) => (
-              <option
-                key={res}
-                selected={
-                  getLocal("quality") == res
-                    ? true
-                    : getLocal("quality") === null && res == 360
-                    ? true
-                    : false
-                }
-                onClick={() => {
-                  setLocal("quality", res);
-                }}
-                onKeyDown={(e) => console.log(e)}
-              >
-                {res}p
-              </option>
-            ))}
-          </Select>
-
-          {/* Instance selection */}
+          <Quality />
+          
           <Instance />
 
         </div>

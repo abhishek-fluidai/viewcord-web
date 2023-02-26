@@ -7,9 +7,11 @@ import { useNavigate } from "react-router-dom";
 import { RiPlayListAddFill, RiHeadphoneFill } from "react-icons/ri";
 import { formatDate, formatNumber } from "../../../components/utils/Formatters";
 import { Get, Post } from "../../../components/common/FetchFuctions";
+import Dialog from "../../../components/common/Dialog";
 
 const VideoDetails = ({ fetchedData }) => {
   const [subscription, setSubscription] = useState(null);
+  const [openShare, setOpenShare] = useState(false);
   const axiosCancelSource = axios.CancelToken.source();
   useEffect(() => {
       const channelId = fetchedData?.uploaderUrl.split("/")[2];
@@ -17,7 +19,6 @@ const VideoDetails = ({ fetchedData }) => {
       Get(1,"subscribed",{
         channelId: channelId,
       },axiosCancelSource.token).then((res) => {
-        console.log(res.data.subscribed);
         setSubscription(res.data.subscribed);
       });
     }
@@ -67,9 +68,28 @@ const VideoDetails = ({ fetchedData }) => {
         </div>
 
         <div className="flex items-center flex-row gap-4 md:gap-8 flex-grow-1 w-full  p-2 justify-center lg:justify-end lg:pt-2 lg:pr-6">
-          <ButtonConstructor icon={<HiShare className="text-grey-800 dark:text-white" />} text="Share" />
+          <ButtonConstructor icon={<HiShare className="text-grey-800 dark:text-white" />} text="Share" 
+          action={() => setOpenShare(true)}
+          />
           <ButtonConstructor icon={<RiPlayListAddFill className="text-grey-800 dark:text-white" />} text="Save" />
           <ButtonConstructor icon={<RiHeadphoneFill className="text-grey-800 dark:text-white" />} text="Listen" />
+          <Dialog 
+          open={openShare}
+          onClose={() => setOpenShare(false)}
+          title="Share"
+          >
+            <div className="flex flex-col gap-2 items-center">
+             <input type="text" value={window.location.href} className="border w-full text-grey-200 dark:text-white/90 border-gray-300 dark:border-gray-700  p-2 dark:bg-slate-800 rounded-lg" 
+             
+             disabled/>
+             <button className="bg-slate-800 dark:bg-grey-200 text-white align-center  px-4 py-2 rounded-full text-sm md:text-md font-medium"
+              onClick={() => {
+                navigator.clipboard.writeText(window.location.href);
+                
+              }}
+              >Copy</button>
+             </div>
+          </Dialog>
         </div>
        
       </div>
@@ -112,12 +132,14 @@ const VideoDetails = ({ fetchedData }) => {
   );
 };
 
-const ButtonConstructor = ({ icon, text }) => (
+const ButtonConstructor = ({ icon, text, action }) => (
   <button
     className="flex items-center gap-2 text-gray-600 dark:text-white/60 text-lg ring-1 
     ring-gray-600 ring-white/100 ring-opacity-50  md:ring-0 group hover:ring-1 hover:ring-gray-600 dark:hover:ring-white/100 hover:ring-opacity-50 rounded-full px-4 py-1
     "
-    onClick={() => alert("Feature comming soon!")}
+    onClick={action ?
+      () => action()
+      :() => alert("Feature comming soon!")}
   >
     {icon}
     <p className="text-gray-600 dark:text-white/90 text-sm md:text-lg group-hover:text-gray-800 dark:group-hover:text-white/100 transition duration-200 ease-in-out">
@@ -125,6 +147,7 @@ const ButtonConstructor = ({ icon, text }) => (
     </p>
   </button>
 )
+
 
 
 export default VideoDetails;

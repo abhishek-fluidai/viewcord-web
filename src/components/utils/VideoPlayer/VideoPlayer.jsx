@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./VideoPlayer.css";
 import shaka from "shaka-player/dist/shaka-player.ui";
-import { getLocal } from "../StorageUtils";
+import { useSelector } from "react-redux";
 
 function Player({ src, captions, thumbnail, onVideoEnded }) {
   const uiContainerRef = useRef(null);
@@ -9,6 +9,7 @@ function Player({ src, captions, thumbnail, onVideoEnded }) {
   const [currentTime, setCurrentTime] = useState(0)
   const [player, setPlayer] = useState(null);
   const [ui, setUi] = useState(null);
+  const quality = useSelector((state) => state.preference.quality);
 
   useEffect(() => {
     const player = new shaka.Player(videoRef.current);
@@ -61,9 +62,8 @@ function Player({ src, captions, thumbnail, onVideoEnded }) {
         });
       }
 
-      const quality = getLocal("quality") || 360;
       for (const track of player.getVariantTracks()) {
-        if (track.height === quality || track.height === quality + 1) {
+        if (track.height == quality || track.height === quality + 1) {
           player.selectVariantTrack(track, true);
           break;
         }
@@ -87,7 +87,7 @@ function Player({ src, captions, thumbnail, onVideoEnded }) {
         className="player-loading-overlay bg-slate-700"
         style={{ display: src && "none" }}
       >
-        <div className=" pac-man"></div>
+        <div className="pac-man"></div>
       </div>
       <video
         ref={videoRef}

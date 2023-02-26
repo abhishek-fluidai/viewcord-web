@@ -2,12 +2,14 @@ import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import Select from "../../components/common/Select";
-import { setLocal, getLocal } from "../../components/utils/StorageUtils";
-
+import { useSelector, useDispatch } from "react-redux";
+import { switchInstance } from "../../redux/preference";
 const Instance = () => {
     const [instances, setInstances] = React.useState(null);
     const [toggleList, setToggleList] = React.useState(false);
+    const instance = useSelector((state) => state.preference.instance);
 
+    const dispatch = useDispatch();
     useEffect(() => {
         if (toggleList) {
             fetchInstances();
@@ -48,21 +50,24 @@ const Instance = () => {
     return (
         <div className="flex flex-col justify-center items-center h-full"
         onClick={() => {
-            setToggleList(prev => !prev);
+            setToggleList(true);
         }}
         >
 
-        <Select label="Default Instance"
-         
-        >
-            <option>{getLocal("instanceName") ?? "kavin.rocks"}</option>
-            {toggleList ?  (instances && instances.map(instance => (
-            <option key={instance.name} 
+        <Select label="Default Instance">
+            <option>
+                {instance.name}
+            </option>
+            {toggleList ?  (instances && instances.map(cur => (
+            <option key={cur.name} 
             onClick = {() => {
-                setLocal("instance", instance.apiurl);
-                setLocal("instanceName", instance.name);
+               dispatch(switchInstance({
+                     name: cur.name,
+                     url : cur.apiurl,
+               }));
+               window.location.reload();
             }}            
-            >{instance.name}</option>
+            >{cur.name}</option>
             )))
             :<span>Loading..</span>
             }
