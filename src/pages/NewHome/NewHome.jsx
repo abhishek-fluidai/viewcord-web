@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { VideoCard } from "../../components/utils/ContentCards/VideoCard/VideoCard";
-import { getFeed } from "../../components/common/FetchFuctions";
+import { getFeed, Get } from "../../components/common/FetchFuctions";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { getLocal } from "../../components/utils/StorageUtils";
 import Loader from "../../components/utils/Loader/Loader";
 import Filter from "./Filter/Filter";
@@ -17,10 +18,21 @@ const NewHome = () => {
   const [filter, setFilter] = useState("all");
   const navigate = useNavigate();
   const containerRef = useRef(null);
+  const axiosCancelSource = axios.CancelToken.source()
 
+
+ 
   useEffect(() => {
     if (feed === undefined || feed.length === 0) {
-      getFeedData();
+      setIsLoading(true);
+      Get(0,"feed",{
+        authToken: getLocal("token"),
+      }, 
+      axiosCancelSource.token
+      ).then((res) => {
+        setFeed(res.data);
+        setIsLoading(false);
+      });
     }
 
     function handleResize() {
@@ -31,18 +43,6 @@ const NewHome = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  const getFeedData = () => {
-    const token = getLocal("token");
-    if (token) {
-      setIsLoading(true);
-      getFeed(token).then((res) => {
-        console.log(res[0]);
-        setFeed(res);
-        setIsLoading(false);
-      });
-    }
-  };
 
   function handleScroll() {
     const container = containerRef.current;
@@ -70,7 +70,7 @@ const NewHome = () => {
         </div>
         <div className="h-full max-w-[1920px] w-full p-2 px-4 flex flex-wrap items-start justify-center rounded-tl grid-flow-col auto-cols-max gap-6 md:gap-4 ">
           {feed &&
-            feed.map((video, index) => {
+            feed?.map((video, index) => {
               if (
                 index < limit &&
                 (filter == "all"

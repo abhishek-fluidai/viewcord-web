@@ -1,4 +1,84 @@
 const baseDomain = localStorage.getItem("baseDomain") || "https://pipedapi.kavin.rocks";
+import axios from "axios";
+
+export const Get = async (auth, url, params={}, cancelToken) => {
+  let newData;
+  try {
+    if (params instanceof FormData) {
+      newData = params;
+    } else {
+      newData = { ...params}
+    }
+  } catch (e) {
+    newData = { ...params};
+  }
+  return new Promise((resolve, reject) => {
+    axios({
+      url: `${baseDomain}/${url}`,
+      method: "GET",
+      ...(auth
+        ? {
+            headers: {
+              Authorization: `${localStorage.getItem("access_token")}`,
+              Accept: "application/json;charset=UTF-8",
+            },
+          }
+        : {}),
+      params: newData,
+      ...(cancelToken?{cancelToken}:{}),
+    })
+      .then((response) => {
+        resolve(response);
+      })
+      .catch(async (e) => {
+          console.error(e)
+          reject(e);
+      });
+  });
+};
+
+export const Post = async (auth, url, data={}, cancelToken) => {
+  let newData 
+  try {
+    if (data instanceof FormData) {
+      newData = data;
+    } else {
+      newData = { ...data}
+    }
+  } catch (e) {
+    newData = { ...data};
+  }
+
+  return new Promise((resolve, reject) => {
+    axios({
+      url: `${baseDomain}/${url}`,
+      method: "POST",
+      ...(auth
+        ? {
+            headers: {
+              Authorization: `${localStorage.getItem("token")}`,
+              Accept: "application/json;charset=UTF-8",
+            },
+          }
+        : {
+            headers: {
+              Accept: "application/json",
+            },
+          }),
+      data: newData,
+      ...(cancelToken?{cancelToken}:{}),
+    })
+      .then((response) => {
+        resolve(response);
+      })
+      .catch(async (e) => {
+        console.log(e);
+        alert(e.response.data.error);
+        reject(e);
+      });
+  })
+};
+
 
 export const getVideo = async (id) => {
     return  fetch(
