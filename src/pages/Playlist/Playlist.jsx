@@ -3,7 +3,7 @@ import { useEffect , useState} from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getPlaylist } from '../../components/common/FetchFuctions';
 import { SideBarVideoCard } from '../../components/utils/ContentCards/VideoCard/VideoCard';
-
+import { Loader } from '../../components/common/Loader/Loader';
 let data = {
   "name": "React",
   "thumbnailUrl": "https://pipedproxy.kavin.rocks/vi/1wZoGFF_oi4/hqdefault.jpg?sqp=-oaymwEWCKgBEF5IWvKriqkDCQgBFQAAiEIYAQ==&rs=AOn4CLCRwXqkdoRgHO5607t0XDILdavimQ&host=i.ytimg.com",
@@ -18,6 +18,7 @@ let data = {
 
 const Playlist = () => {
   const [fetchedData, setFetchedData] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [searchParams] = useSearchParams();
 
   useEffect(() => {

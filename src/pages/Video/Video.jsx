@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, lazy, Suspense } from "react";
 import axios from "axios";
-import { getVideo, Get } from "../../components/common/FetchFuctions";
+import { Get } from "../../components/common/FetchFuctions";
 import "./Video.css";
 import Player from "../../components/utils/VideoPlayer/VideoPlayer";
 import {useSearchParams, useNavigate} from 'react-router-dom'
 import dash from "../../components/utils/DashUtils";
-import VideoDetails from "./VideoDetails/VideoDetails";
-import VideoSidebar from "./VideoSidebar/VideoSidebar";
+// import VideoDetails from "./VideoDetails/VideoDetails";
+// import VideoSidebar from "./VideoSidebar/VideoSidebar";
+const VideoDetails = lazy(() => import("./VideoDetails/VideoDetails"));
+const VideoSidebar = lazy(() => import("./VideoSidebar/VideoSidebar"));
 import MetaHelmet from "../../components/common/MetaHelmet";
-import Dialog from "../../components/common/Dialog";
+// import Dialog from "../../components/common/Dialog";
+const Dialog = lazy(() => import("../../components/common/Dialog"));
+import { useDispatch } from "react-redux";
+import { switchLoaderState } from "../../redux/loader";
+
 const Video = () => {
   const [fetchedData, setFetchedData] = React.useState(null);
   const [videoId , setVideoId] = useState(null);
@@ -17,10 +23,14 @@ const Video = () => {
   const [searchParams] = useSearchParams();
   const [source, setSource] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const axiosCancelSource = axios.CancelToken.source();
+
 
   useEffect(() => {
     setLoading(true); 
+    setFetchedData(null);
+    dispatch(switchLoaderState(true));
     setVideoEnded(false);
     const video_id = searchParams.get('v');
     setVideoId(video_id);
@@ -46,6 +56,7 @@ const Video = () => {
     const genratedFile =  dash.generate_dash_file_from_formats(raw_streams,duration);
     let data = "data:text/xml;charset=utf-8," + encodeURIComponent(genratedFile)
     setSource(data)
+    dispatch(switchLoaderState(false));
     setLoading(false);
   };
 
@@ -57,9 +68,8 @@ const Video = () => {
           <Dialog />
 
 
-      <div className="m-2 lg:ml-5 relative">
-        <div className="flex flex-col grow xl:flex-row lg:gap-2">
-          <div className="flex flex-col grow items-center">
+      <div className="relative box-border">
+        <div className="grid max-w-full  grid-flow-row xl:gap-4">
             <div className="player-container">
               {/* {loading && <Loader />} */}
               <Player
@@ -69,12 +79,16 @@ const Video = () => {
                 onVideoEnded={() => setVideoEnded(true)}
               />
             </div>
-            <VideoDetails fetchedData={fetchedData} />
-          </div>
-          <VideoSidebar
-            loading={loading}
-            streams={fetchedData?.relatedStreams}
-          />
+        <div className="flex  grow items-start  ">
+            <Suspense fallback={<div>Loading...</div>}>
+              <VideoDetails fetchedData={fetchedData} />
+            </Suspense>
+         <Suspense fallback={<div>Loading...</div>}>
+          <VideoSidebar 
+          loading={loading}
+          streams={fetchedData?.relatedStreams} />
+          </Suspense>
+        </div>
         </div>
       </div>
 

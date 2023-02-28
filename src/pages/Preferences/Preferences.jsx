@@ -5,8 +5,11 @@ import CountryMap from "../../components/common/CountryMap.json";
 import Quality from "./Quality";
 import { setLocal, getLocal } from "../../components/utils/StorageUtils";
 import Instance from "./Instance";
+import { useDispatch } from "react-redux";
+import { switchLoaderState } from "../../redux/loader";
 
 const Preferences = () => {
+  const dispatch = useDispatch();
   return (
     <>
       <MetaHelmet title="Preferences" />
@@ -40,11 +43,15 @@ const Preferences = () => {
               </option>
             ))}
           </Select>
-
           <Quality />
-          
           <Instance />
-
+                <button className="w-full md:w-1/2 bg-blue-500 text-white font-bold py-2 px-4 rounded-full"
+                onClick={() => {
+                  dispatch(switchLoaderState(true));
+                }}
+                >
+                    Save
+               </button>
         </div>
       </div>
     </>

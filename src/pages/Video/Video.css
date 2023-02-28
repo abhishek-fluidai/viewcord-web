@@ -1,14 +1,23 @@
 .player-container {
     position: relative;
-    height: auto;
-    max-height: 580px;
-    max-width: 1080px;
-    width: calc(100% - 16px);
-    margin:  0.7%;
+    max-height: 75vh;
+    min-height: 16rem;
+    width: calc(100% - 5%) !important;
+    margin: 0.8% auto;
+    /* width: 95vw !important; */
+    background-color: rgba(0,0,0,var(--un-bg-opacity));
+    /* margin:  0.7%; */
     overflow: hidden;
     background-color: #000;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.player-container video {
+    /* width: calc(100vw - 1.4%) !important; */
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
 

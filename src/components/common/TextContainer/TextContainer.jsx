@@ -73,7 +73,7 @@ const ShowMoreText = ({ text, limit }) => {
           className="overflow-hidden overflow-ellipsis "
           style={{
             display: "-webkit-box",
-            webkitBoxOrient: "vertical",
+            WebkitBoxOrient: "vertical",
             WebkitLineClamp: 3,
           }}
         >

@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 function Player({ src, captions, thumbnail, onVideoEnded }) {
   const uiContainerRef = useRef(null);
   const videoRef = useRef(null);
-  const [currentTime, setCurrentTime] = useState(0)
+  // const [currentTime, setCurrentTime] = useState(0)
   const [player, setPlayer] = useState(null);
   const [ui, setUi] = useState(null);
   const quality = useSelector((state) => state.preference.quality);
@@ -77,6 +77,8 @@ function Player({ src, captions, thumbnail, onVideoEnded }) {
 
   useEffect(() => {
     if (player && src) {
+      videoRef?.current?.setAttribute("poster", "");
+
       loadVideo(src);
     }
   }, [player, src]);
@@ -98,10 +100,9 @@ function Player({ src, captions, thumbnail, onVideoEnded }) {
         // }}
         onEnded={onVideoEnded}
         style={{
-          maxWidth: "1080px",
           width: "100%",
           height: "100%",
-          maxHeight: "548px",
+          maxHeight: "100%",
         }}
       />
     </div>

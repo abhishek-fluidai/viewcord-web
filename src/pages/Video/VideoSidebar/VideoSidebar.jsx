@@ -4,9 +4,9 @@ import PlaylistCard from "../../../components/utils/ContentCards/PlaylistCard/Pl
 
 const VideoSidebar = ({ streams, loading }) => {
   return (
-    <div className="m-2 grow xl:max-w-[600px] xl:w-[40%] w-full">
+    <div className="m-2 grow ">
       {/* <div> */}
-      <div className="flex flex-col grow gap-2 " >
+      <div className="flex flex-col grow gap-2   items-center justify-center " >
         {streams &&
           streams.map((stream, index) => {
             switch (stream.type) {

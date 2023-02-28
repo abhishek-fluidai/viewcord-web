@@ -124,7 +124,7 @@ export const SideBarVideoCard = ({
             className="text-natural-700 dark:text-white group-hover:text-natural-900 dark:group-hover:text-slate-200 rounded-md text-md overflow-hidden overflow-ellipsis "
             style={{
               display: "-webkit-box",
-              webkitBoxOrient: "vertical",
+              WebkitBoxOrient: "vertical",
               WebkitLineClamp: 2,
             }}
             onClick={() => navigate(url)}
