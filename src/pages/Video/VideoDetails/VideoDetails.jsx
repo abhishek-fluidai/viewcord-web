@@ -33,7 +33,7 @@ const VideoDetails = ({ fetchedData }) => {
   }
   const navigate = useNavigate();
   return (
-    <div className="video-info xl:max-w-4xl w-full sm:mx-auto md:mx-4 overflow-hidden mt-2">
+    <div className="video-info max-w-4xl w-full sm:mx-auto md:mx-4 md:mr-2 overflow-hidden mt-2">
       <h1 className="font-bold text-lg md:text-2xl  text-gray-800 dark:text-white  w-full overflow-ellipsis overflow-hidden mx-2">
         {fetchedData?.title}
       </h1>

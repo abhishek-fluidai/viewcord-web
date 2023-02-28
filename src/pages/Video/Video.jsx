@@ -9,6 +9,7 @@ import dash from "../../components/utils/DashUtils";
 // import VideoSidebar from "./VideoSidebar/VideoSidebar";
 const VideoDetails = lazy(() => import("./VideoDetails/VideoDetails"));
 const VideoSidebar = lazy(() => import("./VideoSidebar/VideoSidebar"));
+const VideoComments = lazy(() => import("./VideoComments/VideoComments"));
 import MetaHelmet from "../../components/common/MetaHelmet";
 // import Dialog from "../../components/common/Dialog";
 const Dialog = lazy(() => import("../../components/common/Dialog"));
@@ -79,10 +80,15 @@ const Video = () => {
                 onVideoEnded={() => setVideoEnded(true)}
               />
             </div>
-        <div className="flex  grow items-start  ">
-            <Suspense fallback={<div>Loading...</div>}>
+        <div className="flex  items-start gap-2  ">
+           {/* <div className="flex flex-col flex- flex-grow "> */}
+           <Suspense fallback={<div>Loading...</div>}>
               <VideoDetails fetchedData={fetchedData} />
             </Suspense>
+            {/* <Suspense fallback={<div>Loading...</div>}>
+              <VideoComments fetchedData={fetchedData} />
+            </Suspense> */}
+          {/* </div> */}
          <Suspense fallback={<div>Loading...</div>}>
           <VideoSidebar 
           loading={loading}
