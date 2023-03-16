@@ -66,11 +66,10 @@ const Video = () => {
     <MetaHelmet
       title={fetchedData?.title ? fetchedData.title : "Loading..."}
     />
-          <Dialog />
-
-
+     <Dialog />
       <div className="relative box-border">
-        <div className="grid max-w-full  grid-flow-row xl:gap-4">
+        <div className="flex  xl:gap-4 flex-col lg:flex-row">
+        <div className="flex lg:w-[70%] flex-col items-start gap-2">
             <div className="player-container">
               {/* {loading && <Loader />} */}
               <Player
@@ -80,15 +79,12 @@ const Video = () => {
                 onVideoEnded={() => setVideoEnded(true)}
               />
             </div>
-        <div className="flex  items-start gap-2  ">
-           {/* <div className="flex flex-col flex- flex-grow "> */}
-           <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<div>Loading...</div>}>
               <VideoDetails fetchedData={fetchedData} />
             </Suspense>
-            {/* <Suspense fallback={<div>Loading...</div>}>
-              <VideoComments fetchedData={fetchedData} />
-            </Suspense> */}
-          {/* </div> */}
+          </div>
+
+        <div className="flex  items-start gap-2  ">
          <Suspense fallback={<div>Loading...</div>}>
           <VideoSidebar 
           loading={loading}

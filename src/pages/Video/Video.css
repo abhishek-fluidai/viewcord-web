@@ -1,7 +1,6 @@
 .player-container {
     position: relative;
-    max-height: 75vh;
-    min-height: 16rem;
+    height: auto;
     width: calc(100% - 5%) !important;
     margin: 0.8% auto;
     /* width: 95vw !important; */
