@@ -24,7 +24,7 @@ const Sidebar = () => {
 };
 
 const SideBarIcon = ({ icon, url , ishome}) => (
-  <NavLink {...(ishome ? "exact" : "")} to={url} activeClassName="active">
+  <NavLink {...(ishome ? "exact" : "")} to={url} activeclassname="active">
     <div className="sidebar-icon group">
       {icon}
     </div>
