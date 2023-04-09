@@ -22,7 +22,7 @@ export const VideoCard = ({
   const navigate = useNavigate();
 
   return (
-    <div className=" max-h-[18rem] md:h-[248px] max-w-[18rem] h-[250px] rounded-lg md:m-2 relative flex flex-col flex-shrink-0 bg-white dark:bg-slate-800 flex-grow  cursor-pointer hover:scale-105 transition-all overflow-x-hidden">
+    <div className="sm:max-h-[18rem] w-full sm:max-w-[18rem] md:h-[250px] rounded-lg md:m-2 relative flex flex-col flex-shrink-0 bg-white dark:bg-slate-800 flex-grow  cursor-pointer hover:scale-105 transition-all overflow-x-hidden">
       <div
         className="relative w-full h-[70%] aspect-video top-0 rounded-md"
         onClick={() => navigate(url)}
@@ -100,7 +100,7 @@ export const SideBarVideoCard = ({
       >
         <img
           className="w-full h-full  rounded-lg object-cover 
-          transition-all group-hover:scale-105"
+          transition-all "
           src={thumbnail}
         />
         <div className="absolute bottom-0 left-0 w-full h-full ">

@@ -69,8 +69,8 @@ const Video = () => {
     />
      <Dialog />
       <div className="relative box-border">
-        <div className="flex  xl:gap-4 flex-col lg:flex-row">
-        <div className="flex lg:w-[70%] flex-col items-start gap-2">
+        <div className="video-page">
+        <div className="flex flex-col items-start gap-2">
             <div className="player-container">
               {/* {loading && <Loader />} */}
               <Player

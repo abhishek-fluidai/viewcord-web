@@ -28,7 +28,7 @@ const App = () => {
           <SideBar />
           <div className="flex flex-col w-full h-full">
           <SmallLoader />
-          <div className="w-full max-w-[720px] sm:max-w-[1920px] h-full relative overflow-hidden overflow-y-scroll">
+          <div className="w-full max-w-[720px] sm:max-w-[1920px] h-full relative overflow-hidden overflow-y-scroll pb-[75px] ">
             <Suspense fallback={ <Loader />    }>
               <Routes>
                 <Route exact path="/trending" element={<Home isTrending={true} />} />

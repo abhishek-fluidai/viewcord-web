@@ -3,7 +3,6 @@
     height: auto;
     width: calc(100% - 5%) !important;
     margin: 0.8% auto;
-    /* width: 95vw !important; */
     background-color: rgba(0,0,0,var(--un-bg-opacity));
     /* margin:  0.7%; */
     overflow: hidden;
@@ -11,12 +10,25 @@
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
+.video-page {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+
+}
+
 
 .player-container video {
-    /* width: calc(100vw - 1.4%) !important; */
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
+}
+
+
+@media screen and (max-width: 1280px) {
+    .video-page {
+        grid-template-columns: 1fr;
+        row-gap: 28px;
+    }
 }
 
 
