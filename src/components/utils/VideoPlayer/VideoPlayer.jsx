@@ -46,11 +46,11 @@ function Player({ src, captions, thumbnail, onVideoEnded }) {
   // }, [player, config]);
 
   // Load the source url when we have one.
-  const loadVideo = async (uri) => {
+  const loadVideo = () => {
     try {
       videoRef?.current?.setAttribute("poster", thumbnail);
       // let storedTime = localStorage.getItem('currentTime');
-      await player.load(uri,  0, "application/dash+xml");
+      player.load(src,  0, "application/dash+xml");
       if (captions) {
         captions.forEach((caption) => {
           player.addTextTrackAsync(
@@ -98,6 +98,11 @@ function Player({ src, captions, thumbnail, onVideoEnded }) {
         //   let time = e.target.currentTime
         //   localStorage.setItem('currentTime', time);
         // }}
+        onError={(e) => {
+          console.log(e);
+          // window.location.reload();
+        }
+        }
         onEnded={onVideoEnded}
         style={{
           width: "100%",

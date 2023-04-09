@@ -72,7 +72,7 @@ const Channel = () => {
           </div>
 
           <div className=" md:max-w-7xl md:w-[96%] mx-auto w-full flex flex-col md:flex-row justify-center items-center relative p-4 bg-gray-200 dark:bg-slate-800">
-            <div class="flex overflow-x-auto overflow-y-hidden  whitespace-nowrap ">
+            <div className="flex overflow-x-auto overflow-y-hidden  whitespace-nowrap ">
               <ChannelTabs name="home"  active={activeTab} setActive={(e) => setActiveTab(e)} />
               {channelData?.tabs?.map((tab) => (
                 <ChannelTabs name={tab.name} active={activeTab} setActive={(e) => setActiveTab(e)}/>
@@ -131,7 +131,7 @@ const Channel = () => {
 
 const ChannelTabs = ({ name, active, setActive }) => {
   return (
-    <button class={["inline-flex items-center h-10 px-6 -mb-px text-sm text-center text-slate-700  border-0 bg-transparent hover:border-b-2 hover:border-slate-800 sm:text-base dark:hover:border-white/80 transition-all outline-none dark:text-white whitespace-nowrap focus:outline-none capitalize ", (active == name ? "border-b-2 border-white " : "")].join(" ")}
+    <button className={["inline-flex items-center h-10 px-6 -mb-px text-sm text-center text-slate-700  border-0 bg-transparent hover:border-b-2 hover:border-slate-800 sm:text-base dark:hover:border-white/80 transition-all outline-none dark:text-white whitespace-nowrap focus:outline-none capitalize ", (active == name ? "border-b-2 border-white " : "")].join(" ")}
     onClick={() => setActive(name)}
     >
       {name}

@@ -50,13 +50,14 @@ const Video = () => {
     } 
     const res = await Get(0,`streams/${video_id}`,{},axiosCancelSource.token)
     setFetchedData(res.data);
-    const { videoStreams, audioStreams, duration  } = res.data;
+    let { videoStreams, audioStreams, duration  } = res.data;
+    videoStreams= videoStreams.filter(stream => stream.format === "WEB_M" || stream.format === "MPEG_4");
     genrateDash([...videoStreams, ...audioStreams], duration);
   }
   const genrateDash = async (raw_streams,duration) => {
     const genratedFile =  dash.generate_dash_file_from_formats(raw_streams,duration);
-    let data = "data:text/xml;charset=utf-8," + encodeURIComponent(genratedFile)
-    setSource(data)
+    // let data = "data:text/xml;charset=utf-8," + encodeURIComponent(genratedFile)
+    setSource("data:application/dash+xml;charset=utf-8;base64," + btoa(genratedFile))
     dispatch(switchLoaderState(false));
     setLoading(false);
   };
