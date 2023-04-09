@@ -17,9 +17,9 @@ const Home = ({isTrending}) => {
   return (
     <>
   <MetaHelmet title={isTrending ? "Trending" : "Home"} />
-    <div className=" w-fullbg-transparent relative flex overflow-hidden md:flex-row flex-col-reverse justify-between">
-      <main className="max-w-full h-full flex relative overflow-y-hidden  justify-center">
-        <div className="h-full max-w-[1920px]  w-full mx-2 p-2 flex flex-wrap items-start justify-center rounded-tl grid-flow-col auto-cols-max gap-3 md:gap-4 overflow-y-scroll">
+    <div className=" w-full bg-transparent relative flex   md:flex-row flex-col-reverse justify-between">
+      <main className="max-w-full h-full flex relative  justify-center">
+        <div className="h-full max-w-[1920px]  w-full mx-2 p-2 flex flex-wrap items-start justify-center rounded-tl grid-flow-col auto-cols-max gap-3 md:gap-4 ">
           {trending.map((video) => (
             <VideoCard
               key={video.id}

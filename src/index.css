@@ -22,6 +22,7 @@
 }
 body {
   margin: 0;
+  height: 100dvh
 }
 
 .video__card__title {
