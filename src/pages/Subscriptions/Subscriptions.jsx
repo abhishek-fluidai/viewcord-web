@@ -16,10 +16,17 @@ const Subscriptions = () => {
         setIsLoading(false);
         return;
       }
-      const res = await Get(1,"subscriptions",{});
-      console.log(res);
-      setSubscriptions(res.data);
-      setIsLoading(false);
+      try {
+        const res = await Get(1,"subscriptions",{});
+        console.log(res);
+        setSubscriptions(res.data);
+      }
+      catch (err) {
+        console.log(err);
+      }
+      finally {
+        setIsLoading(false);
+      }
     }
     getSubscriptionsData();
   }, [])
@@ -43,7 +50,7 @@ const Subscriptions = () => {
       >Subscriptions</h1>
       <div className="grid lg:grid-cols-5 gap-4 m-4">
         {isLoading && <Loader />}
-        {!isLoading && subscriptions.map((channel) => (
+        {!isLoading && subscriptions?.map((channel) => (
           <SubscriptionCard key={channel.id} {...channel}
           handleSubscription={() =>  handleSubscription(channel.url)}
             isSubscriptionPage={true} />
