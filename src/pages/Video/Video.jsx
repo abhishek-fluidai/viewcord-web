@@ -5,16 +5,14 @@ import "./Video.css";
 import Player from "../../components/utils/VideoPlayer/VideoPlayer";
 import {useSearchParams, useNavigate} from 'react-router-dom'
 import dash from "../../components/utils/DashUtils";
-// import VideoDetails from "./VideoDetails/VideoDetails";
-// import VideoSidebar from "./VideoSidebar/VideoSidebar";
 const VideoDetails = lazy(() => import("./VideoDetails/VideoDetails"));
 const VideoSidebar = lazy(() => import("./VideoSidebar/VideoSidebar"));
 const VideoComments = lazy(() => import("./VideoComments/VideoComments"));
 import MetaHelmet from "../../components/common/MetaHelmet";
-// import Dialog from "../../components/common/Dialog";
 const Dialog = lazy(() => import("../../components/common/Dialog"));
 import { useDispatch } from "react-redux";
 import { switchLoaderState } from "../../redux/loader";
+import useKeyPress from "../../components/utils/useKeyPress";
 
 const Video = () => {
   const [fetchedData, setFetchedData] = React.useState(null);
@@ -26,6 +24,63 @@ const Video = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const axiosCancelSource = axios.CancelToken.source();
+  const playerRef= React.useRef(null);
+
+  const handleKeyPress = (e) => {
+    e.preventDefault();
+   switch(e.key){
+      case 'p':
+      case ' ':
+        if(playerRef.current){
+          playerRef.current.paused ? playerRef.current.play() : playerRef.current.pause();
+        }
+        break;
+      // case 'f':
+      //   if(playerRef.current){
+      //       // check if in fullscreen mode
+      //     document.fullscreenElement ? document.exitFullscreen() : (playerRef.current.requestFullscreen ? playerRef.current.requestFullscreen() : playerRef.current.webkitRequestFullscreen());
+      //   }
+      //   break;
+      // case 'c':
+      //   if(playerRef.current){
+      //     // toggle captions
+      //     playerRef.current.textTracks[0].mode === "showing" ? playerRef.current.textTracks[0].mode = "hidden" : playerRef.current.textTracks[0].mode = "showing";
+      //   }
+      //   break;
+      case 'ArrowLeft':
+        if(playerRef.current){
+          playerRef.current.currentTime -= 10;
+        }
+        break;
+      case 'ArrowRight':
+        if(playerRef.current){
+          playerRef.current.currentTime += 10;
+        }
+        break;
+      case 'ArrowUp':
+        if(playerRef.current){
+          playerRef.current.volume += 0.1;
+        }
+        break;
+      case 'ArrowDown':
+        if(playerRef.current){
+          playerRef.current.volume -= 0.1;
+          // alert(playerRef.current.volume);
+          //Todo: add volume bar
+          // Show alert with v
+        }
+        break;
+      case 'm':
+        if(playerRef.current){
+          playerRef.current.muted = !playerRef.current.muted;
+        }
+        break;
+
+     default:
+        break;
+    }
+  };
+  useKeyPress(['p', ' ','f','c','m','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'],handleKeyPress);
 
 
   useEffect(() => {
@@ -36,6 +91,10 @@ const Video = () => {
     const video_id = searchParams.get('v');
     setVideoId(video_id);
     FetchVideoURL(video_id);
+    // window.addEventListener("keydown", e => {
+    //   console.log(e);
+    // }
+    // );
   }, [searchParams.get("v")]);
 
   useEffect(() => {
@@ -76,6 +135,7 @@ const Video = () => {
               <Player
                 src={source}
                 captions={fetchedData?.subtitles}
+                playerRef={playerRef}
                 thumbnail={fetchedData?.thumbnailUrl}
                 onVideoEnded={() => setVideoEnded(true)}
               />

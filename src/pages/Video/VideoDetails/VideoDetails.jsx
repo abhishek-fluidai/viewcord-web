@@ -39,7 +39,7 @@ const VideoDetails = ({ fetchedData }) => {
       </h1>
       <div className="flex flex-col lg:flex-row justify-between items-start  lg:border-b-[1px]   lg:border-zinc-100/10  lg:pt-2 lg:pb-1 "
       >
-        <div className="flex items-center flex-row gap-2 justify-between flex-shrink-1  w-full px-2 pr-4">
+        <div className="flex items-center flex-row gap-2 justify-between flex-shrink-1  w-full  pr-4">
         <div className="flex items-center  justify-center flex-row gap-2  px-2 ">
         <p className="text-gray-600 dark:text-white/80 text-sm md:text-lg ">
           {formatDate(fetchedData?.uploadDate)}
@@ -125,7 +125,9 @@ const VideoDetails = ({ fetchedData }) => {
           </div>
       </div>
     
-      <p className="text-grey-600 dark:text-white max-w-5xl mx-auto whitespace-pre-wrap text-sm md:text-lg ">
+      <p className="text-grey-600 dark:text-white  mx-auto whitespace-pre-wrap text-sm md:text-lg " 
+        style={{width: "calc(100% - 48px)"}}
+      >
         {fetchedData?.description && <ShowMoreText text={fetchedData?.description} limit={250} />}
       </p>
     </div>
@@ -139,7 +141,7 @@ const ButtonConstructor = ({ icon, text, action }) => (
     "
     onClick={action ?
       () => action()
-      :() => alert("Feature comming soon!")}
+      :() => alert("Feature coming soon!")}
   >
     {icon}
     <p className="text-gray-600 dark:text-white/90 text-sm md:text-lg group-hover:text-gray-800 dark:group-hover:text-white/100 transition duration-200 ease-in-out">

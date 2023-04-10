@@ -7,8 +7,10 @@ import MetaHelmet from "../../components/common/MetaHelmet";
 import {VideoCard} from "../../components/utils/ContentCards/VideoCard/VideoCard";
 const Channel = () => {
   const [channelData, setChannelData] = useState([]);
+  const [streams, setStreams] = useState([]);
   const [activeTab, setActiveTab] = useState("home");
   const [loading, setLoading] = useState(true);
+  const nextpage = React.useRef(null);
 
   useEffect(() => {
     const channel_id = window.location.pathname.split("/")[2];
@@ -16,7 +18,9 @@ const Channel = () => {
     Get(0, `channel/${channel_id}`)
       .then((data) => {
         setChannelData(data.data);
-        //console.log(data.data);
+        setStreams(data.data.relatedStreams);
+        // console.log(data.data);
+        nextpage.current = data.data.nextpage;
         setLoading(false);
       })
       .catch((err) => {
@@ -27,17 +31,20 @@ const Channel = () => {
   }, []);
 
   const getNextPage = () => {
-    setLoading(true);
+    // setLoading(true);
     Get(0, `nextpage/channel/${channelData?.id}`,{nextpage:channelData?.nextpage})
       .then((data) => {
-        setChannelData(data.data);
+        // setChannelData(prev => [...prev[0], ...data.data]);
+        setStreams(prev => [...prev, ...data.data.relatedStreams]);
         console.log(data.data);
-        setLoading(false);
+        nextpage.current = data.data.nextpage;
+
+        // setLoading(false);
       })
       .catch((err) => {
         console.log(err);
         alert("Error Fetching channel");
-        setLoading(false);
+        // setLoading(false);
       });
   };
 
@@ -85,9 +92,9 @@ const Channel = () => {
             {activeTab == "home" && (
               <div className="flex flex-col gap-4">
               <div className="flex mx-auto gap-2 flex-wrap">
-                {channelData?.relatedStreams?.map((video,index) => (
+                {streams?.map((video,index) => (
                     <VideoCard
-                    key={index}
+                    key={video.url}
                     title={video.title}
                     url={video.url}
                     thumbnail={video.thumbnail}
@@ -99,16 +106,16 @@ const Channel = () => {
                     isChannel={true}
                     />
                 ))}
+                
               </div>
               {channelData?.nextpage && (
-                <button
-                  className="bg-gray-800 text-white p-2 mb-14 items-center justify-center rounded-md mt-4 w-fit mx-auto px-6"
-                  onClick={getNextPage}
-                >
-                  Load More
-                </button>
-              )}
-              
+                  <button
+                    className="bg-gray-800 text-white p-2 rounded-md max-w-fit-content mx-auto"
+                    onClick={getNextPage}
+                  >
+                    Load More
+                  </button>
+                )}
               </div>
             )}
             {activeTab == "about" && (

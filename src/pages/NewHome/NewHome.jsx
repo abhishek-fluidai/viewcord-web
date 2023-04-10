@@ -60,7 +60,7 @@ const NewHome = () => {
     <MetaHelmet title="Feed" />
     {/* <div className=" w-full bg-transparent relative flex overflow-hidden md:flex-row flex-col-reverse justify-between"> */}
       <main
-        className=" h-full max-w-[1920px] w-full flex flex-col relative overflow-hidden  justify-center overflow-y-scroll"
+        className=" h-full max-w-auto w-full flex flex-col relative overflow-hidden  justify-center overflow-y-scroll"
         ref={containerRef}
         // style={{ height: containerHeight }}
         onScroll={handleScroll}
@@ -68,7 +68,7 @@ const NewHome = () => {
         <div className="flex mt-16 items-center justify-center">
           <Filter filter={filter} setFilter={changeFilter} />
         </div>
-        <div className="max-h-full max-w-[1920px] w-full p-2 px-4 flex flex-wrap items-start justify-center rounded-tl gap-6 sm:gap-4 ">
+        <div className="max-h-full  w-full p-2 px-4 flex flex-wrap items-start justify-center rounded-tl gap-6 sm:gap-4 ">
           {feed &&
             feed?.map((video, index) => {
               if (

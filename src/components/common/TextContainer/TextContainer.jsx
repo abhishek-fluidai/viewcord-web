@@ -38,8 +38,8 @@ const ShowMoreText = ({ text, limit }) => {
 
   return (
     <div
-      className="rounded-lg  w-[calc(100% - 48px)] h-22 bg-slate-500 p-4 shadow-xl relative max-w-[960px] m-auto hover:shadow-2xl transition-all duration-300 ease-in-out  pr-[50px]"
-      onClick={handleClick}
+      className="rounded-lg  w-[calc(100% - 16px)] h-22 bg-slate-500 p-4 shadow-xl relative  m-auto hover:shadow-2xl transition-all duration-300 ease-in-out  pr-[50px]"
+      // onClick={handleClick}
     >
       <style jsx>{`
         a {
@@ -53,7 +53,9 @@ const ShowMoreText = ({ text, limit }) => {
         }
       `}</style>
       {text.length > limit && (
-        <button className=" block text-slate-400 mt-2 absolute right-6 top-2 ">
+        <button className=" block text-slate-400 mt-2 absolute right-6 top-2 "
+                onClick={handleClick}
+        >
           {
             <IoIosArrowDown
               size="32px"
