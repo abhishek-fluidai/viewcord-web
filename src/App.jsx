@@ -5,7 +5,7 @@ import NewHome from "./pages/NewHome/NewHome";
 import Navbar from "./components/common/Navigation/Navbar";
 import SideBar from "./components/common/Navigation/Sidebar";
 import {SmallLoader,Loader} from "./components/common/Loader/Loader";
-import { getLocal } from "./components/utils/StorageUtils";
+import { getLocal, setLocal } from "./components/utils/StorageUtils";
 
 
 const Home = lazy(() => import ("./pages/Home/Home"));
@@ -20,6 +20,22 @@ const Library = lazy(() => import ("./pages/Library/Library"));
 
 const App = () => {
   const theme = useSelector((state) => state.theme);
+
+  function detectMob() {
+    const toMatch = [
+        /Android/i,
+        /webOS/i,
+        /iPhone/i,
+        /iPad/i,
+        /iPod/i,
+        /BlackBerry/i,
+        /Windows Phone/i
+    ];
+    
+    return toMatch.some((toMatchItem) => {
+        return navigator.userAgent.match(toMatchItem);
+    });
+}
   return (
     <div className={theme == "light" ? "" : "dark"}>
       <div className="flex flex-col grow h-[100dvh] bg-grey-200 dark:bg-slate-700 items-center overflow-hidden">
@@ -30,6 +46,11 @@ const App = () => {
           <SmallLoader />
           <div className="w-full h-[94%] relative md:h-[100%] overflow-hidden overflow-y-scroll pb-[88px] md:pb-[75px] ">
             <Suspense fallback={ <Loader />    }>
+              {detectMob && getLocal("shownMobileWarning") !== "true" && (
+                alert("This website is not optimized for mobile devices. Please use a desktop browser for the best experience."),
+                setLocal("shownMobileWarning", "true")
+              )
+              }
               <Routes>
                 <Route exact path="/trending" element={<Home isTrending={true} />} />
                 <Route exact path="/channel/:channelId" element={<Channel />} />
