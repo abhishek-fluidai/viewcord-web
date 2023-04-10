@@ -56,7 +56,9 @@ const Channel = () => {
         <main className="w-full md:my-4 overflow-hidden  justify-center items-center">
           <div
             className=" md:max-w-7xl md:w-[96%] flex items-center justify-center relative"
-            style={{ margin: "0 auto", height: "236px" }}
+            style={{ margin: "0 auto", height: "236px",   
+              width: "100%",
+           }}
           >
             <img
               src={channelData?.bannerUrl}
@@ -78,7 +80,8 @@ const Channel = () => {
             </div>
           </div>
 
-          <div className=" md:max-w-7xl md:w-[96%] mx-auto w-full flex flex-col md:flex-row justify-center items-center relative p-4 bg-gray-200 dark:bg-slate-800">
+          <div className=" md:max-w-7xl md:w-[96%] mx-auto w-full  flex-col md:flex-row justify-center items-center relative p-4 bg-gray-200 dark:bg-slate-800 hidden md:flex"
+          >
             <div className="flex overflow-x-auto overflow-y-hidden  whitespace-nowrap ">
               <ChannelTabs name="home"  active={activeTab} setActive={(e) => setActiveTab(e)} />
               {channelData?.tabs?.map((tab) => (

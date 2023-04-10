@@ -22,13 +22,13 @@ const App = () => {
   const theme = useSelector((state) => state.theme);
   return (
     <div className={theme == "light" ? "" : "dark"}>
-      <div className="flex flex-col grow h-[100dvh] bg-grey-200 dark:bg-slate-600 items-center overflow-hidden">
+      <div className="flex flex-col grow h-[100dvh] bg-grey-200 dark:bg-slate-700 items-center overflow-hidden">
       <Navbar className="flex-grow-0 " />
-        <div className="flex flex-row m-0 p-0 min-w-full min-h-full h-full grow overflow-hidden">
+        <div className="flex flex-col-reverse md:flex-row m-0 p-0 min-w-full min-h-full h-full grow overflow-hidden">
           <SideBar />
           <div className="flex flex-col w-full h-full">
           <SmallLoader />
-          <div className="w-full h-full relative overflow-hidden overflow-y-scroll pb-[75px] ">
+          <div className="w-full h-[94%] relative md:h-[100%] overflow-hidden overflow-y-scroll pb-[88px] md:pb-[75px] ">
             <Suspense fallback={ <Loader />    }>
               <Routes>
                 <Route exact path="/trending" element={<Home isTrending={true} />} />

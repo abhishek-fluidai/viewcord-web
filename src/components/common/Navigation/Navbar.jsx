@@ -59,7 +59,7 @@ const Navbar = () => {
               </div>
             </form>
           </div>
-          <div className="flex items-center justify-center gap-3 sm:gap-0">
+          <div className="flex items-center justify-center gap-4 sm:gap-0">
             <HiSearch
               className="sm:hidden text-neutral-800 dark:text-white cursor-pointer"
               size={24}

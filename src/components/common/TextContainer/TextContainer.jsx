@@ -39,7 +39,7 @@ const ShowMoreText = ({ text, limit }) => {
   return (
     <div
       className="rounded-lg  w-[calc(100% - 16px)] h-22 bg-slate-500 p-4 shadow-xl relative  m-auto hover:shadow-2xl transition-all duration-300 ease-in-out  pr-[50px]"
-      // onClick={handleClick}
+      onClick={() => setExpanded(true)}
     >
       <style jsx>{`
         a {

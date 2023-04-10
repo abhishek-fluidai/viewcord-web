@@ -1,7 +1,6 @@
 .player-container {
     position: relative;
-    height: 100%;
-    max-height: 720px;
+   height: max-content;
     width: calc(100% - 5%) !important;
     margin: 0.8% auto;
     background-color: rgba(0,0,0,var(--un-bg-opacity));
