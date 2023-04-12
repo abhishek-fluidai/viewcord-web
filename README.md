@@ -25,15 +25,16 @@ The project is it's early stages so you might enocounter some bug
 - [x] Video Quality Selection
 - [x] Search Functionality
 - [x] Video Suggestions
+- [x] Subscriptions
+- [partial] Playlist support
 - [ ] Video Comments
-- [ ] Subscriptions
 - [ ] Watch & search history support
-- [ ] Playlist support
 - [ ] Video download support
 
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+- [tasklist](https://ackermanabhi.notion.site/Project-Track-bae17b8fb6ef4afcb891a81df5556f7e)
 
 ### Stack Used
 - React.js
