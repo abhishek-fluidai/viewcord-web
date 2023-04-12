@@ -1,4 +1,0 @@
-[vite-run]
-    command = 'npm'
-    args = ['run dev']
-
