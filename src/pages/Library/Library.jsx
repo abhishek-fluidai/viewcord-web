@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Get } from "../../components/common/FetchFuctions";
 import PlaylistCard from "../../components/utils/ContentCards/PlaylistCard/PlaylistCard";
 import Loader from "../../components/utils/Loader/Loader";
+import {RiPlayListAddFill} from "react-icons/ri"
 
 const Library = () => {
     const [playlists, setPlaylists] = useState(null);
@@ -34,8 +35,9 @@ const Library = () => {
         className="text-5xl font-bold text-gray-800 text-center w-full md:text-left py-2 pb-4 dark:text-white/80"
       >Library</h3>
       <div className="flex flex-col w-full  p-4">
-        <button className="flex flex-row items-center justify-center w-fit h-12 px-4 py-2 text-base font-medium text-white bg-gray-800 border border-transparent rounded-md shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-        ll</button>
+        <button className="bg-gray-200 w-fit flex  dark:bg-gray-800 rounded-md px-4 py-3 text-xs text-gray-700 dark:text-gray-200 font-medium cursor-pointer text-md" >
+          <RiPlayListAddFill className="w-4 h-4 mr-2" /> Create Playlist
+        </button>
       </div>
         <div className="flex flex-col">
           <>
