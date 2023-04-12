@@ -66,7 +66,11 @@ const Instance = () => {
                      url : cur.apiurl,
                }));
                window.location.reload();
-            }}            
+            }}         
+            value={{
+                name: cur.name,
+                url : cur.apiurl,
+            }}   
             >{cur.name}</option>
             )))
             :<span>Loading..</span>

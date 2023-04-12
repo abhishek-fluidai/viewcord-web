@@ -22,7 +22,12 @@ const Preferences = () => {
           <Login />
 
           {/* country section */}
-          <Select label="Country">
+          <Select label="Country"
+                  onChange={(e) => {
+                    setLocal("country", e.target.value);
+                    // dispatch({ type: "SET_COUNTRY", payload: e.target.value });
+                  }}
+          >
             {CountryMap.map((option) => (
               <option
                 key={option.code}
@@ -34,9 +39,6 @@ const Preferences = () => {
                     ? true
                     : false
                 }
-                onClick={() => {
-                  setLocal("country", option.code);
-                }}
               >
                 {option.name}
               </option>

@@ -8,11 +8,16 @@ const Quality = () => {
     const dispatch = useDispatch();
 
     return (
-        <Select label="Quality">
+        <Select label="Quality"
+        onChange={(e) => {
+            dispatch(switchQuality(e.target.value));
+        }}
+        >
         {[144, 240, 360, 480, 720, 1080, 1440, 2160, 4320].map((res) => (
           <option
             key={res}
             selected={quality == res ? true : false}
+            value={res}
             onClick={() => {
                 dispatch(switchQuality(res));
             }}

@@ -374,6 +374,7 @@
 }
 .youtube-theme .shaka-settings-menu {
   padding: 0 0 8px 0;
+  max-height: calc(100% - 58px);
 }
 .youtube-theme .shaka-settings-menu button {
   font-size: 12px;
