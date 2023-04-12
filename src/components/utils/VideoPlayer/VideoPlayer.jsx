@@ -58,12 +58,6 @@ useEffect
     };
   }, []);
 
-  // Keep shaka.Player.configure in sync.
-  // useEffect(() => {
-  //   if (player && config) {
-  //     player.configure(config);
-  //   }
-  // }, [player, config]);
 
   // Load the source url when we have one.
   const loadVideo = async () => {

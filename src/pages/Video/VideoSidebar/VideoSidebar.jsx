@@ -12,7 +12,7 @@ const VideoSidebar = ({ streams, loading }) => {
             switch (stream.type) {
               case "stream":
                 return (
-                  <div className="flex flex-col w-full result" key={index}>
+                  <div className="flex flex-col w-full result " key={index}>
                     <SideBarVideoCard {...stream} />
                   </div>
                 );

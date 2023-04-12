@@ -22,9 +22,9 @@ export const VideoCard = ({
   const navigate = useNavigate();
 
   return (
-    <div className="sm:max-h-[18rem] w-full sm:max-w-[18rem] md:h-[250px] rounded-lg md:m-2 relative flex flex-col flex-shrink-0 bg-white dark:bg-slate-800 flex-grow  cursor-pointer hover:scale-105 transition-all overflow-x-hidden">
+    <div className=" w-full sm:max-w-[20rem] md:h-[280px] rounded-lg md:m-2 relative flex flex-col flex-shrink-0 bg-white dark:bg-slate-800 flex-grow  cursor-pointer hover:scale-105 transition-all overflow-x-hidden">
       <div
-        className="relative w-full h-[70%] aspect-video top-0 rounded-md"
+        className="relative w-full h-[65%] aspect-video top-0 rounded-md"
         onClick={() => navigate(url)}
       >
         <img
@@ -93,9 +93,9 @@ export const SideBarVideoCard = ({
   const navigate = useNavigate();
 
   return (
-    <div className="md:max-w-[720px] max-h-[8rem] md:h-[7rem] gap-1  md:gap-4 h-[200px] max-w-[600px] rounded-lg md:m-2 relative flex flex-row flex-shrink-0  flex-grow  cursor-pointer  transition-all overflow-hidden group ">
+    <div className="sm:max-w-[720px] h-[20rem] sm:max-h-[8rem] sm:h-[7rem] gap-1  sm:gap-4  max-w-[360px] rounded-lg md:m-2 relative flex flex-col sm:flex-row flex-shrink-0  flex-grow  cursor-pointer  transition-all overflow-hidden group  mx-auto sm:mx-0">
       <div
-        className="relative w-[190px] h-[100%] aspect-video top-0 rounded-md  "
+        className="relative md:w-[190px] h-[65%] sm:h-[100%] aspect-video top-0 rounded-md  "
         onClick={() => navigate(url)}
       >
         <img
@@ -134,7 +134,7 @@ export const SideBarVideoCard = ({
         </div>
 
         <div
-          className="basis-1/4 mt-2 text-natural-800 flex flex-row justify-start group/sub"
+          className="basis-1/4 mt-2 text-natural-800 flex flex-row gap-2 justify-start group/sub"
           onClick={() => navigate(uploaderUrl)}
         >
           {!isPlaylist && uploaderAvatar && (

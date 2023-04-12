@@ -28,121 +28,6 @@ const Video = ({playerRef}) => {
   const dispatch = useDispatch();
   const axiosCancelSource = axios.CancelToken.source();
 
-  // const keyMap = {
-  //   PLAYPAUSE : "space",
-  //   FULLSCREEN : "f",
-  //   CAPTIONS : "c",
-  //   FORWORD: "right",
-  //   BACKWARD: "left",
-  //   VOLUP: "u",
-  //   VOLDOWN: "d",
-  //   MUTE: "m"    
-  // };
-  
-  const handlers = {
-    PLAYPAUSE: (e) => {
-      e.preventDefault();
-      if(playerRef.current){
-        playerRef.current.paused ? playerRef.current.play() : playerRef.current.pause();
-      }
-    },
-    FULLSCREEN: () => {
-      if(playerRef.current){
-        // check if in fullscreen mode
-        document.fullscreenElement ? document.exitFullscreen() : (playerRef.current.requestFullscreen ? playerRef.current.requestFullscreen() : playerRef.current.webkitRequestFullscreen());
-      }
-    },
-    // CAPTIONS: () => {
-    //   if(playerRef.current){
-    //     // toggle captions
-    //     playerRef.current.textTracks[0].mode === "showing" ? playerRef.current.textTracks[0].mode = "hidden" : playerRef.current.textTracks[0].mode = "showing";
-    //   }
-    // },
-    FORWORD: () => {
-      if(playerRef.current){
-        playerRef.current.currentTime += 10;
-      }
-    },
-    BACKWARD: () => {
-      if(playerRef.current){
-        playerRef.current.currentTime -= 10;
-      }
-    },
-    VOLUP: () => {
-      if(playerRef.current){
-        playerRef.current.volume += 0.1;
-      }
-    },
-    VOLDOWN: () => {
-      if(playerRef.current){
-        playerRef.current.volume -= 0.1;
-        // alert(playerRef.current.volume);
-      }
-    },
-    MUTE: () => {
-      if(playerRef.current){
-        playerRef.current.muted = !playerRef.current.muted;
-      }
-    }
-  };
-  
-
-  // const handleKeyPress = (e) => {
-  //   e.preventDefault();
-  //  switch(e.key){
-  //     case 'p':
-  //     case ' ':
-  //       if(playerRef.current){
-  //         playerRef.current.paused ? playerRef.current.play() : playerRef.current.pause();
-  //       }
-  //       break;
-  //     // case 'f':
-  //     //   if(playerRef.current){
-  //     //       // check if in fullscreen mode
-  //     //     document.fullscreenElement ? document.exitFullscreen() : (playerRef.current.requestFullscreen ? playerRef.current.requestFullscreen() : playerRef.current.webkitRequestFullscreen());
-  //     //   }
-  //     //   break;
-  //     // case 'c':
-  //     //   if(playerRef.current){
-  //     //     // toggle captions
-  //     //     playerRef.current.textTracks[0].mode === "showing" ? playerRef.current.textTracks[0].mode = "hidden" : playerRef.current.textTracks[0].mode = "showing";
-  //     //   }
-  //     //   break;
-  //     case 'ArrowLeft':
-  //       if(playerRef.current){
-  //         playerRef.current.currentTime -= 10;
-  //       }
-  //       break;
-  //     case 'ArrowRight':
-  //       if(playerRef.current){
-  //         playerRef.current.currentTime += 10;
-  //       }
-  //       break;
-  //     case 'ArrowUp':
-  //       if(playerRef.current){
-  //         playerRef.current.volume += 0.1;
-  //       }
-  //       break;
-  //     case 'ArrowDown':
-  //       if(playerRef.current){
-  //         playerRef.current.volume -= 0.1;
-  //         // alert(playerRef.current.volume);
-  //         //Todo: add volume bar
-  //         // Show alert with v
-  //       }
-  //       break;
-  //     case 'm':
-  //       if(playerRef.current){
-  //         playerRef.current.muted = !playerRef.current.muted;
-  //       }
-  //       break;
-
-  //    default:
-  //       break;
-  //   }
-  // };
-  // useKeyPress(['p', ' ','f','c','m','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'],handleKeyPress);
-
 
   useEffect(() => {
     setLoading(true); 
@@ -156,6 +41,10 @@ const Video = ({playerRef}) => {
     //   console.log(e);
     // }
     // );
+    return () => {
+      dispatch(switchLoaderState(false));
+      // axiosCancelSource.cancel();
+    }
   }, [searchParams.get("v")]);
 
   useEffect(() => {
