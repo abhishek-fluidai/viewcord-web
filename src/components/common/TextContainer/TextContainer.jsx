@@ -14,7 +14,7 @@ const ShowMoreText = ({ text, limit }) => {
       setFormattedText(detectLinks(text));
       return;
   }
-    let inter_text = document.createElement("div");
+    let inter_text = document.createElement("span");
       inter_text.innerHTML = text;
       for (let el of inter_text.querySelectorAll("script, style")) {
         el.remove();
@@ -41,7 +41,7 @@ const ShowMoreText = ({ text, limit }) => {
       className="rounded-lg  w-[calc(100% - 16px)] h-22 bg-slate-500 p-4 shadow-xl relative  m-auto hover:shadow-2xl transition-all duration-300 ease-in-out  pr-[50px]"
       onClick={() => setExpanded(true)}
     >
-      <style jsx>{`
+      <style jsx="true">{`
         a {
           color: #fff;
           font-weight: 600;
