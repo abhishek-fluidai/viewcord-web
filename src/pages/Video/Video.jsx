@@ -12,9 +12,12 @@ import MetaHelmet from "../../components/common/MetaHelmet";
 const Dialog = lazy(() => import("../../components/common/Dialog"));
 import { useDispatch } from "react-redux";
 import { switchLoaderState } from "../../redux/loader";
-import useKeyPress from "../../components/utils/useKeyPress";
 
-const Video = () => {
+import { HotKeys } from "react-hotkeys";
+
+// import useKeyPress from "../../components/utils/useKeyPress";
+
+const Video = ({playerRef}) => {
   const [fetchedData, setFetchedData] = React.useState(null);
   const [videoId , setVideoId] = useState(null);
   const [videoEnded, setVideoEnded] = useState(false);
@@ -24,63 +27,121 @@ const Video = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const axiosCancelSource = axios.CancelToken.source();
-  const playerRef= React.useRef(null);
 
-  const handleKeyPress = (e) => {
-    e.preventDefault();
-   switch(e.key){
-      case 'p':
-      case ' ':
-        if(playerRef.current){
-          playerRef.current.paused ? playerRef.current.play() : playerRef.current.pause();
-        }
-        break;
-      // case 'f':
-      //   if(playerRef.current){
-      //       // check if in fullscreen mode
-      //     document.fullscreenElement ? document.exitFullscreen() : (playerRef.current.requestFullscreen ? playerRef.current.requestFullscreen() : playerRef.current.webkitRequestFullscreen());
-      //   }
-      //   break;
-      // case 'c':
-      //   if(playerRef.current){
-      //     // toggle captions
-      //     playerRef.current.textTracks[0].mode === "showing" ? playerRef.current.textTracks[0].mode = "hidden" : playerRef.current.textTracks[0].mode = "showing";
-      //   }
-      //   break;
-      case 'ArrowLeft':
-        if(playerRef.current){
-          playerRef.current.currentTime -= 10;
-        }
-        break;
-      case 'ArrowRight':
-        if(playerRef.current){
-          playerRef.current.currentTime += 10;
-        }
-        break;
-      case 'ArrowUp':
-        if(playerRef.current){
-          playerRef.current.volume += 0.1;
-        }
-        break;
-      case 'ArrowDown':
-        if(playerRef.current){
-          playerRef.current.volume -= 0.1;
-          // alert(playerRef.current.volume);
-          //Todo: add volume bar
-          // Show alert with v
-        }
-        break;
-      case 'm':
-        if(playerRef.current){
-          playerRef.current.muted = !playerRef.current.muted;
-        }
-        break;
-
-     default:
-        break;
+  // const keyMap = {
+  //   PLAYPAUSE : "space",
+  //   FULLSCREEN : "f",
+  //   CAPTIONS : "c",
+  //   FORWORD: "right",
+  //   BACKWARD: "left",
+  //   VOLUP: "u",
+  //   VOLDOWN: "d",
+  //   MUTE: "m"    
+  // };
+  
+  const handlers = {
+    PLAYPAUSE: (e) => {
+      e.preventDefault();
+      if(playerRef.current){
+        playerRef.current.paused ? playerRef.current.play() : playerRef.current.pause();
+      }
+    },
+    FULLSCREEN: () => {
+      if(playerRef.current){
+        // check if in fullscreen mode
+        document.fullscreenElement ? document.exitFullscreen() : (playerRef.current.requestFullscreen ? playerRef.current.requestFullscreen() : playerRef.current.webkitRequestFullscreen());
+      }
+    },
+    // CAPTIONS: () => {
+    //   if(playerRef.current){
+    //     // toggle captions
+    //     playerRef.current.textTracks[0].mode === "showing" ? playerRef.current.textTracks[0].mode = "hidden" : playerRef.current.textTracks[0].mode = "showing";
+    //   }
+    // },
+    FORWORD: () => {
+      if(playerRef.current){
+        playerRef.current.currentTime += 10;
+      }
+    },
+    BACKWARD: () => {
+      if(playerRef.current){
+        playerRef.current.currentTime -= 10;
+      }
+    },
+    VOLUP: () => {
+      if(playerRef.current){
+        playerRef.current.volume += 0.1;
+      }
+    },
+    VOLDOWN: () => {
+      if(playerRef.current){
+        playerRef.current.volume -= 0.1;
+        // alert(playerRef.current.volume);
+      }
+    },
+    MUTE: () => {
+      if(playerRef.current){
+        playerRef.current.muted = !playerRef.current.muted;
+      }
     }
   };
-  useKeyPress(['p', ' ','f','c','m','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'],handleKeyPress);
+  
+
+  // const handleKeyPress = (e) => {
+  //   e.preventDefault();
+  //  switch(e.key){
+  //     case 'p':
+  //     case ' ':
+  //       if(playerRef.current){
+  //         playerRef.current.paused ? playerRef.current.play() : playerRef.current.pause();
+  //       }
+  //       break;
+  //     // case 'f':
+  //     //   if(playerRef.current){
+  //     //       // check if in fullscreen mode
+  //     //     document.fullscreenElement ? document.exitFullscreen() : (playerRef.current.requestFullscreen ? playerRef.current.requestFullscreen() : playerRef.current.webkitRequestFullscreen());
+  //     //   }
+  //     //   break;
+  //     // case 'c':
+  //     //   if(playerRef.current){
+  //     //     // toggle captions
+  //     //     playerRef.current.textTracks[0].mode === "showing" ? playerRef.current.textTracks[0].mode = "hidden" : playerRef.current.textTracks[0].mode = "showing";
+  //     //   }
+  //     //   break;
+  //     case 'ArrowLeft':
+  //       if(playerRef.current){
+  //         playerRef.current.currentTime -= 10;
+  //       }
+  //       break;
+  //     case 'ArrowRight':
+  //       if(playerRef.current){
+  //         playerRef.current.currentTime += 10;
+  //       }
+  //       break;
+  //     case 'ArrowUp':
+  //       if(playerRef.current){
+  //         playerRef.current.volume += 0.1;
+  //       }
+  //       break;
+  //     case 'ArrowDown':
+  //       if(playerRef.current){
+  //         playerRef.current.volume -= 0.1;
+  //         // alert(playerRef.current.volume);
+  //         //Todo: add volume bar
+  //         // Show alert with v
+  //       }
+  //       break;
+  //     case 'm':
+  //       if(playerRef.current){
+  //         playerRef.current.muted = !playerRef.current.muted;
+  //       }
+  //       break;
+
+  //    default:
+  //       break;
+  //   }
+  // };
+  // useKeyPress(['p', ' ','f','c','m','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'],handleKeyPress);
 
 
   useEffect(() => {
@@ -127,6 +188,7 @@ const Video = () => {
       title={fetchedData?.title ? fetchedData.title : "Loading..."}
     />
      <Dialog />
+     {/* <HotKeys keyMap={keyMap} handlers={handlers}> */}
       <div className="relative box-border">
         <div className="video-page">
         <div className="flex flex-col items-start gap-2">
@@ -154,7 +216,7 @@ const Video = () => {
         </div>
         </div>
       </div>
-
+    {/* </HotKeys> */}
 
     </>
   );

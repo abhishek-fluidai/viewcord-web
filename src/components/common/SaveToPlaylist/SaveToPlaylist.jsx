@@ -42,7 +42,7 @@ const SaveToPlaylist = ({open, onClose}) => {
     onClose={onClose}
     title="Save to playlist"
     >
-     {userPlaylists?.length >0 ? (
+     {userPlaylists?.length > 0 ? (
        <div className="flex flex-col gap-2 items-center">
        <select className="border w-full text-grey-200 dark:text-white/90 border-gray-300 dark:border-gray-700  p-2 dark:bg-slate-800 rounded-lg"
         onChange={(e) => setPlaylistId(e.target.value)}

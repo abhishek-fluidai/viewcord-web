@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import logo from "../../../assets/brand/logo.svg"
 import logo_dark from "../../../assets/brand/logo_dark.svg"
 
-const Navbar = () => {
+const Navbar = ({searchRef}) => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useSelector((state) => state.theme);
@@ -45,6 +45,12 @@ const Navbar = () => {
                   value={searchQuery}
                   onChange={onChangeHandler}
                   id="default-search"
+                  onKeyDown={(e) => {
+                    if (e.key === "Escape") {
+                      searchRef.current.blur();
+                    }
+                  }}
+                  ref={searchRef}
                   className="block w-full min-w-[320px] h-[40px] pl-4  text-sm text-gray-800  bg-slate-300  dark:bg-slate-700  outline-none 
          dark:placeholder-slate-400 dark:text-white  placeholder:text-gray-600"
                   placeholder="Get something to watch"
