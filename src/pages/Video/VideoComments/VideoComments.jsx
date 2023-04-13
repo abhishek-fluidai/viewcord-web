@@ -46,6 +46,22 @@ function VideoComments() {
 function Comment({ author, commentText, commentedTime, commentorUrl, hearted, likeCount, pinned, repliesPage, replyCount, verified, thumbnail }) {
     const [showReplies, setShowReplies] = useState(false);
 
+    const formatComment = (comment) => {
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(commentText, "text/html");
+        xmlDoc.querySelectorAll("a").forEach(elem => {
+            if (!elem.innerText.match(/(?:[\d]{1,2}:)?(?:[\d]{1,2}):(?:[\d]{1,2})/))
+                elem.outerHTML = elem.getAttribute("href");
+        });
+        commentText = xmlDoc
+            .querySelector("body")
+            .innerHTML.replaceAll(/(?:http(?:s)?:\/\/)?(?:www\.)?youtube\.com(\/[/a-zA-Z0-9_?=&-]*)/gm, "$1")
+            .replaceAll(
+                /(?:http(?:s)?:\/\/)?(?:www\.)?youtu\.be\/(?:watch\?v=)?([/a-zA-Z0-9_?=&-]*)/gm,
+                "/watch?v=$1",
+            );
+        return commentText;
+    };
     return (
         <div
             className="w-full px-4 py-2"
@@ -70,7 +86,7 @@ function Comment({ author, commentText, commentedTime, commentorUrl, hearted, li
                                   </svg>
                         <p className="text-sm text-gray-400">{commentedTime}</p>
                     </div>
-                    <p>{commentText}</p>
+                    <p dangerouslySetInnerHTML={{ __html: formatComment(commentText) }}></p>
                 </div>
             </div>
             {repliesPage && (showReplies ?
