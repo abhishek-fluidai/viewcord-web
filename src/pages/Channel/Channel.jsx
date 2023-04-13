@@ -55,9 +55,11 @@ const Channel = () => {
       {!loading && (
         <main className="w-full md:my-4 overflow-hidden  justify-center items-center">
           <div
-            className=" md:max-w-7xl md:w-[96%] flex items-center justify-center relative"
-            style={{ margin: "0 auto", height: "236px",   
-              width: "100%",
+            className=" md:w-[90%] flex items-center justify-center relative md:h-full h-xl" 
+            style={{ margin: "0 auto", 
+            height: "100%"
+            // height: "236px",   
+              // width: "100%",
            }}
           >
             <img
@@ -80,7 +82,7 @@ const Channel = () => {
             </div>
           </div>
 
-          <div className=" md:max-w-7xl md:w-[96%] mx-auto w-full  flex-col md:flex-row justify-center items-center relative p-4 bg-gray-200 dark:bg-slate-800 hidden md:flex"
+          <div className=" md:w-[90%] mx-auto w-full  flex-col md:flex-row justify-center items-center relative p-4 bg-gray-200 dark:bg-slate-800 hidden md:flex"
           >
             <div className="flex overflow-x-auto overflow-y-hidden  whitespace-nowrap ">
               <ChannelTabs name="home"  active={activeTab} setActive={(e) => setActiveTab(e)} />
@@ -91,10 +93,10 @@ const Channel = () => {
             </div>
           </div>
 
-          <div className=" md:max-w-7xl md:w-[96%] mx-auto w-full flex flex-col md:flex-row justify-center items-center relative p-4 ">
+          <div className=" md:w-[90%] mx-auto w-full flex flex-col md:flex-row justify-center items-center relative p-4 ">
             {activeTab == "home" && (
-              <div className="flex flex-col gap-4">
-              <div className="flex mx-auto gap-2 flex-wrap">
+            <div className="flex flex-col gap-4">
+              <div className="flex mx-auto gap-2 flex-wrap justify-center ">
                 {streams?.map((video,index) => (
                     <VideoCard
                     key={video.url}

@@ -48,3 +48,7 @@ body {
   text-overflow: ellipsis;
   white-space: normal;
 }
+
+.search-box:focus .suggestions {
+  display: block;
+}
