@@ -127,7 +127,7 @@ const VideoDetails = ({ fetchedData }) => {
         </p>
       </div>
       <Dialog
-        open={openShare}
+        isOpen={openShare}
         onClose={() => setOpenShare(false)}
         title="Share"
       >

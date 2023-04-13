@@ -76,7 +76,7 @@ const Video = ({playerRef}) => {
     <MetaHelmet
       title={fetchedData?.title ? fetchedData.title : "Loading..."}
     />
-     <Dialog />
+     {/* <Dialog /> */}
      {/* <HotKeys keyMap={keyMap} handlers={handlers}> */}
       <div className="relative box-border">
         <div className="video-page">

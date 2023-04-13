@@ -38,7 +38,7 @@ const SaveToPlaylist = ({open, onClose}) => {
   }
   return (
     <Dialog
-    open={open}
+    isOpen={open}
     onClose={onClose}
     title="Save to playlist"
     >
