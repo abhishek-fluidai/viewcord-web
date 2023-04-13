@@ -3,6 +3,7 @@ import { HiSearch } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import { Get } from "../../FetchFuctions"
 
+
 const SearchBox = ({ searchRef }) => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
@@ -56,8 +57,8 @@ const SearchBox = ({ searchRef }) => {
       }
     }
 
-    searchRef.current.addEventListener('keydown', handleKeyDown);
-    return () => searchRef.current.removeEventListener('keydown', handleKeyDown);
+    searchRef?.current.addEventListener('keydown', handleKeyDown);
+    return () => searchRef?.current.removeEventListener('keydown', handleKeyDown);
   }, [selectedSuggestionIndex, searchSuggestions]);
 
   useEffect(() => {
@@ -90,7 +91,7 @@ const SearchBox = ({ searchRef }) => {
                   autoComplete="off"
                   onKeyDown={(e) => {
                     if (e.key === "Escape") {
-                      searchRef.current.blur();
+                      searchRef?.current.blur();
                     }
                   }}
                   ref={searchRef}

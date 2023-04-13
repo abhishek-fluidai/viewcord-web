@@ -9,13 +9,10 @@ const VideoDetails = lazy(() => import("./VideoDetails/VideoDetails"));
 const VideoSidebar = lazy(() => import("./VideoSidebar/VideoSidebar"));
 const VideoComments = lazy(() => import("./VideoComments/VideoComments"));
 import MetaHelmet from "../../components/common/MetaHelmet";
-const Dialog = lazy(() => import("../../components/common/Dialog"));
 import { useDispatch } from "react-redux";
 import { switchLoaderState } from "../../redux/loader";
 
-import { HotKeys } from "react-hotkeys";
 
-// import useKeyPress from "../../components/utils/useKeyPress";
 
 const Video = ({playerRef}) => {
   const [fetchedData, setFetchedData] = React.useState(null);
@@ -37,13 +34,9 @@ const Video = ({playerRef}) => {
     const video_id = searchParams.get('v');
     setVideoId(video_id);
     FetchVideoURL(video_id);
-    // window.addEventListener("keydown", e => {
-    //   console.log(e);
-    // }
-    // );
     return () => {
       dispatch(switchLoaderState(false));
-      // axiosCancelSource.cancel();
+      axiosCancelSource.cancel();
     }
   }, [searchParams.get("v")]);
 
@@ -93,6 +86,9 @@ const Video = ({playerRef}) => {
             </div>
             <Suspense fallback={<div>Loading...</div>}>
               <VideoDetails fetchedData={fetchedData} />
+            </Suspense>
+            <Suspense fallback={<div>Loading...</div>}>
+              <VideoComments />
             </Suspense>
           </div>
 
