@@ -6,8 +6,9 @@ const ShowMoreText = ({ text, limit }) => {
   const [expanded, setExpanded] = useState(false);
   const [formattedText, setFormattedText] = useState("");
 
-  const handleClick = () => {
-    setExpanded(!expanded);
+  const handleClick = (e) => {
+    e.stopPropagation();
+    setExpanded(prev => !prev);
   };
   useEffect(() => {
     if (!isHTML(text)) {
@@ -73,13 +74,13 @@ const ShowMoreText = ({ text, limit }) => {
       ) : (
         <span
           className="overflow-hidden overflow-ellipsis "
+          dangerouslySetInnerHTML={{ __html: formattedText.slice(0, limit) }}
           style={{
             display: "-webkit-box",
             WebkitBoxOrient: "vertical",
             WebkitLineClamp: 3,
           }}
         >
-          {formattedText?.slice(0, limit)}
         </span>
       )}
     </div>

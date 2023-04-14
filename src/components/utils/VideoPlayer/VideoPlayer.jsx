@@ -3,22 +3,14 @@ import "./VideoPlayer.css";
 import shaka from "shaka-player/dist/shaka-player.ui";
 import { useSelector } from "react-redux";
 
-function Player({ src, captions, thumbnail, onVideoEnded,playerRef}) {
+function Player({ src, captions, thumbnail, onVideoEnded, playerRef }) {
   const uiContainerRef = useRef(null);
-  const videoRef = useRef(null);
   // const [currentTime, setCurrentTime] = useState(0)
   const [player, setPlayer] = useState(null);
   const [ui, setUi] = useState(null);
   const quality = useSelector((state) => state.preference.quality);
-  const onKeyPress = (event) => {
-    switch (event.key) {
-      case "p":
-       
-        break;
-    }
-  };
 
-useEffect
+  useEffect
   useEffect(() => {
     const player = new shaka.Player(playerRef.current);
     setPlayer(player);
@@ -34,8 +26,9 @@ useEffect
 
     player.configure({
       abr: {
-        enabled: false,
-      },    
+        enabled: false
+
+      },
       streaming: {
         bufferingGoal: 10,
         rebufferingGoal: 10,
@@ -45,7 +38,7 @@ useEffect
           backoffFactor: 2,
           fuzzFactor: 0.5,
         },
-       
+
       },
 
     });
@@ -59,36 +52,43 @@ useEffect
   }, []);
 
 
-  // Load the source url when we have one.
   const loadVideo = async () => {
-    try {
       playerRef?.current?.setAttribute("poster", thumbnail);
-      // let storedTime = localStorage.getItem('currentTime');
-      // if (captions) {
-      //   // console.log(captions);
-      //   await captions.forEach((caption) => {
-      //      player.addTextTrackAsync(
-      //       caption.url,
-      //       caption.code,
-      //       "subtitles",
-      //       caption.mimeType,
-      //     );
-      //   });
-      // }
-
-      for (const track of player.getVariantTracks()) {
-        if (track.height == quality || track.height === quality + 1) {
-          player.selectVariantTrack(track, true);
-          break;
-        }
-      }
-      player.load(src,  0, "application/dash+xml");
-
-
-    } catch (error) {
-      console.error(error);
-      // window.location.reload();
-    }
+      player.load(src, 0, "application/dash+xml").then(() => {
+        var tracks = player.getVariantTracks();
+        var bestAudio = 0;
+        var leastDiff = Number.MAX_VALUE;
+        var bestStream = null;
+        if (quality >= 480)
+          tracks.forEach(track => {
+            const audioBandwidth = track.audioBandwidth;
+            if (audioBandwidth > bestAudio) bestAudio = audioBandwidth;
+          });
+        // Find best matching stream based on resolution and bitrate
+        tracks
+          .sort((a, b) => a.bandwidth - b.bandwidth)
+          .forEach(stream => {
+            if (stream.audioBandwidth < bestAudio) return;
+            const diff = Math.abs(quality - stream.height);
+            if (diff < leastDiff) {
+              leastDiff = diff;
+              bestStream = stream;
+            }
+          });
+        player.selectVariantTrack(bestStream);
+        captions.forEach(function(caption) {
+          player.addTextTrackAsync(caption.url, caption.code, 'subtitles',caption.mimeType)
+          .then(function(textTrack) {
+          // Todo: add caption enable option
+          })
+          .catch(function(error) {
+            console.error('Error adding text track', error);
+          });
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      })
   };
 
   useEffect(() => {
@@ -101,25 +101,13 @@ useEffect
 
   return (
     <div ref={uiContainerRef} className="youtube-theme">
-      {/* <div
-        className="player-loading-overlay bg-slate-700"
-        style={{ display: src && "none" }}
-      >
-        <div className="pac-man"></div>
-      </div> */}
       <video
-        // ref={videoRef}
         ref={playerRef}
         autoPlay
         // onPause={(e) => {
         //   let time = e.target.currentTime
         //   localStorage.setItem('currentTime', time);
         // }}
-        onError={(e) => {
-          console.log(e);
-          // window.location.reload();
-        }
-        }
         onEnded={onVideoEnded}
         style={{
           width: "100%",

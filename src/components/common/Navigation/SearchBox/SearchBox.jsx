@@ -49,7 +49,8 @@ const SearchBox = ({ searchRef }) => {
         case 'Enter':
           if (selectedSuggestionIndex !== -1) {
             setSearchQuery(searchSuggestions[selectedSuggestionIndex]);
-            setSearchSuggestions(false);
+            searchRef?.current.blur();
+            navigate(`/results?search_query=${encodeURIComponent(searchSuggestions[selectedSuggestionIndex])}`)
           }
           break;
         default:
@@ -116,10 +117,10 @@ const SearchBox = ({ searchRef }) => {
                     style={{
                       backgroundColor: selectedSuggestionIndex === searchSuggestions.indexOf(suggestion) ? "#4f46e5" : "",
                     }}
-                    onClick={() => {
-                      setSearchQuery(suggestion)
-                      navigate(`/results?search_query=${encodeURIComponent(suggestion)}`)
-                    }}
+                    // onClick={() => {
+                    //   setSearchQuery(suggestion)
+                    //   navigate(`/results?search_query=${encodeURIComponent(suggestion)}`)
+                    // }}
                     tabIndex="0"
                   >{suggestion}</li>))}
               </div>

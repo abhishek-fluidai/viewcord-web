@@ -36,7 +36,7 @@ const Video = ({playerRef}) => {
     FetchVideoURL(video_id);
     return () => {
       dispatch(switchLoaderState(false));
-      axiosCancelSource.cancel();
+      // axiosCancelSource.cancel();
     }
   }, [searchParams.get("v")]);
 
@@ -88,7 +88,9 @@ const Video = ({playerRef}) => {
               <VideoDetails fetchedData={fetchedData} />
             </Suspense>
             <Suspense fallback={<div>Loading...</div>}>
+              <div className="my-4">
               <VideoComments />
+              </div>
             </Suspense>
           </div>
 
