@@ -117,11 +117,6 @@ return (
           <SmallLoader />
           <div className="w-full h-[94%] relative md:h-[100%] overflow-hidden overflow-y-scroll pb-[88px] md:pb-[75px] ">
             <Suspense fallback={ <Loader />    }>
-              {detectMob && getLocal("shownMobileWarning") !== "true" && (
-                alert("This website is not optimized for mobile devices. Please use a desktop browser for the best experience."),
-                setLocal("shownMobileWarning", "true")
-              )
-              }
               <Routes>
                 <Route exact path="/trending" element={<Home isTrending={true} />} />
                 <Route exact path="/channel/:channelId" element={<Channel />} />
